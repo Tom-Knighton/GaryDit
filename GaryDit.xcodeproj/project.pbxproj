@@ -1,0 +1,630 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E26988922A3D0A9F004DE85B /* GaryDitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988912A3D0A9F004DE85B /* GaryDitApp.swift */; };
+		E26988942A3D0A9F004DE85B /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988932A3D0A9F004DE85B /* Item.swift */; };
+		E26988962A3D0A9F004DE85B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988952A3D0A9F004DE85B /* ContentView.swift */; };
+		E26988982A3D0AA1004DE85B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E26988972A3D0AA1004DE85B /* Assets.xcassets */; };
+		E269889C2A3D0AA1004DE85B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E269889B2A3D0AA1004DE85B /* Preview Assets.xcassets */; };
+		E26988A72A3D0AA1004DE85B /* GaryDitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988A62A3D0AA1004DE85B /* GaryDitTests.swift */; };
+		E26988B12A3D0AA1004DE85B /* GaryDitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988B02A3D0AA1004DE85B /* GaryDitUITests.swift */; };
+		E26988B32A3D0AA1004DE85B /* GaryDitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988B22A3D0AA1004DE85B /* GaryDitUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E26988A32A3D0AA1004DE85B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26988862A3D0A9F004DE85B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E269888D2A3D0A9F004DE85B;
+			remoteInfo = GaryDit;
+		};
+		E26988AD2A3D0AA1004DE85B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26988862A3D0A9F004DE85B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E269888D2A3D0A9F004DE85B;
+			remoteInfo = GaryDit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E269888E2A3D0A9F004DE85B /* GaryDit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GaryDit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E26988912A3D0A9F004DE85B /* GaryDitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaryDitApp.swift; sourceTree = "<group>"; };
+		E26988932A3D0A9F004DE85B /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		E26988952A3D0A9F004DE85B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E26988972A3D0AA1004DE85B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E26988992A3D0AA1004DE85B /* GaryDit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GaryDit.entitlements; sourceTree = "<group>"; };
+		E269889B2A3D0AA1004DE85B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E269889D2A3D0AA1004DE85B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E26988A22A3D0AA1004DE85B /* GaryDitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GaryDitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E26988A62A3D0AA1004DE85B /* GaryDitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaryDitTests.swift; sourceTree = "<group>"; };
+		E26988AC2A3D0AA1004DE85B /* GaryDitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GaryDitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E26988B02A3D0AA1004DE85B /* GaryDitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaryDitUITests.swift; sourceTree = "<group>"; };
+		E26988B22A3D0AA1004DE85B /* GaryDitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaryDitUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E269888B2A3D0A9F004DE85B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E269889F2A3D0AA1004DE85B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E26988A92A3D0AA1004DE85B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E26988852A3D0A9F004DE85B = {
+			isa = PBXGroup;
+			children = (
+				E26988902A3D0A9F004DE85B /* GaryDit */,
+				E26988A52A3D0AA1004DE85B /* GaryDitTests */,
+				E26988AF2A3D0AA1004DE85B /* GaryDitUITests */,
+				E269888F2A3D0A9F004DE85B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E269888F2A3D0A9F004DE85B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E269888E2A3D0A9F004DE85B /* GaryDit.app */,
+				E26988A22A3D0AA1004DE85B /* GaryDitTests.xctest */,
+				E26988AC2A3D0AA1004DE85B /* GaryDitUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E26988902A3D0A9F004DE85B /* GaryDit */ = {
+			isa = PBXGroup;
+			children = (
+				E26988912A3D0A9F004DE85B /* GaryDitApp.swift */,
+				E26988932A3D0A9F004DE85B /* Item.swift */,
+				E26988952A3D0A9F004DE85B /* ContentView.swift */,
+				E26988972A3D0AA1004DE85B /* Assets.xcassets */,
+				E26988992A3D0AA1004DE85B /* GaryDit.entitlements */,
+				E269889D2A3D0AA1004DE85B /* Info.plist */,
+				E269889A2A3D0AA1004DE85B /* Preview Content */,
+			);
+			path = GaryDit;
+			sourceTree = "<group>";
+		};
+		E269889A2A3D0AA1004DE85B /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				E269889B2A3D0AA1004DE85B /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E26988A52A3D0AA1004DE85B /* GaryDitTests */ = {
+			isa = PBXGroup;
+			children = (
+				E26988A62A3D0AA1004DE85B /* GaryDitTests.swift */,
+			);
+			path = GaryDitTests;
+			sourceTree = "<group>";
+		};
+		E26988AF2A3D0AA1004DE85B /* GaryDitUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E26988B02A3D0AA1004DE85B /* GaryDitUITests.swift */,
+				E26988B22A3D0AA1004DE85B /* GaryDitUITestsLaunchTests.swift */,
+			);
+			path = GaryDitUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E269888D2A3D0A9F004DE85B /* GaryDit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E26988B62A3D0AA1004DE85B /* Build configuration list for PBXNativeTarget "GaryDit" */;
+			buildPhases = (
+				E269888A2A3D0A9F004DE85B /* Sources */,
+				E269888B2A3D0A9F004DE85B /* Frameworks */,
+				E269888C2A3D0A9F004DE85B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GaryDit;
+			productName = GaryDit;
+			productReference = E269888E2A3D0A9F004DE85B /* GaryDit.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E26988A12A3D0AA1004DE85B /* GaryDitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E26988B92A3D0AA1004DE85B /* Build configuration list for PBXNativeTarget "GaryDitTests" */;
+			buildPhases = (
+				E269889E2A3D0AA1004DE85B /* Sources */,
+				E269889F2A3D0AA1004DE85B /* Frameworks */,
+				E26988A02A3D0AA1004DE85B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E26988A42A3D0AA1004DE85B /* PBXTargetDependency */,
+			);
+			name = GaryDitTests;
+			productName = GaryDitTests;
+			productReference = E26988A22A3D0AA1004DE85B /* GaryDitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E26988AB2A3D0AA1004DE85B /* GaryDitUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E26988BC2A3D0AA1004DE85B /* Build configuration list for PBXNativeTarget "GaryDitUITests" */;
+			buildPhases = (
+				E26988A82A3D0AA1004DE85B /* Sources */,
+				E26988A92A3D0AA1004DE85B /* Frameworks */,
+				E26988AA2A3D0AA1004DE85B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E26988AE2A3D0AA1004DE85B /* PBXTargetDependency */,
+			);
+			name = GaryDitUITests;
+			productName = GaryDitUITests;
+			productReference = E26988AC2A3D0AA1004DE85B /* GaryDitUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E26988862A3D0A9F004DE85B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					E269888D2A3D0A9F004DE85B = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					E26988A12A3D0AA1004DE85B = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = E269888D2A3D0A9F004DE85B;
+					};
+					E26988AB2A3D0AA1004DE85B = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = E269888D2A3D0A9F004DE85B;
+					};
+				};
+			};
+			buildConfigurationList = E26988892A3D0A9F004DE85B /* Build configuration list for PBXProject "GaryDit" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E26988852A3D0A9F004DE85B;
+			productRefGroup = E269888F2A3D0A9F004DE85B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E269888D2A3D0A9F004DE85B /* GaryDit */,
+				E26988A12A3D0AA1004DE85B /* GaryDitTests */,
+				E26988AB2A3D0AA1004DE85B /* GaryDitUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E269888C2A3D0A9F004DE85B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E269889C2A3D0AA1004DE85B /* Preview Assets.xcassets in Resources */,
+				E26988982A3D0AA1004DE85B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E26988A02A3D0AA1004DE85B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E26988AA2A3D0AA1004DE85B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E269888A2A3D0A9F004DE85B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E26988942A3D0A9F004DE85B /* Item.swift in Sources */,
+				E26988922A3D0A9F004DE85B /* GaryDitApp.swift in Sources */,
+				E26988962A3D0A9F004DE85B /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E269889E2A3D0AA1004DE85B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E26988A72A3D0AA1004DE85B /* GaryDitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E26988A82A3D0AA1004DE85B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E26988B12A3D0AA1004DE85B /* GaryDitUITests.swift in Sources */,
+				E26988B32A3D0AA1004DE85B /* GaryDitUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E26988A42A3D0AA1004DE85B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E269888D2A3D0A9F004DE85B /* GaryDit */;
+			targetProxy = E26988A32A3D0AA1004DE85B /* PBXContainerItemProxy */;
+		};
+		E26988AE2A3D0AA1004DE85B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E269888D2A3D0A9F004DE85B /* GaryDit */;
+			targetProxy = E26988AD2A3D0AA1004DE85B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		E26988B42A3D0AA1004DE85B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E26988B52A3D0AA1004DE85B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		E26988B72A3D0AA1004DE85B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GaryDit/GaryDit.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"GaryDit/Preview Content\"";
+				DEVELOPMENT_TEAM = 8H3J46CN24;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GaryDit/Info.plist;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = online.tomk.GaryDit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E26988B82A3D0AA1004DE85B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GaryDit/GaryDit.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"GaryDit/Preview Content\"";
+				DEVELOPMENT_TEAM = 8H3J46CN24;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GaryDit/Info.plist;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = online.tomk.GaryDit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E26988BA2A3D0AA1004DE85B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8H3J46CN24;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = online.tomk.GaryDitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GaryDit.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GaryDit";
+			};
+			name = Debug;
+		};
+		E26988BB2A3D0AA1004DE85B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8H3J46CN24;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = online.tomk.GaryDitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GaryDit.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GaryDit";
+			};
+			name = Release;
+		};
+		E26988BD2A3D0AA1004DE85B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8H3J46CN24;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = online.tomk.GaryDitUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = GaryDit;
+			};
+			name = Debug;
+		};
+		E26988BE2A3D0AA1004DE85B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8H3J46CN24;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = online.tomk.GaryDitUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = GaryDit;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E26988892A3D0A9F004DE85B /* Build configuration list for PBXProject "GaryDit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E26988B42A3D0AA1004DE85B /* Debug */,
+				E26988B52A3D0AA1004DE85B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E26988B62A3D0AA1004DE85B /* Build configuration list for PBXNativeTarget "GaryDit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E26988B72A3D0AA1004DE85B /* Debug */,
+				E26988B82A3D0AA1004DE85B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E26988B92A3D0AA1004DE85B /* Build configuration list for PBXNativeTarget "GaryDitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E26988BA2A3D0AA1004DE85B /* Debug */,
+				E26988BB2A3D0AA1004DE85B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E26988BC2A3D0AA1004DE85B /* Build configuration list for PBXNativeTarget "GaryDitUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E26988BD2A3D0AA1004DE85B /* Debug */,
+				E26988BE2A3D0AA1004DE85B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E26988862A3D0A9F004DE85B /* Project object */;
+}
