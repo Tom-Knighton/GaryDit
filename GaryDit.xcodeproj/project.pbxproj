@@ -7,14 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E23EE10E2A43B3D900E03A45 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23EE10D2A43B3D900E03A45 /* VideoView.swift */; };
+		E260D5852A485BF600A60839 /* VideoPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = E260D5842A485BF600A60839 /* VideoPlayer */; };
 		E26988922A3D0A9F004DE85B /* GaryDitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988912A3D0A9F004DE85B /* GaryDitApp.swift */; };
-		E26988942A3D0A9F004DE85B /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988932A3D0A9F004DE85B /* Item.swift */; };
 		E26988962A3D0A9F004DE85B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988952A3D0A9F004DE85B /* ContentView.swift */; };
 		E26988982A3D0AA1004DE85B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E26988972A3D0AA1004DE85B /* Assets.xcassets */; };
 		E269889C2A3D0AA1004DE85B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E269889B2A3D0AA1004DE85B /* Preview Assets.xcassets */; };
 		E26988A72A3D0AA1004DE85B /* GaryDitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988A62A3D0AA1004DE85B /* GaryDitTests.swift */; };
 		E26988B12A3D0AA1004DE85B /* GaryDitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988B02A3D0AA1004DE85B /* GaryDitUITests.swift */; };
 		E26988B32A3D0AA1004DE85B /* GaryDitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988B22A3D0AA1004DE85B /* GaryDitUITestsLaunchTests.swift */; };
+		E26988C22A3D0BED004DE85B /* OAuthSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E26988C12A3D0BED004DE85B /* OAuthSwift */; };
+		E26988C52A3D0F2E004DE85B /* LandingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988C42A3D0F2E004DE85B /* LandingPage.swift */; };
+		E26988C82A3D1604004DE85B /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = E26988C72A3D1604004DE85B /* Lottie */; };
+		E26988CC2A3D169E004DE85B /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988CB2A3D169E004DE85B /* LottieView.swift */; };
+		E26988D02A3D17AA004DE85B /* sloth.json in Resources */ = {isa = PBXBuildFile; fileRef = E26988CF2A3D17AA004DE85B /* sloth.json */; };
+		E26988D72A3DA7E9004DE85B /* OAuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988D62A3DA7E9004DE85B /* OAuthResponse.swift */; };
+		E26988DD2A3DB53D004DE85B /* Codable+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988DC2A3DB53D004DE85B /* Codable+GaryDit.swift */; };
+		E2949FA12A3DBA1E000669C2 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FA02A3DBA1E000669C2 /* AuthManager.swift */; };
+		E2949FA42A3DBAEF000669C2 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FA32A3DBAEF000669C2 /* AuthError.swift */; };
+		E2949FA62A3DBB1F000669C2 /* AuthToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FA52A3DBB1F000669C2 /* AuthToken.swift */; };
+		E2949FAA2A3DBF97000669C2 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FA92A3DBF97000669C2 /* APIClient.swift */; };
+		E2949FAC2A3DC8A3000669C2 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FAB2A3DC8A3000669C2 /* KeychainManager.swift */; };
+		E2949FAE2A3DDA4A000669C2 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FAD2A3DDA4A000669C2 /* HomePage.swift */; };
+		E2949FB12A3DE06C000669C2 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FB02A3DE06C000669C2 /* UserService.swift */; };
+		E2949FB32A3DE3F7000669C2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FB22A3DE3F7000669C2 /* User.swift */; };
+		E2949FB52A3DE873000669C2 /* Color+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FB42A3DE873000669C2 /* Color+GaryDit.swift */; };
+		E2949FB72A3F11F6000669C2 /* NavigationRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FB62A3F11F6000669C2 /* NavigationRoot.swift */; };
+		E2949FB92A3F1AFF000669C2 /* PostsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FB82A3F1AFF000669C2 /* PostsPage.swift */; };
+		E2949FBB2A3F1C05000669C2 /* SubredditService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FBA2A3F1C05000669C2 /* SubredditService.swift */; };
+		E2949FBD2A3F1D15000669C2 /* SubredditResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FBC2A3F1D15000669C2 /* SubredditResponse.swift */; };
+		E2949FC02A3F2951000669C2 /* OnTypeMismatchWrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FBF2A3F2951000669C2 /* OnTypeMismatchWrappers.swift */; };
+		E2949FC32A3F2C70000669C2 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FC22A3F2C70000669C2 /* PostView.swift */; };
+		E2949FC62A409EE0000669C2 /* ShimViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FC52A409EE0000669C2 /* ShimViewController.swift */; };
+		E2949FC82A40C054000669C2 /* Int+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FC72A40C054000669C2 /* Int+GaryDit.swift */; };
+		E2949FCA2A40C084000669C2 /* Double+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FC92A40C084000669C2 /* Double+GaryDit.swift */; };
+		E2949FCD2A40CD27000669C2 /* LinkPresentationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FCC2A40CD27000669C2 /* LinkPresentationView.swift */; };
+		E2949FCF2A40CDD5000669C2 /* URL+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FCE2A40CDD5000669C2 /* URL+GaryDit.swift */; };
+		E2949FD22A40CF75000669C2 /* RedditPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FD12A40CF75000669C2 /* RedditPostViewModel.swift */; };
+		E2A1899E2A423C1000BE1E59 /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A1899D2A423C1000BE1E59 /* LinkView.swift */; };
+		E2A189A12A425F1900BE1E59 /* FLAnimatedImage in Frameworks */ = {isa = PBXBuildFile; productRef = E2A189A02A425F1900BE1E59 /* FLAnimatedImage */; };
+		E2A189A42A425F3800BE1E59 /* GIFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A189A32A425F3800BE1E59 /* GIFView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,9 +67,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E23EE10D2A43B3D900E03A45 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		E269888E2A3D0A9F004DE85B /* GaryDit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GaryDit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E26988912A3D0A9F004DE85B /* GaryDitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaryDitApp.swift; sourceTree = "<group>"; };
-		E26988932A3D0A9F004DE85B /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		E26988952A3D0A9F004DE85B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E26988972A3D0AA1004DE85B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E26988992A3D0AA1004DE85B /* GaryDit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GaryDit.entitlements; sourceTree = "<group>"; };
@@ -48,6 +80,34 @@
 		E26988AC2A3D0AA1004DE85B /* GaryDitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GaryDitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E26988B02A3D0AA1004DE85B /* GaryDitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaryDitUITests.swift; sourceTree = "<group>"; };
 		E26988B22A3D0AA1004DE85B /* GaryDitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaryDitUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E26988C42A3D0F2E004DE85B /* LandingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPage.swift; sourceTree = "<group>"; };
+		E26988CB2A3D169E004DE85B /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		E26988CF2A3D17AA004DE85B /* sloth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sloth.json; sourceTree = "<group>"; };
+		E26988D62A3DA7E9004DE85B /* OAuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthResponse.swift; sourceTree = "<group>"; };
+		E26988DC2A3DB53D004DE85B /* Codable+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+GaryDit.swift"; sourceTree = "<group>"; };
+		E2949FA02A3DBA1E000669C2 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		E2949FA32A3DBAEF000669C2 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
+		E2949FA52A3DBB1F000669C2 /* AuthToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthToken.swift; sourceTree = "<group>"; };
+		E2949FA92A3DBF97000669C2 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		E2949FAB2A3DC8A3000669C2 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		E2949FAD2A3DDA4A000669C2 /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
+		E2949FB02A3DE06C000669C2 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		E2949FB22A3DE3F7000669C2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E2949FB42A3DE873000669C2 /* Color+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+GaryDit.swift"; sourceTree = "<group>"; };
+		E2949FB62A3F11F6000669C2 /* NavigationRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRoot.swift; sourceTree = "<group>"; };
+		E2949FB82A3F1AFF000669C2 /* PostsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsPage.swift; sourceTree = "<group>"; };
+		E2949FBA2A3F1C05000669C2 /* SubredditService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubredditService.swift; sourceTree = "<group>"; };
+		E2949FBC2A3F1D15000669C2 /* SubredditResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubredditResponse.swift; sourceTree = "<group>"; };
+		E2949FBF2A3F2951000669C2 /* OnTypeMismatchWrappers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTypeMismatchWrappers.swift; sourceTree = "<group>"; };
+		E2949FC22A3F2C70000669C2 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		E2949FC52A409EE0000669C2 /* ShimViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimViewController.swift; sourceTree = "<group>"; };
+		E2949FC72A40C054000669C2 /* Int+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+GaryDit.swift"; sourceTree = "<group>"; };
+		E2949FC92A40C084000669C2 /* Double+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+GaryDit.swift"; sourceTree = "<group>"; };
+		E2949FCC2A40CD27000669C2 /* LinkPresentationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPresentationView.swift; sourceTree = "<group>"; };
+		E2949FCE2A40CDD5000669C2 /* URL+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+GaryDit.swift"; sourceTree = "<group>"; };
+		E2949FD12A40CF75000669C2 /* RedditPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditPostViewModel.swift; sourceTree = "<group>"; };
+		E2A1899D2A423C1000BE1E59 /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
+		E2A189A32A425F3800BE1E59 /* GIFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +115,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2A189A12A425F1900BE1E59 /* FLAnimatedImage in Frameworks */,
+				E26988C22A3D0BED004DE85B /* OAuthSwift in Frameworks */,
+				E26988C82A3D1604004DE85B /* Lottie in Frameworks */,
+				E260D5852A485BF600A60839 /* VideoPlayer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,12 +162,15 @@
 		E26988902A3D0A9F004DE85B /* GaryDit */ = {
 			isa = PBXGroup;
 			children = (
-				E26988912A3D0A9F004DE85B /* GaryDitApp.swift */,
-				E26988932A3D0A9F004DE85B /* Item.swift */,
-				E26988952A3D0A9F004DE85B /* ContentView.swift */,
-				E26988972A3D0AA1004DE85B /* Assets.xcassets */,
+				E26988BF2A3D0AEB004DE85B /* App */,
+				E26988D42A3DA7D9004DE85B /* Models */,
+				E26988D12A3D188C004DE85B /* Services */,
+				E26988C92A3D1689004DE85B /* Views */,
+				E2949FD02A40CF69000669C2 /* ViewModels */,
+				E26988C32A3D0F1A004DE85B /* Pages */,
 				E26988992A3D0AA1004DE85B /* GaryDit.entitlements */,
-				E269889D2A3D0AA1004DE85B /* Info.plist */,
+				E26988952A3D0A9F004DE85B /* ContentView.swift */,
+				E26988DB2A3DB51F004DE85B /* Extensions */,
 				E269889A2A3D0AA1004DE85B /* Preview Content */,
 			);
 			path = GaryDit;
@@ -134,6 +201,175 @@
 			path = GaryDitUITests;
 			sourceTree = "<group>";
 		};
+		E26988BF2A3D0AEB004DE85B /* App */ = {
+			isa = PBXGroup;
+			children = (
+				E26988CD2A3D177F004DE85B /* Assets */,
+				E26988972A3D0AA1004DE85B /* Assets.xcassets */,
+				E269889D2A3D0AA1004DE85B /* Info.plist */,
+				E26988912A3D0A9F004DE85B /* GaryDitApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		E26988C32A3D0F1A004DE85B /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				E26988C42A3D0F2E004DE85B /* LandingPage.swift */,
+				E2949FAD2A3DDA4A000669C2 /* HomePage.swift */,
+				E2949FB62A3F11F6000669C2 /* NavigationRoot.swift */,
+				E2949FB82A3F1AFF000669C2 /* PostsPage.swift */,
+			);
+			path = Pages;
+			sourceTree = "<group>";
+		};
+		E26988C92A3D1689004DE85B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E2A189A22A425F3000BE1E59 /* Media */,
+				E2949FCB2A40CD1A000669C2 /* Link */,
+				E2949FC12A3F2C67000669C2 /* Posts */,
+				E26988CA2A3D1694004DE85B /* Misc */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E26988CA2A3D1694004DE85B /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				E26988CB2A3D169E004DE85B /* LottieView.swift */,
+			);
+			path = Misc;
+			sourceTree = "<group>";
+		};
+		E26988CD2A3D177F004DE85B /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				E26988CE2A3D1785004DE85B /* Lottie */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		E26988CE2A3D1785004DE85B /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				E26988CF2A3D17AA004DE85B /* sloth.json */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
+		E26988D12A3D188C004DE85B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E2949F9F2A3DBA13000669C2 /* Auth */,
+				E2949FB02A3DE06C000669C2 /* UserService.swift */,
+				E2949FBA2A3F1C05000669C2 /* SubredditService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E26988D42A3DA7D9004DE85B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E26988D52A3DA7DE004DE85B /* Auth */,
+				E2949FB22A3DE3F7000669C2 /* User.swift */,
+				E2949FBC2A3F1D15000669C2 /* SubredditResponse.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E26988D52A3DA7DE004DE85B /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				E26988D62A3DA7E9004DE85B /* OAuthResponse.swift */,
+				E2949FA52A3DBB1F000669C2 /* AuthToken.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		E26988DB2A3DB51F004DE85B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E2949FC42A409ED4000669C2 /* Auth */,
+				E2949FBE2A3F293F000669C2 /* Property wrappers */,
+				E2949FA22A3DBAE6000669C2 /* Errors */,
+				E26988DC2A3DB53D004DE85B /* Codable+GaryDit.swift */,
+				E2949FB42A3DE873000669C2 /* Color+GaryDit.swift */,
+				E2949FC72A40C054000669C2 /* Int+GaryDit.swift */,
+				E2949FC92A40C084000669C2 /* Double+GaryDit.swift */,
+				E2949FCE2A40CDD5000669C2 /* URL+GaryDit.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E2949F9F2A3DBA13000669C2 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				E2949FA02A3DBA1E000669C2 /* AuthManager.swift */,
+				E2949FA92A3DBF97000669C2 /* APIClient.swift */,
+				E2949FAB2A3DC8A3000669C2 /* KeychainManager.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		E2949FA22A3DBAE6000669C2 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				E2949FA32A3DBAEF000669C2 /* AuthError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
+		E2949FBE2A3F293F000669C2 /* Property wrappers */ = {
+			isa = PBXGroup;
+			children = (
+				E2949FBF2A3F2951000669C2 /* OnTypeMismatchWrappers.swift */,
+			);
+			path = "Property wrappers";
+			sourceTree = "<group>";
+		};
+		E2949FC12A3F2C67000669C2 /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				E2949FC22A3F2C70000669C2 /* PostView.swift */,
+			);
+			path = Posts;
+			sourceTree = "<group>";
+		};
+		E2949FC42A409ED4000669C2 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				E2949FC52A409EE0000669C2 /* ShimViewController.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		E2949FCB2A40CD1A000669C2 /* Link */ = {
+			isa = PBXGroup;
+			children = (
+				E2949FCC2A40CD27000669C2 /* LinkPresentationView.swift */,
+				E2A1899D2A423C1000BE1E59 /* LinkView.swift */,
+			);
+			path = Link;
+			sourceTree = "<group>";
+		};
+		E2949FD02A40CF69000669C2 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				E2949FD12A40CF75000669C2 /* RedditPostViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		E2A189A22A425F3000BE1E59 /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				E2A189A32A425F3800BE1E59 /* GIFView.swift */,
+				E23EE10D2A43B3D900E03A45 /* VideoView.swift */,
+			);
+			path = Media;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -150,6 +386,12 @@
 			dependencies = (
 			);
 			name = GaryDit;
+			packageProductDependencies = (
+				E26988C12A3D0BED004DE85B /* OAuthSwift */,
+				E26988C72A3D1604004DE85B /* Lottie */,
+				E2A189A02A425F1900BE1E59 /* FLAnimatedImage */,
+				E260D5842A485BF600A60839 /* VideoPlayer */,
+			);
 			productName = GaryDit;
 			productReference = E269888E2A3D0A9F004DE85B /* GaryDit.app */;
 			productType = "com.apple.product-type.application";
@@ -222,6 +464,12 @@
 				Base,
 			);
 			mainGroup = E26988852A3D0A9F004DE85B;
+			packageReferences = (
+				E26988C02A3D0BED004DE85B /* XCRemoteSwiftPackageReference "OAuthSwift" */,
+				E26988C62A3D1604004DE85B /* XCRemoteSwiftPackageReference "lottie-spm" */,
+				E2A1899F2A425F1900BE1E59 /* XCRemoteSwiftPackageReference "FLAnimatedImage" */,
+				E260D5832A485BF600A60839 /* XCRemoteSwiftPackageReference "VideoPlayer" */,
+			);
 			productRefGroup = E269888F2A3D0A9F004DE85B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -239,6 +487,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E269889C2A3D0AA1004DE85B /* Preview Assets.xcassets in Resources */,
+				E26988D02A3D17AA004DE85B /* sloth.json in Resources */,
 				E26988982A3D0AA1004DE85B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,9 +513,36 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E26988942A3D0A9F004DE85B /* Item.swift in Sources */,
+				E2949FAC2A3DC8A3000669C2 /* KeychainManager.swift in Sources */,
+				E2949FCA2A40C084000669C2 /* Double+GaryDit.swift in Sources */,
+				E2949FA12A3DBA1E000669C2 /* AuthManager.swift in Sources */,
+				E26988DD2A3DB53D004DE85B /* Codable+GaryDit.swift in Sources */,
+				E2949FCF2A40CDD5000669C2 /* URL+GaryDit.swift in Sources */,
+				E2949FB72A3F11F6000669C2 /* NavigationRoot.swift in Sources */,
+				E23EE10E2A43B3D900E03A45 /* VideoView.swift in Sources */,
+				E2949FCD2A40CD27000669C2 /* LinkPresentationView.swift in Sources */,
 				E26988922A3D0A9F004DE85B /* GaryDitApp.swift in Sources */,
+				E2949FBD2A3F1D15000669C2 /* SubredditResponse.swift in Sources */,
+				E2949FA42A3DBAEF000669C2 /* AuthError.swift in Sources */,
+				E2949FC32A3F2C70000669C2 /* PostView.swift in Sources */,
+				E2949FBB2A3F1C05000669C2 /* SubredditService.swift in Sources */,
+				E2949FD22A40CF75000669C2 /* RedditPostViewModel.swift in Sources */,
+				E2949FAE2A3DDA4A000669C2 /* HomePage.swift in Sources */,
+				E2949FB32A3DE3F7000669C2 /* User.swift in Sources */,
+				E2949FB12A3DE06C000669C2 /* UserService.swift in Sources */,
+				E2949FC82A40C054000669C2 /* Int+GaryDit.swift in Sources */,
 				E26988962A3D0A9F004DE85B /* ContentView.swift in Sources */,
+				E2949FC02A3F2951000669C2 /* OnTypeMismatchWrappers.swift in Sources */,
+				E2949FB92A3F1AFF000669C2 /* PostsPage.swift in Sources */,
+				E26988D72A3DA7E9004DE85B /* OAuthResponse.swift in Sources */,
+				E2949FA62A3DBB1F000669C2 /* AuthToken.swift in Sources */,
+				E2949FAA2A3DBF97000669C2 /* APIClient.swift in Sources */,
+				E2949FB52A3DE873000669C2 /* Color+GaryDit.swift in Sources */,
+				E2949FC62A409EE0000669C2 /* ShimViewController.swift in Sources */,
+				E26988C52A3D0F2E004DE85B /* LandingPage.swift in Sources */,
+				E2A189A42A425F3800BE1E59 /* GIFView.swift in Sources */,
+				E2A1899E2A423C1000BE1E59 /* LinkView.swift in Sources */,
+				E26988CC2A3D169E004DE85B /* LottieView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,7 +720,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = online.tomk.GaryDit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -483,7 +759,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = online.tomk.GaryDit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -625,6 +901,64 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E260D5832A485BF600A60839 /* XCRemoteSwiftPackageReference "VideoPlayer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/wxxsw/VideoPlayer";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.3;
+			};
+		};
+		E26988C02A3D0BED004DE85B /* XCRemoteSwiftPackageReference "OAuthSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OAuthSwift/OAuthSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
+		E26988C62A3D1604004DE85B /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.0;
+			};
+		};
+		E2A1899F2A425F1900BE1E59 /* XCRemoteSwiftPackageReference "FLAnimatedImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Flipboard/FLAnimatedImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.17;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E260D5842A485BF600A60839 /* VideoPlayer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E260D5832A485BF600A60839 /* XCRemoteSwiftPackageReference "VideoPlayer" */;
+			productName = VideoPlayer;
+		};
+		E26988C12A3D0BED004DE85B /* OAuthSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E26988C02A3D0BED004DE85B /* XCRemoteSwiftPackageReference "OAuthSwift" */;
+			productName = OAuthSwift;
+		};
+		E26988C72A3D1604004DE85B /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E26988C62A3D1604004DE85B /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
+		E2A189A02A425F1900BE1E59 /* FLAnimatedImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E2A1899F2A425F1900BE1E59 /* XCRemoteSwiftPackageReference "FLAnimatedImage" */;
+			productName = FLAnimatedImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E26988862A3D0A9F004DE85B /* Project object */;
 }
