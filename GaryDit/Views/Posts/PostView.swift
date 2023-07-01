@@ -21,14 +21,6 @@ struct PostView: View {
     
     var body: some View {
         VStack {
-            VStack {
-                Text(viewModel.post.title)
-                    .bold()
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            .padding(.horizontal, 8)
-           
-            
             if let media = viewModel.post.extractMedia() {
                 if media.isVideo {
                     if media.urlString.contains(".gif") {
@@ -43,7 +35,23 @@ struct PostView: View {
                         .padding(.horizontal, 8)
                 }
             }
-          
+            
+            VStack {
+                Text(viewModel.post.title)
+                    .bold()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                if viewModel.post.getPostType() == .SelfPost && viewModel.post.selftext.isEmpty == false {
+                    Text(viewModel.post.selftext)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .lineLimit(5)
+                        .padding(.vertical, 0)
+                        .foregroundStyle(.gray)
+                        .opacity(0.8)
+                }
+            }
+            .padding(.top, 8)
+            .padding(.horizontal, 8)
             
             HStack {
                 VStack(alignment: .leading) {
@@ -71,7 +79,7 @@ struct PostView: View {
             .padding(.horizontal, 8)
             
         }
-        .padding(.vertical, 8)
+        .padding(.bottom, 8)
         .background(Color.layer1)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .padding(.vertical, 4)
@@ -84,7 +92,6 @@ struct PostView: View {
             VStack {
                 GIFView(url: viewModel.post.url ?? "", isPlaying: $isPlayingMedia)
                     .aspectRatio(media.aspectRatio, contentMode: .fit)
-                    .border(.blue)
                     .onAppear {
                         self.isPlayingMedia = true
                     }
@@ -110,7 +117,6 @@ struct PostView: View {
                     }
             }
             .frame(maxWidth: .infinity)
-            .border(.red)
         } else {
             EmptyView()
                 .frame(width: 0, height: 0)
