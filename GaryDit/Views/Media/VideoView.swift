@@ -87,7 +87,6 @@ class PlayerUIView: UIView {
         DispatchQueue.main.async {
             self.playerLayer.player = avPlayer
             self.playerLayer.videoGravity = gravity.avGravity
-            self.playerLayer.backgroundColor = UIColor.red.cgColor
             self.frame = self.playerLayer.visibleRect
         }
     }
