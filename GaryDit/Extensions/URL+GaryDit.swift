@@ -11,11 +11,15 @@ import LinkPresentation
 
 extension URL {
     
+    @MainActor
     func getMetadata() async -> LPLinkMetadata? {
-        
-        let provider = LPMetadataProvider()
-        let meta = try? await provider.startFetchingMetadata(for: self)
-        
-        return meta
+        do {
+            var provider = LPMetadataProvider()
+            let meta = try await provider.startFetchingMetadata(for: self)
+            return meta
+        } catch {
+            Logger(category: "Link Previews").warning("Failed to retrieve metadata for link \(self.absoluteString, privacy: .auto)")
+            return nil
+        }
     }
 }
