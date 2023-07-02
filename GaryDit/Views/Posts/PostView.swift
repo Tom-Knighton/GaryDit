@@ -80,7 +80,7 @@ struct PostView: View {
             
         }
         .padding(.bottom, 8)
-        .background(Color.layer1)
+        .background(Color.layer2)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .padding(.vertical, 4)
         .shadow(radius: 3)
@@ -90,7 +90,7 @@ struct PostView: View {
     func gifView() -> some View {
         if let media = self.viewModel.post.extractMedia() {
             VStack {
-                GIFView(url: viewModel.post.url ?? "", isPlaying: $isPlayingMedia)
+                GIFImage(viewModel.post.url ?? "")
                     .aspectRatio(media.aspectRatio, contentMode: .fit)
                     .onAppear {
                         self.isPlayingMedia = true

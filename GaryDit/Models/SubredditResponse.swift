@@ -14,7 +14,7 @@ public struct SubredditPostResponse: Codable {
 }
 
 public struct SubredditPostResponseData: Codable {
-    public let after: String
+    public let after: String?
     public let dist: Int
     public let children: [SubredditPostListChild]
 }
@@ -78,6 +78,12 @@ public struct RedditPost: Codable {
     
     /// A hint for the 'type' of post, i.e. link,
     public let postHint: RedditPostHint?
+    
+    /// The id of the post
+    public let id: String
+    
+    /// Similar to the name of the post but contains extra 'thing' info about the object, should be used for pagination
+    public let name: String
     
 }
 

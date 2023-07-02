@@ -18,10 +18,19 @@ struct LinkView: View {
     @State private var fetchMetadata: Bool = true
     @State private var imageData: Data?
     
+    private var cache = Cache<String, LPLinkMetadata?>()
+    private var imageDataCache = Cache<String, Data>()
+    
     init(url: String, overrideImage: String? = nil, fetchMetadata: Bool = true) {
         self.urlString = url
         self.overrideImageUrl = overrideImage
-        self.fetchMetadata = fetchMetadata
+        
+        if let cached = cache.get(url) {
+            self.fetchMetadata = false
+            self.metadata = cached
+        } else {
+            self.fetchMetadata = fetchMetadata
+        }
     }
     
     var body: some View {
@@ -51,18 +60,29 @@ struct LinkView: View {
                 return
             }
             
-            guard let url = URL(string: urlString) else {
-                return
+            if let cached = self.cache.get(urlString) {
+                self.metadata = cached
+            } else {
+                guard let url = URL(string: urlString) else {
+                    return
+                }
+                
+                let provider = LPMetadataProvider()
+                let metadata = try? await provider.startFetchingMetadata(for: url)
+                cache.set(metadata, forKey: urlString)
+                self.metadata = metadata
             }
             
-            let provider = LPMetadataProvider()
-            let metadata = try? await provider.startFetchingMetadata(for: url)
-            self.metadata = metadata
-            let _ = metadata?.imageProvider?.loadDataRepresentation(for: UTType.image, completionHandler: { data, error in
-                if let data {
-                    self.imageData = data
-                }
-            })
+            if let imageCached = self.imageDataCache.get(urlString) {
+                self.imageData = imageCached
+            } else {
+                let _ = metadata?.imageProvider?.loadDataRepresentation(for: UTType.image, completionHandler: { data, error in
+                    if let data {
+                        self.imageData = data
+                        self.imageDataCache.set(data, forKey: urlString)
+                    }
+                })
+            }
         }
     }
     
