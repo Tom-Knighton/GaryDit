@@ -12,7 +12,7 @@ import Observation
 class SubredditViewModel {
     
     var subredditName: String = ""
-    var posts: [RedditPost] = []
+    var posts: [Post] = []
     var isLoading: Bool = false
     var noMorePosts: Bool = false
     
@@ -35,7 +35,7 @@ class SubredditViewModel {
 
     @MainActor
     func shouldFetchMore(from postId: String) -> Bool {
-        return !self.isLoading && !self.noMorePosts && self.posts.suffix(3).compactMap { $0.id }.contains(postId)
+        return !self.isLoading && !self.noMorePosts && self.posts.suffix(3).compactMap { $0.postId }.contains(postId)
     }
     
     func fetchPosts(after: String? = nil) async {
@@ -55,8 +55,8 @@ class SubredditViewModel {
                 return
             }
             
-            let existingIds = self.posts.compactMap { $0.id }
-            self.posts.append(contentsOf: newPosts.filter { existingIds.contains($0.id) == false })
+            let existingIds = self.posts.compactMap { $0.postId }
+            self.posts.append(contentsOf: newPosts.filter { existingIds.contains($0.postId) == false })
         } catch is CancellationError {
             //...
         } catch {

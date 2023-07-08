@@ -17,15 +17,15 @@ public struct PostsPage: View {
             Color.layer1.ignoresSafeArea()
             
             List {
-                ForEach(self.viewModel.posts, id: \.id) { post in
+                ForEach(self.viewModel.posts, id: \.postId) { post in
                     PostView(post: post)
                         .padding(.horizontal, 12)
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
                         .task {
-                            if self.viewModel.shouldFetchMore(from: post.id) {
-                                await self.viewModel.fetchPosts(after: post.name)
+                            if self.viewModel.shouldFetchMore(from: post.postId) {
+                                await self.viewModel.fetchPosts(after: post.postId)
                             }
                         }
                 }

@@ -12,13 +12,9 @@ import LinkPresentation
 @MainActor
 public class RedditPostViewModel: ObservableObject {
     
-    @Published var post: RedditPost
+    @Published var post: Post
     
-    init(post: RedditPost) {
+    init(post: Post) {
         self.post = post
-    }
-    
-    func getPostType() -> RedditPostHint {
-        return self.post.postHint ?? .SelfPost
     }
 }

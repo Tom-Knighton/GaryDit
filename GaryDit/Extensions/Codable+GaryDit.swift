@@ -13,7 +13,7 @@ extension Encodable {
     func toJson() -> Data? {
         let encoder = JSONEncoder()
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         formatter.timeZone = TimeZone(abbreviation: "UTC")
         encoder.dateEncodingStrategy = .formatted(formatter)
         let encoded = try? encoder.encode(self)
@@ -22,10 +22,10 @@ extension Encodable {
 }
 
 extension Data {
-    func decode<T: Decodable>(to type: T.Type) throws -> T {
+    func decode<T: Decodable>(to type: T.Type, dateFormat: String? = "yyyy-MM-dd'T'HH:mm:ss") throws -> T {
         let decoder = JSONDecoder()
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.dateFormat = dateFormat ?? "yyyy-MM-dd'T'HH:mm:ss"
         formatter.timeZone = TimeZone(abbreviation: "UTC")
         
         decoder.keyDecodingStrategy = .convertFromSnakeCase

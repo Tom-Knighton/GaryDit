@@ -50,6 +50,10 @@
 		E2A1899E2A423C1000BE1E59 /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A1899D2A423C1000BE1E59 /* LinkView.swift */; };
 		E2A189A12A425F1900BE1E59 /* FLAnimatedImage in Frameworks */ = {isa = PBXBuildFile; productRef = E2A189A02A425F1900BE1E59 /* FLAnimatedImage */; };
 		E2A189A42A425F3800BE1E59 /* GIFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A189A32A425F3800BE1E59 /* GIFView.swift */; };
+		E2D098942A58602700D05D13 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D098932A58602700D05D13 /* Post.swift */; };
+		E2D098962A5860DB00D05D13 /* PostFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D098952A5860DB00D05D13 /* PostFlags.swift */; };
+		E2D098982A58617000D05D13 /* PostContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D098972A58617000D05D13 /* PostContent.swift */; };
+		E2D0989A2A586ADA00D05D13 /* Date+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D098992A586ADA00D05D13 /* Date+GaryDit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +118,10 @@
 		E2949FD12A40CF75000669C2 /* RedditPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditPostViewModel.swift; sourceTree = "<group>"; };
 		E2A1899D2A423C1000BE1E59 /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
 		E2A189A32A425F3800BE1E59 /* GIFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFView.swift; sourceTree = "<group>"; };
+		E2D098932A58602700D05D13 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		E2D098952A5860DB00D05D13 /* PostFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFlags.swift; sourceTree = "<group>"; };
+		E2D098972A58617000D05D13 /* PostContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContent.swift; sourceTree = "<group>"; };
+		E2D098992A586ADA00D05D13 /* Date+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+GaryDit.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,6 +290,9 @@
 				E26988D52A3DA7DE004DE85B /* Auth */,
 				E2949FB22A3DE3F7000669C2 /* User.swift */,
 				E2949FBC2A3F1D15000669C2 /* SubredditResponse.swift */,
+				E2D098932A58602700D05D13 /* Post.swift */,
+				E2D098952A5860DB00D05D13 /* PostFlags.swift */,
+				E2D098972A58617000D05D13 /* PostContent.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -306,6 +317,7 @@
 				E2949FC72A40C054000669C2 /* Int+GaryDit.swift */,
 				E2949FC92A40C084000669C2 /* Double+GaryDit.swift */,
 				E2949FCE2A40CDD5000669C2 /* URL+GaryDit.swift */,
+				E2D098992A586ADA00D05D13 /* Date+GaryDit.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -523,6 +535,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2949FAC2A3DC8A3000669C2 /* KeychainManager.swift in Sources */,
+				E2D0989A2A586ADA00D05D13 /* Date+GaryDit.swift in Sources */,
 				E2949FCA2A40C084000669C2 /* Double+GaryDit.swift in Sources */,
 				E2949FA12A3DBA1E000669C2 /* AuthManager.swift in Sources */,
 				E26988DD2A3DB53D004DE85B /* Codable+GaryDit.swift in Sources */,
@@ -543,8 +556,10 @@
 				E2949FC82A40C054000669C2 /* Int+GaryDit.swift in Sources */,
 				E26988962A3D0A9F004DE85B /* ContentView.swift in Sources */,
 				E2949FC02A3F2951000669C2 /* OnTypeMismatchWrappers.swift in Sources */,
+				E2D098942A58602700D05D13 /* Post.swift in Sources */,
 				E2949FB92A3F1AFF000669C2 /* PostsPage.swift in Sources */,
 				E26988D72A3DA7E9004DE85B /* OAuthResponse.swift in Sources */,
+				E2D098962A5860DB00D05D13 /* PostFlags.swift in Sources */,
 				E2949FA62A3DBB1F000669C2 /* AuthToken.swift in Sources */,
 				E2949FAA2A3DBF97000669C2 /* APIClient.swift in Sources */,
 				E2949FB52A3DE873000669C2 /* Color+GaryDit.swift in Sources */,
@@ -553,6 +568,7 @@
 				E2A189A42A425F3800BE1E59 /* GIFView.swift in Sources */,
 				E2A1899E2A423C1000BE1E59 /* LinkView.swift in Sources */,
 				E23C853D2A508EE10070F81D /* LogService.swift in Sources */,
+				E2D098982A58617000D05D13 /* PostContent.swift in Sources */,
 				E23C85432A51B8E70070F81D /* NoMorePostsView.swift in Sources */,
 				E26988CC2A3D169E004DE85B /* LottieView.swift in Sources */,
 			);
