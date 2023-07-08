@@ -22,11 +22,11 @@ struct PostView: View {
     var body: some View {
         VStack {
             topMediaView()
-            
             VStack {
                 Text(viewModel.post.postTitle)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, viewModel.post.postContent.media.isEmpty ? 8 : 0)
                 
                 if let text = viewModel.post.postContent.textContent, text.isEmpty == false {
                     Text(text)
@@ -37,7 +37,6 @@ struct PostView: View {
                         .opacity(0.8)
                 }
             }
-            .padding(.top, 8)
             .padding(.horizontal, 8)
             
             HStack {
@@ -146,5 +145,6 @@ struct PostView: View {
     func linkView(_ url: String, thumbnailUrl: String? = nil) -> some View {
         LinkView(url: url, overrideImage: thumbnailUrl ?? "", fetchMetadata: false)
             .padding(.horizontal, 8)
+            .padding(.top, 8)
     }
 }
