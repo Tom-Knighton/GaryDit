@@ -33,7 +33,14 @@ public actor KeychainManager {
             return nil
         }
         
-        return try? keychainData.decode(to: T.self)
+        do {
+            print(String(data: keychainData, encoding: .utf8))
+            return try keychainData.decode(to: T.self)
+        } catch {
+            print("Deleting token as failed to decode")
+            delete(key: key)
+            return nil
+        }
     }
     
     func delete(key: String) {

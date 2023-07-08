@@ -26,7 +26,7 @@ public struct APIRequest {
 public actor APIClient {
     
     private let session = URLSession.shared
-    private let baseUrl = URL(string: "https://oauth.reddit.com/")
+    private let baseUrl = URL(string: "https://api.dev.garydit.tomk.online/")
     
     private let authManager = AuthManager()
         
@@ -53,6 +53,7 @@ public actor APIClient {
         if T.self is String.Type {
             return String(data: data, encoding: .utf8) as! T
         }
+        
         let response = try data.decode(to: T.self)
         return response
     }

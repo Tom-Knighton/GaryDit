@@ -15,34 +15,21 @@ struct PostView: View {
     @State private var togglePreview: Bool = false
     @State private var isPlayingMedia: Bool = false
     
-    init(post: RedditPost) {
+    init(post: Post) {
         self.viewModel = RedditPostViewModel(post: post)
     }
     
     var body: some View {
         VStack {
-            if let media = viewModel.post.extractMedia() {
-                if media.isVideo {
-                    if media.urlString.contains(".gif") {
-                        gifView()
-                    } else {
-                        videoView()
-                    }
-                } else if viewModel.getPostType() == .Image {
-                    imageView()
-                } else if viewModel.getPostType() == .Link {
-                    LinkView(url: viewModel.post.extractMedia()?.urlString ?? "", overrideImage: viewModel.post.thumbnail, fetchMetadata: false)
-                        .padding(.horizontal, 8)
-                }
-            }
+            topMediaView()
             
             VStack {
-                Text(viewModel.post.title)
+                Text(viewModel.post.postTitle)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                if viewModel.post.getPostType() == .SelfPost && viewModel.post.selftext.isEmpty == false {
-                    Text(viewModel.post.selftext)
+                if let text = viewModel.post.postContent.textContent, text.isEmpty == false {
+                    Text(text)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .lineLimit(5)
                         .padding(.vertical, 0)
@@ -55,21 +42,21 @@ struct PostView: View {
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text(viewModel.post.subreddit)
+                    Text(viewModel.post.postSubreddit)
                         .font(.subheadline)
                         .bold()
                     HStack {
                         HStack(spacing: 2) {
                             Text(Image(systemName: "arrow.up"))
-                            Text(viewModel.post.score.friendlyFormat())
+                            Text(viewModel.post.postScore.friendlyFormat())
                         }
                         HStack(spacing: 2) {
                             Text(Image(systemName: "message"))
-                            Text(viewModel.post.numComments.friendlyFormat())
+                            Text(viewModel.post.postScore.friendlyFormat()) //TODO
                         }
                         HStack(spacing: 2) {
                             Text(Image(systemName: "clock"))
-                            Text(viewModel.post.friendlyCreatedAgo)
+                            Text(viewModel.post.postCreatedAt.friendlyAgo)
                         }
                     }
                     .font(.subheadline)
@@ -87,54 +74,77 @@ struct PostView: View {
     }
     
     @ViewBuilder
-    func gifView() -> some View {
-        if let media = self.viewModel.post.extractMedia() {
-            VStack {
-                GIFImage(viewModel.post.url ?? "")
-                    .aspectRatio(media.aspectRatio, contentMode: .fit)
-                    .onAppear {
-                        self.isPlayingMedia = true
-                    }
-                    .onDisappear {
-                        self.isPlayingMedia = false
-                    }
-            }
-            .frame(maxWidth: .infinity)
-        }
-    }
-    
-    @ViewBuilder
-    func videoView() -> some View {
-        if let media = self.viewModel.post.extractMedia() {
-            VStack{
-                PlayerView(url: media.urlString, isPlaying: $isPlayingMedia)
-                    .aspectRatio(media.aspectRatio, contentMode: .fit)
-                    .onAppear {
-                        self.isPlayingMedia = true
-                    }
-                    .onDisappear {
-                        self.isPlayingMedia = false
-                    }
-            }
-            .frame(maxWidth: .infinity)
-        } else {
+    func topMediaView() -> some View {
+        let content = self.viewModel.post.postContent
+        let media = content.media
+        if media.isEmpty {
             EmptyView()
-                .frame(width: 0, height: 0)
+        } else {
+            if media.count > 1 {
+                EmptyView()
+            } else if let first = media.first {
+                switch content.contentType {
+                case .image:
+                    if first.url.contains(".gif") {
+                        gifView(first.url, aspectRatio: first.width / first.height)
+                    } else {
+                        imageView(first.url)
+                    }
+                case .video:
+                    videoView(first.url, aspectRatio: first.width / first.height)
+                case .linkOnly:
+                    linkView(first.url, thumbnailUrl: first.thumbnailUrl)
+                default:
+                    EmptyView()
+                }
+            }
         }
     }
     
     @ViewBuilder
-    func imageView() -> some View {
-        if let media = self.viewModel.post.extractMedia() {
-            AsyncImage(url: URL(string: media.urlString), content: { image in
-                image.resizable()
-                    .aspectRatio(contentMode: .fit)
-            }, placeholder: {
-                RoundedRectangle(cornerRadius: 10)
-                    .redacted(reason: .placeholder)
-            })
-        } else {
-            EmptyView() //TODO:
+    func gifView(_ url: String, aspectRatio: Double = 1) -> some View {
+        VStack {
+            GIFImage(url)
+                .aspectRatio(aspectRatio, contentMode: .fit)
+                .onAppear {
+                    self.isPlayingMedia = true
+                }
+                .onDisappear {
+                    self.isPlayingMedia = false
+                }
         }
+        .frame(maxWidth: .infinity)
+    }
+    
+    @ViewBuilder
+    func videoView(_ url: String, aspectRatio: Double = 1) -> some View {
+        VStack{
+            PlayerView(url: url, isPlaying: $isPlayingMedia)
+                .aspectRatio(aspectRatio, contentMode: .fit)
+                .onAppear {
+                    self.isPlayingMedia = true
+                }
+                .onDisappear {
+                    self.isPlayingMedia = false
+                }
+        }
+        .frame(maxWidth: .infinity)
+    }
+    
+    @ViewBuilder
+    func imageView(_ url: String) -> some View {
+        AsyncImage(url: URL(string: url), content: { image in
+            image.resizable()
+                .aspectRatio(contentMode: .fit)
+        }, placeholder: {
+            RoundedRectangle(cornerRadius: 10)
+                .redacted(reason: .placeholder)
+        })
+    }
+    
+    @ViewBuilder
+    func linkView(_ url: String, thumbnailUrl: String? = nil) -> some View {
+        LinkView(url: url, overrideImage: thumbnailUrl ?? "", fetchMetadata: false)
+            .padding(.horizontal, 8)
     }
 }
