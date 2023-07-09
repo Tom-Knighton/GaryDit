@@ -12,6 +12,10 @@
 		E23C85412A5188E50070F81D /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C85402A5188E50070F81D /* CacheService.swift */; };
 		E23C85432A51B8E70070F81D /* NoMorePostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C85422A51B8E70070F81D /* NoMorePostsView.swift */; };
 		E23EE10E2A43B3D900E03A45 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23EE10D2A43B3D900E03A45 /* VideoView.swift */; };
+		E258D8122A59DA1A001D493D /* CachedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E258D8112A59DA1A001D493D /* CachedImage.swift */; };
+		E258D8182A5AECC6001D493D /* Local.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D8172A5AECC6001D493D /* Local.xcconfig */; };
+		E258D81B2A5AEE8B001D493D /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D81A2A5AEE8B001D493D /* Release.xcconfig */; };
+		E258D81C2A5AEE96001D493D /* Development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D8192A5AEE81001D493D /* Development.xcconfig */; };
 		E260D5852A485BF600A60839 /* VideoPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = E260D5842A485BF600A60839 /* VideoPlayer */; };
 		E26988922A3D0A9F004DE85B /* GaryDitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988912A3D0A9F004DE85B /* GaryDitApp.swift */; };
 		E26988962A3D0A9F004DE85B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988952A3D0A9F004DE85B /* ContentView.swift */; };
@@ -54,6 +58,7 @@
 		E2D098962A5860DB00D05D13 /* PostFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D098952A5860DB00D05D13 /* PostFlags.swift */; };
 		E2D098982A58617000D05D13 /* PostContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D098972A58617000D05D13 /* PostContent.swift */; };
 		E2D0989A2A586ADA00D05D13 /* Date+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D098992A586ADA00D05D13 /* Date+GaryDit.swift */; };
+		E2D0989C2A59AF2300D05D13 /* PostMediaPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D0989B2A59AF2300D05D13 /* PostMediaPreviews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +84,10 @@
 		E23C85402A5188E50070F81D /* CacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
 		E23C85422A51B8E70070F81D /* NoMorePostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoMorePostsView.swift; sourceTree = "<group>"; };
 		E23EE10D2A43B3D900E03A45 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
+		E258D8112A59DA1A001D493D /* CachedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImage.swift; sourceTree = "<group>"; };
+		E258D8172A5AECC6001D493D /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
+		E258D8192A5AEE81001D493D /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		E258D81A2A5AEE8B001D493D /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		E269888E2A3D0A9F004DE85B /* GaryDit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GaryDit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E26988912A3D0A9F004DE85B /* GaryDitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaryDitApp.swift; sourceTree = "<group>"; };
 		E26988952A3D0A9F004DE85B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -122,6 +131,7 @@
 		E2D098952A5860DB00D05D13 /* PostFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFlags.swift; sourceTree = "<group>"; };
 		E2D098972A58617000D05D13 /* PostContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContent.swift; sourceTree = "<group>"; };
 		E2D098992A586ADA00D05D13 /* Date+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+GaryDit.swift"; sourceTree = "<group>"; };
+		E2D0989B2A59AF2300D05D13 /* PostMediaPreviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMediaPreviews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,9 +193,11 @@
 				E2949FD02A40CF69000669C2 /* ViewModels */,
 				E26988C32A3D0F1A004DE85B /* Pages */,
 				E26988992A3D0AA1004DE85B /* GaryDit.entitlements */,
-				E26988952A3D0A9F004DE85B /* ContentView.swift */,
 				E26988DB2A3DB51F004DE85B /* Extensions */,
 				E269889A2A3D0AA1004DE85B /* Preview Content */,
+				E258D8172A5AECC6001D493D /* Local.xcconfig */,
+				E258D8192A5AEE81001D493D /* Development.xcconfig */,
+				E258D81A2A5AEE8B001D493D /* Release.xcconfig */,
 			);
 			path = GaryDit;
 			sourceTree = "<group>";
@@ -218,6 +230,7 @@
 		E26988BF2A3D0AEB004DE85B /* App */ = {
 			isa = PBXGroup;
 			children = (
+				E26988952A3D0A9F004DE85B /* ContentView.swift */,
 				E26988CD2A3D177F004DE85B /* Assets */,
 				E26988972A3D0AA1004DE85B /* Assets.xcassets */,
 				E269889D2A3D0AA1004DE85B /* Info.plist */,
@@ -353,6 +366,7 @@
 			children = (
 				E2949FC22A3F2C70000669C2 /* PostView.swift */,
 				E23C85422A51B8E70070F81D /* NoMorePostsView.swift */,
+				E2D0989B2A59AF2300D05D13 /* PostMediaPreviews.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -387,6 +401,7 @@
 			children = (
 				E2A189A32A425F3800BE1E59 /* GIFView.swift */,
 				E23EE10D2A43B3D900E03A45 /* VideoView.swift */,
+				E258D8112A59DA1A001D493D /* CachedImage.swift */,
 			);
 			path = Media;
 			sourceTree = "<group>";
@@ -507,9 +522,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E258D81C2A5AEE96001D493D /* Development.xcconfig in Resources */,
+				E258D8182A5AECC6001D493D /* Local.xcconfig in Resources */,
 				E269889C2A3D0AA1004DE85B /* Preview Assets.xcassets in Resources */,
 				E26988D02A3D17AA004DE85B /* sloth.json in Resources */,
 				E26988982A3D0AA1004DE85B /* Assets.xcassets in Resources */,
+				E258D81B2A5AEE8B001D493D /* Release.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,6 +567,7 @@
 				E2949FA42A3DBAEF000669C2 /* AuthError.swift in Sources */,
 				E2949FC32A3F2C70000669C2 /* PostView.swift in Sources */,
 				E2949FBB2A3F1C05000669C2 /* SubredditService.swift in Sources */,
+				E2D0989C2A59AF2300D05D13 /* PostMediaPreviews.swift in Sources */,
 				E2949FD22A40CF75000669C2 /* RedditPostViewModel.swift in Sources */,
 				E2949FAE2A3DDA4A000669C2 /* HomePage.swift in Sources */,
 				E2949FB32A3DE3F7000669C2 /* User.swift in Sources */,
@@ -571,6 +590,7 @@
 				E2D098982A58617000D05D13 /* PostContent.swift in Sources */,
 				E23C85432A51B8E70070F81D /* NoMorePostsView.swift in Sources */,
 				E26988CC2A3D169E004DE85B /* LottieView.swift in Sources */,
+				E258D8122A59DA1A001D493D /* CachedImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,6 +627,155 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		E258D81D2A5AF125001D493D /* Local */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Local;
+		};
+		E258D81E2A5AF125001D493D /* Local */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E258D8172A5AECC6001D493D /* Local.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GaryDit/GaryDit.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"GaryDit/Preview Content\"";
+				DEVELOPMENT_TEAM = 8H3J46CN24;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GaryDit/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = online.tomk.GaryDit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Local;
+		};
+		E258D81F2A5AF125001D493D /* Local */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8H3J46CN24;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = online.tomk.GaryDitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GaryDit.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GaryDit";
+			};
+			name = Local;
+		};
+		E258D8202A5AF125001D493D /* Local */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8H3J46CN24;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = online.tomk.GaryDitUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = GaryDit;
+			};
+			name = Local;
+		};
 		E26988B42A3D0AA1004DE85B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -663,6 +832,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -717,12 +887,14 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
 		};
 		E26988B72A3D0AA1004DE85B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E258D8192A5AEE81001D493D /* Development.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -735,6 +907,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GaryDit/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -753,7 +926,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = online.tomk.GaryDit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -762,6 +936,7 @@
 		};
 		E26988B82A3D0AA1004DE85B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E258D81A2A5AEE8B001D493D /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -774,6 +949,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GaryDit/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -792,7 +968,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = online.tomk.GaryDit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -896,6 +1073,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E26988B42A3D0AA1004DE85B /* Debug */,
+				E258D81D2A5AF125001D493D /* Local */,
 				E26988B52A3D0AA1004DE85B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -905,6 +1083,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E26988B72A3D0AA1004DE85B /* Debug */,
+				E258D81E2A5AF125001D493D /* Local */,
 				E26988B82A3D0AA1004DE85B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -914,6 +1093,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E26988BA2A3D0AA1004DE85B /* Debug */,
+				E258D81F2A5AF125001D493D /* Local */,
 				E26988BB2A3D0AA1004DE85B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -923,6 +1103,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E26988BD2A3D0AA1004DE85B /* Debug */,
+				E258D8202A5AF125001D493D /* Local */,
 				E26988BE2A3D0AA1004DE85B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

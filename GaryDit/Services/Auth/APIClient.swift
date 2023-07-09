@@ -26,9 +26,10 @@ public struct APIRequest {
 public actor APIClient {
     
     private let session = URLSession.shared
-    private let baseUrl = URL(string: "https://api.dev.garydit.tomk.online/")
     
     private let authManager = AuthManager()
+    
+    private let baseUrl = URL(string: "https://" + (Bundle.main.object(forInfoDictionaryKey: "GARYDIT_API_BASE") as? String ?? "api.garydit.tomk.online"))
         
     func perform<T: Decodable>(_ request: APIRequest, allowRetry: Bool = true) async throws -> T {
         guard let baseUrl else {

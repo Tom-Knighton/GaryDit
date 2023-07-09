@@ -25,7 +25,7 @@ public struct PostsPage: View {
                         .listRowSeparator(.hidden)
                         .task {
                             if self.viewModel.shouldFetchMore(from: post.postId) {
-                                await self.viewModel.fetchPosts(after: post.postId)
+                                await self.viewModel.fetchMorePosts()
                             }
                         }
                 }

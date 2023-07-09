@@ -13,6 +13,7 @@ public enum PostContentType: String, Codable {
     case image = "image"
     case video = "video"
     case linkOnly = "linkOnly"
+    case mediaGallery = "mediaGallery"
 }
 
 /// The content of this post, it's type, any text and media
@@ -32,4 +33,5 @@ public struct PostMedia: Codable {
     let thumbnailUrl: String?
     let height: Double
     let width: Double
+    let type: PostContentType?
 }

@@ -68,4 +68,8 @@ class SubredditViewModel {
         }
     }
     
+    func fetchMorePosts() async {
+        await fetchPosts(after: self.posts.last?.postId)
+    }
+    
 }

@@ -48,21 +48,13 @@ class PlayerUIView: UIView {
         }
     }
     
-    init(url: String, gravity: PlayerViewGravity = .fit) {
+    init(url: String, gravity: PlayerViewGravity = .fit, isPlaying: Bool = false) {
         self.url = url
+        self.isPlaying = isPlaying
         super.init(frame: .zero)
         
         Task {
             try? await self.setup(gravity: gravity)
-            
-            _ = NotificationCenter.default.addObserver(forName: AVPlayerItem.didPlayToEndTimeNotification, object: self.avPlayer?.currentItem, queue: nil) { [avPlayer] _ in
-                avPlayer?.seek(to: CMTime.zero)
-                avPlayer?.play()
-            }
-            
-            if (isPlaying) {
-                avPlayer?.play()
-            }
         }
     }
     
@@ -82,12 +74,21 @@ class PlayerUIView: UIView {
         let avPlayer = AVPlayer(playerItem: composition)
         avPlayer.isMuted = true
         
-        try? AVAudioSession.sharedInstance().setCategory(.playback, options: [])
+        try? AVAudioSession.sharedInstance().setCategory(.ambient, options: [])
         
         DispatchQueue.main.async {
             self.playerLayer.player = avPlayer
             self.playerLayer.videoGravity = gravity.avGravity
             self.frame = self.playerLayer.visibleRect
+            
+            if (self.isPlaying) {
+                self.playerLayer.player?.play()
+            }
+            
+            _ = NotificationCenter.default.addObserver(forName: AVPlayerItem.didPlayToEndTimeNotification, object: self.avPlayer?.currentItem, queue: nil) { [avPlayer] _ in
+                avPlayer.seek(to: CMTime.zero)
+                avPlayer.play()
+            }
         }
     }
     
@@ -111,7 +112,7 @@ struct PlayerView: UIViewRepresentable {
     var gravity: PlayerViewGravity = .fit
     
     func makeUIView(context: Context) -> PlayerUIView {
-        let view = PlayerUIView(url: self.url, gravity: self.gravity)
+        let view = PlayerUIView(url: self.url, gravity: self.gravity, isPlaying: isPlaying)
         return view
     }
     
