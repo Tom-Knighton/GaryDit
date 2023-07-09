@@ -48,16 +48,13 @@ public struct PostsPage: View {
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
                 }
-                
-                
-               
             }
             .scrollContentBackground(.hidden)
             .listStyle(.plain)
             .background(Color.layer1)
             .navigationTitle(self.viewModel.subredditName.isEmpty ? "Loading..." : self.viewModel.subredditName)
             .task {
-                self.viewModel.setSubredditName(to: "GaryDitTesting", fetchPostsAutomatically: true)
+                self.viewModel.setSubredditName(to: "garydittesting", fetchPostsAutomatically: true)
             }
         }
         
