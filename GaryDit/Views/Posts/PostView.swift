@@ -11,10 +11,11 @@ import VideoPlayer
 
 struct PostView: View {
     
+    @Environment(SubredditViewModel.self) private var subreddit
     @ObservedObject private var viewModel: RedditPostViewModel
     @State private var togglePreview: Bool = false
     @State private var isPlayingMedia: Bool = false
-    
+        
     init(post: Post) {
         self.viewModel = RedditPostViewModel(post: post)
     }
@@ -42,7 +43,7 @@ struct PostView: View {
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text(viewModel.post.postSubreddit)
+                    bylineText()
                         .font(.subheadline)
                         .bold()
                     HStack {
@@ -73,5 +74,13 @@ struct PostView: View {
         .shadow(radius: 3)
     }
     
-    
+    @ViewBuilder
+    func bylineText() -> some View {
+        switch self.subreddit.bylineDisplayBehaviour {
+        case .showSubreddit:
+            Text(viewModel.post.postSubreddit)
+        case .showUsername:
+            Text("By \(viewModel.post.postAuthour)")
+        }
+    }
 }

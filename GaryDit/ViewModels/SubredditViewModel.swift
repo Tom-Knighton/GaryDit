@@ -16,6 +16,17 @@ class SubredditViewModel {
     var isLoading: Bool = false
     var noMorePosts: Bool = false
     
+    var bylineDisplayBehaviour: PostBylineDisplayBehaviour {
+        let formattedName = self.subredditName.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        let blockList = ["all", "home", "popular"]
+        let isMultireddit = formattedName.contains("+")
+        let subredditIsBlocked = blockList.contains(formattedName)
+        
+        let shouldShowUsernames = !subredditIsBlocked && !isMultireddit
+        
+        return shouldShowUsernames ? .showUsername : .showSubreddit
+    }
+
     @ObservationIgnored
     var logger = Logger(category: "SubredditViewModel")
     
