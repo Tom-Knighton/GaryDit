@@ -43,9 +43,16 @@ struct PostView: View {
             
             HStack {
                 VStack(alignment: .leading) {
-                    bylineText()
-                        .font(.subheadline)
-                        .bold()
+                    HStack(spacing: 2) {
+                        bylineText()
+                        if viewModel.post.postFlagDetails.isStickied {
+                            Text(Image(systemName: "pin.fill"))
+                                .foregroundStyle(.green)
+                        }
+                    }
+                    .bold()
+                    .font(.subheadline)
+
                     HStack {
                         HStack(spacing: 2) {
                             Text(Image(systemName: "arrow.up"))

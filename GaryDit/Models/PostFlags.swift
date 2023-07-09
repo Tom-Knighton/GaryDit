@@ -20,5 +20,5 @@ public struct PostFlags: Codable {
     let isLocked: Bool
     
     /// Whether or not the post has been stickied to the top of it's subreddit
-    let isSticked: Bool
+    let isStickied: Bool
 }

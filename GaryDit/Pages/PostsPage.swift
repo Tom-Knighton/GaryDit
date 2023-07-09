@@ -48,9 +48,6 @@ public struct PostsPage: View {
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
                 }
-                
-                
-               
             }
             .scrollContentBackground(.hidden)
             .listStyle(.plain)
