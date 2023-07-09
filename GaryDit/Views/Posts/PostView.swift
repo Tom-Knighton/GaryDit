@@ -21,7 +21,8 @@ struct PostView: View {
     
     var body: some View {
         VStack {
-            topMediaView()
+            PostTopMediaView(content: viewModel.post.postContent)
+            
             VStack {
                 Text(viewModel.post.postTitle)
                     .bold()
@@ -72,79 +73,5 @@ struct PostView: View {
         .shadow(radius: 3)
     }
     
-    @ViewBuilder
-    func topMediaView() -> some View {
-        let content = self.viewModel.post.postContent
-        let media = content.media
-        if media.isEmpty {
-            EmptyView()
-        } else {
-            if media.count > 1 {
-                EmptyView()
-            } else if let first = media.first {
-                switch content.contentType {
-                case .image:
-                    if first.url.contains(".gif") {
-                        gifView(first.url, aspectRatio: first.width / first.height)
-                    } else {
-                        imageView(first.url)
-                    }
-                case .video:
-                    videoView(first.url, aspectRatio: first.width / first.height)
-                case .linkOnly:
-                    linkView(first.url, thumbnailUrl: first.thumbnailUrl)
-                default:
-                    EmptyView()
-                }
-            }
-        }
-    }
     
-    @ViewBuilder
-    func gifView(_ url: String, aspectRatio: Double = 1) -> some View {
-        VStack {
-            GIFImage(url)
-                .aspectRatio(aspectRatio, contentMode: .fit)
-                .onAppear {
-                    self.isPlayingMedia = true
-                }
-                .onDisappear {
-                    self.isPlayingMedia = false
-                }
-        }
-        .frame(maxWidth: .infinity)
-    }
-    
-    @ViewBuilder
-    func videoView(_ url: String, aspectRatio: Double = 1) -> some View {
-        VStack{
-            PlayerView(url: url, isPlaying: $isPlayingMedia)
-                .aspectRatio(aspectRatio, contentMode: .fit)
-                .onAppear {
-                    self.isPlayingMedia = true
-                }
-                .onDisappear {
-                    self.isPlayingMedia = false
-                }
-        }
-        .frame(maxWidth: .infinity)
-    }
-    
-    @ViewBuilder
-    func imageView(_ url: String) -> some View {
-        AsyncImage(url: URL(string: url), content: { image in
-            image.resizable()
-                .aspectRatio(contentMode: .fit)
-        }, placeholder: {
-            RoundedRectangle(cornerRadius: 10)
-                .redacted(reason: .placeholder)
-        })
-    }
-    
-    @ViewBuilder
-    func linkView(_ url: String, thumbnailUrl: String? = nil) -> some View {
-        LinkView(url: url, overrideImage: thumbnailUrl ?? "", fetchMetadata: false)
-            .padding(.horizontal, 8)
-            .padding(.top, 8)
-    }
 }

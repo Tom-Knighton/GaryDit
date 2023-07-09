@@ -12,6 +12,7 @@
 		E23C85412A5188E50070F81D /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C85402A5188E50070F81D /* CacheService.swift */; };
 		E23C85432A51B8E70070F81D /* NoMorePostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C85422A51B8E70070F81D /* NoMorePostsView.swift */; };
 		E23EE10E2A43B3D900E03A45 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23EE10D2A43B3D900E03A45 /* VideoView.swift */; };
+		E258D8122A59DA1A001D493D /* CachedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E258D8112A59DA1A001D493D /* CachedImage.swift */; };
 		E258D8182A5AECC6001D493D /* Local.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D8172A5AECC6001D493D /* Local.xcconfig */; };
 		E258D81B2A5AEE8B001D493D /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D81A2A5AEE8B001D493D /* Release.xcconfig */; };
 		E258D81C2A5AEE96001D493D /* Development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D8192A5AEE81001D493D /* Development.xcconfig */; };
@@ -57,6 +58,7 @@
 		E2D098962A5860DB00D05D13 /* PostFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D098952A5860DB00D05D13 /* PostFlags.swift */; };
 		E2D098982A58617000D05D13 /* PostContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D098972A58617000D05D13 /* PostContent.swift */; };
 		E2D0989A2A586ADA00D05D13 /* Date+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D098992A586ADA00D05D13 /* Date+GaryDit.swift */; };
+		E2D0989C2A59AF2300D05D13 /* PostMediaPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D0989B2A59AF2300D05D13 /* PostMediaPreviews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +84,7 @@
 		E23C85402A5188E50070F81D /* CacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
 		E23C85422A51B8E70070F81D /* NoMorePostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoMorePostsView.swift; sourceTree = "<group>"; };
 		E23EE10D2A43B3D900E03A45 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
+		E258D8112A59DA1A001D493D /* CachedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImage.swift; sourceTree = "<group>"; };
 		E258D8172A5AECC6001D493D /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
 		E258D8192A5AEE81001D493D /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		E258D81A2A5AEE8B001D493D /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
@@ -128,6 +131,7 @@
 		E2D098952A5860DB00D05D13 /* PostFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFlags.swift; sourceTree = "<group>"; };
 		E2D098972A58617000D05D13 /* PostContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContent.swift; sourceTree = "<group>"; };
 		E2D098992A586ADA00D05D13 /* Date+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+GaryDit.swift"; sourceTree = "<group>"; };
+		E2D0989B2A59AF2300D05D13 /* PostMediaPreviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMediaPreviews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -362,6 +366,7 @@
 			children = (
 				E2949FC22A3F2C70000669C2 /* PostView.swift */,
 				E23C85422A51B8E70070F81D /* NoMorePostsView.swift */,
+				E2D0989B2A59AF2300D05D13 /* PostMediaPreviews.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -396,6 +401,7 @@
 			children = (
 				E2A189A32A425F3800BE1E59 /* GIFView.swift */,
 				E23EE10D2A43B3D900E03A45 /* VideoView.swift */,
+				E258D8112A59DA1A001D493D /* CachedImage.swift */,
 			);
 			path = Media;
 			sourceTree = "<group>";
@@ -561,6 +567,7 @@
 				E2949FA42A3DBAEF000669C2 /* AuthError.swift in Sources */,
 				E2949FC32A3F2C70000669C2 /* PostView.swift in Sources */,
 				E2949FBB2A3F1C05000669C2 /* SubredditService.swift in Sources */,
+				E2D0989C2A59AF2300D05D13 /* PostMediaPreviews.swift in Sources */,
 				E2949FD22A40CF75000669C2 /* RedditPostViewModel.swift in Sources */,
 				E2949FAE2A3DDA4A000669C2 /* HomePage.swift in Sources */,
 				E2949FB32A3DE3F7000669C2 /* User.swift in Sources */,
@@ -583,6 +590,7 @@
 				E2D098982A58617000D05D13 /* PostContent.swift in Sources */,
 				E23C85432A51B8E70070F81D /* NoMorePostsView.swift in Sources */,
 				E26988CC2A3D169E004DE85B /* LottieView.swift in Sources */,
+				E258D8122A59DA1A001D493D /* CachedImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
