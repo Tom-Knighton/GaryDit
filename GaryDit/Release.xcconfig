@@ -1,0 +1,11 @@
+//
+//  Release.xcconfig
+//  GaryDit
+//
+//  Created by Tom Knighton on 09/07/2023.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+GARYDIT_API_BASE = api.garydit.tomk.online/
