@@ -24,11 +24,19 @@ struct PostView: View {
         VStack {
             PostTopMediaView(content: viewModel.post.postContent)
             
-            VStack {
+            VStack(alignment: .leading, spacing: 0) {
                 Text(viewModel.post.postTitle)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, viewModel.post.postContent.media.isEmpty ? 8 : 0)
+                
+                if viewModel.post.postFlagDetails.isNSFW {
+                    Text("NSFW")
+                        .font(.caption2)
+                        .padding(4)
+                        .background(.red)
+                        .clipShape(.rect(cornerRadius: 5))
+                }
                 
                 if let text = viewModel.post.postContent.textContent, text.isEmpty == false {
                     Text(text)
