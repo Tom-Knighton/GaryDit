@@ -53,6 +53,10 @@ struct PostView: View {
                             Text(Image(systemName: "lock.fill"))
                                 .foregroundStyle(.yellow)
                         }
+                        if viewModel.post.postFlagDetails.isArchived {
+                            Text(Image(systemName: "archivebox.fill"))
+                                .foregroundStyle(.yellow)
+                        }
                     }
                     .bold()
                     .font(.subheadline)

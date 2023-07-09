@@ -22,6 +22,9 @@ public struct PostFlags: Codable {
     /// Whether or not the post has been stickied to the top of it's subreddit
     let isStickied: Bool
     
+    /// Whether or not the post has been archived by it's subreddit, and no more changes are allowed
+    let isArchived: Bool
+    
     /// Whether or not the post is distinguished, and how so
     let distinguishmentType: DistinguishmentType
 }
