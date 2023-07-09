@@ -9,6 +9,11 @@ import SwiftUI
 import Observation
 import LinkPresentation
 
+enum PostBylineDisplayBehaviour {
+    case showSubreddit
+    case showUsername
+}
+
 @MainActor
 public class RedditPostViewModel: ObservableObject {
     

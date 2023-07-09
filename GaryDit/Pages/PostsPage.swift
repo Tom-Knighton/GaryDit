@@ -28,6 +28,7 @@ public struct PostsPage: View {
                                 await self.viewModel.fetchMorePosts()
                             }
                         }
+                        .environment(viewModel)
                 }
                 
                 if self.viewModel.isLoading {
