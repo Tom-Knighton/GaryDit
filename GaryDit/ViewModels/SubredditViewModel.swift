@@ -83,4 +83,13 @@ class SubredditViewModel {
         await fetchPosts(after: self.posts.last?.postId)
     }
     
+    func resetAndFetchPosts() async {
+        guard !subredditName.isEmpty, !self.isLoading else {
+            return
+        }
+        
+        self.posts.removeAll()
+        await self.fetchPosts()
+    }
+    
 }
