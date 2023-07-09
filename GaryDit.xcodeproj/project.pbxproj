@@ -31,6 +31,7 @@
 		E26988D02A3D17AA004DE85B /* sloth.json in Resources */ = {isa = PBXBuildFile; fileRef = E26988CF2A3D17AA004DE85B /* sloth.json */; };
 		E26988D72A3DA7E9004DE85B /* OAuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988D62A3DA7E9004DE85B /* OAuthResponse.swift */; };
 		E26988DD2A3DB53D004DE85B /* Codable+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988DC2A3DB53D004DE85B /* Codable+GaryDit.swift */; };
+		E27AC27A2A5B231E000B8737 /* DistinguishmentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27AC2792A5B231E000B8737 /* DistinguishmentType.swift */; };
 		E2949FA12A3DBA1E000669C2 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FA02A3DBA1E000669C2 /* AuthManager.swift */; };
 		E2949FA42A3DBAEF000669C2 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FA32A3DBAEF000669C2 /* AuthError.swift */; };
 		E2949FA62A3DBB1F000669C2 /* AuthToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FA52A3DBB1F000669C2 /* AuthToken.swift */; };
@@ -105,6 +106,7 @@
 		E26988CF2A3D17AA004DE85B /* sloth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sloth.json; sourceTree = "<group>"; };
 		E26988D62A3DA7E9004DE85B /* OAuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthResponse.swift; sourceTree = "<group>"; };
 		E26988DC2A3DB53D004DE85B /* Codable+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+GaryDit.swift"; sourceTree = "<group>"; };
+		E27AC2792A5B231E000B8737 /* DistinguishmentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistinguishmentType.swift; sourceTree = "<group>"; };
 		E2949FA02A3DBA1E000669C2 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		E2949FA32A3DBAEF000669C2 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		E2949FA52A3DBB1F000669C2 /* AuthToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthToken.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				E2D098932A58602700D05D13 /* Post.swift */,
 				E2D098952A5860DB00D05D13 /* PostFlags.swift */,
 				E2D098972A58617000D05D13 /* PostContent.swift */,
+				E27AC2792A5B231E000B8737 /* DistinguishmentType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -557,6 +560,7 @@
 				E2949FCA2A40C084000669C2 /* Double+GaryDit.swift in Sources */,
 				E2949FA12A3DBA1E000669C2 /* AuthManager.swift in Sources */,
 				E26988DD2A3DB53D004DE85B /* Codable+GaryDit.swift in Sources */,
+				E27AC27A2A5B231E000B8737 /* DistinguishmentType.swift in Sources */,
 				E2949FCF2A40CDD5000669C2 /* URL+GaryDit.swift in Sources */,
 				E2949FB72A3F11F6000669C2 /* NavigationRoot.swift in Sources */,
 				E23EE10E2A43B3D900E03A45 /* VideoView.swift in Sources */,

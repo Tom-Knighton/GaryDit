@@ -52,6 +52,7 @@ struct PostView: View {
                     }
                     .bold()
                     .font(.subheadline)
+                    .foregroundStyle(bylineColour)
 
                     HStack {
                         HStack(spacing: 2) {
@@ -88,6 +89,19 @@ struct PostView: View {
             Text(viewModel.post.postSubreddit)
         case .showUsername:
             Text("By \(viewModel.post.postAuthour)")
+        }
+    }
+    
+    var bylineColour: Color {
+        switch self.viewModel.post.postFlagDetails.distinguishmentType {
+        case .none:
+            return .primary
+        case .moderator:
+            return .green
+        case .admin:
+            return .red
+        case .special:
+            return .darkRed
         }
     }
 }
