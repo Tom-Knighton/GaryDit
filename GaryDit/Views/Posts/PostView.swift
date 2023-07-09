@@ -49,6 +49,10 @@ struct PostView: View {
                             Text(Image(systemName: "pin.fill"))
                                 .foregroundStyle(.green)
                         }
+                        if viewModel.post.postFlagDetails.isLocked {
+                            Text(Image(systemName: "lock.fill"))
+                                .foregroundStyle(.yellow)
+                        }
                     }
                     .bold()
                     .font(.subheadline)
