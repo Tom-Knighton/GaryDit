@@ -14,10 +14,10 @@ enum PostBylineDisplayBehaviour {
     case showUsername
 }
 
-@MainActor
-public class RedditPostViewModel: ObservableObject {
+@Observable
+public class RedditPostViewModel {
     
-    @Published var post: Post
+    public var post: Post
     
     init(post: Post) {
         self.post = post
