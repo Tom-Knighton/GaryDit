@@ -63,31 +63,33 @@ class PlayerUIView: UIView {
     }
     
     private func setup(gravity: PlayerViewGravity = .fit) async throws {
-        guard let url = URL(string: url) else {
-            throw URLError(.badURL)
-        }
-        
-        let asset = AVAsset(url: url)
-        let _ = try await asset.load(.tracks, .duration, .isPlayable)
-        
-        let composition = AVPlayerItem(asset: asset)
-        let avPlayer = AVPlayer(playerItem: composition)
-        avPlayer.isMuted = true
-        
-        try? AVAudioSession.sharedInstance().setCategory(.ambient, options: [])
-        
-        DispatchQueue.main.async {
-            self.playerLayer.player = avPlayer
-            self.playerLayer.videoGravity = gravity.avGravity
-            self.frame = self.playerLayer.visibleRect
-            
-            if (self.isPlaying) {
-                self.playerLayer.player?.play()
+        await Task.detached(priority: .userInitiated) {
+            guard let url = await URL(string: self.url) else {
+                throw URLError(.badURL)
             }
             
-            _ = NotificationCenter.default.addObserver(forName: AVPlayerItem.didPlayToEndTimeNotification, object: self.avPlayer?.currentItem, queue: nil) { [avPlayer] _ in
-                avPlayer.seek(to: CMTime.zero)
-                avPlayer.play()
+            let asset = AVAsset(url: url)
+            let _ = try await asset.load(.tracks, .duration, .isPlayable)
+            
+            let composition = AVPlayerItem(asset: asset)
+            let avPlayer = AVPlayer(playerItem: composition)
+            avPlayer.isMuted = true
+            
+            try? AVAudioSession.sharedInstance().setCategory(.ambient, options: [])
+            
+            await MainActor.run {
+                self.playerLayer.player = avPlayer
+                self.playerLayer.videoGravity = gravity.avGravity
+                self.frame = self.playerLayer.visibleRect
+                
+                if (self.isPlaying) {
+                    self.playerLayer.player?.play()
+                }
+                
+                _ = NotificationCenter.default.addObserver(forName: AVPlayerItem.didPlayToEndTimeNotification, object: self.avPlayer?.currentItem, queue: nil) { [avPlayer] _ in
+                    avPlayer.seek(to: CMTime.zero)
+                    avPlayer.play()
+                }
             }
         }
     }

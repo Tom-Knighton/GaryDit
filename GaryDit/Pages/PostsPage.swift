@@ -19,7 +19,6 @@ public struct PostsPage: View {
             List {
                 ForEach(self.viewModel.posts, id: \.postId) { post in
                     PostView(post: post)
-                        .padding(.horizontal, 12)
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
@@ -49,6 +48,7 @@ public struct PostsPage: View {
                         .listRowSeparator(.hidden)
                 }
             }
+            .contentMargins([.horizontal], 12, for: .scrollContent)
             .scrollContentBackground(.hidden)
             .listStyle(.plain)
             .background(Color.layer1)

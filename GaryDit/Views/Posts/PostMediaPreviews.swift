@@ -14,23 +14,34 @@ struct PostTopMediaView: View {
     var body: some View {
         let media = content.media
         if let first = media.first {
-            switch content.contentType {
-            case .image:
-                if first.url.contains(".gif") {
-                    PostGifView(url: first.url, aspectRatio: first.width / first.height)
-                } else {
-                    PostImageView(media: first)
-                }
-            case .video:
-                PostVideoView(url: first.url, aspectRatio: first.width / first.height)
-            case .linkOnly:
-                PostLinkView(url: first.url, thumbnailUrl: first.thumbnailUrl)
-            case .mediaGallery:
-               PostMediaGallery(media: media)
-            default:
-                EmptyView()
+            if content.contentType == .mediaGallery {
+                PostMediaGallery(media: media)
+            } else {
+                InternalMediaViewSwitch(media: first)
             }
         } else {
+            EmptyView()
+        }
+    }
+}
+
+struct InternalMediaViewSwitch: View {
+    
+    var media: PostMedia
+    
+    var body: some View {
+        switch media.type {
+        case .image:
+            if media.url.contains(".gif") {
+                PostGifView(url: media.url, aspectRatio: media.width / media.height)
+            } else {
+                PostImageView(media: media)
+            }
+        case .video:
+            PostVideoView(url: media.url, aspectRatio: media.width / media.height)
+        case .linkOnly:
+            PostLinkView(url: media.url, thumbnailUrl: media.thumbnailUrl)
+        default:
             EmptyView()
         }
     }
@@ -134,24 +145,20 @@ struct PostMediaGallery: View {
                 if let firstPreview {
                     Grid(horizontalSpacing: 2) {
                         GridRow {
-                            if firstPreview.type == .image {
-                                PostImageView(media: firstPreview)
-                                    .aspectRatio(firstPreview.width / firstPreview.height, contentMode: .fill)
-                                    .gridCellColumns(media.count > 2 ? 2 : 1)
-                                    .clipShape(.rect(topLeadingRadius: 10, bottomLeadingRadius: 10, bottomTrailingRadius: 0, topTrailingRadius: 0))
-                            }
+                            InternalMediaViewSwitch(media: firstPreview)
+                                .aspectRatio(firstPreview.width / firstPreview.height, contentMode: .fill)
+                                .gridCellColumns(media.count > 2 ? 2 : 1)
+                                .clipShape(.rect(topLeadingRadius: 10, bottomLeadingRadius: 10, bottomTrailingRadius: 0, topTrailingRadius: 0))
                             
                             GeometryReader { reader in
                                 VStack(spacing: 0) {
                                     ForEach(nextTwoPreviews, id: \.url) { preview in
                                         let previewType = preview.type ?? .image
                                         let index = nextTwoPreviews.firstIndex(where: { $0.url == preview.url })
-                                        if previewType == .image {
-                                            PostImageView(media: preview)
-                                                .aspectRatio(preview.width / preview.height, contentMode: .fill)
-                                                .frame(height: reader.size.height / (media.count > 2 ? 2 : 1))
-                                                .clipShape(.rect(topLeadingRadius: 0, bottomLeadingRadius: 0, bottomTrailingRadius: media.count > 2 ? (index == 0 ? 0 : 10) : 10, topTrailingRadius: media.count > 2 ? (index == 1 ? 0 : 10) : 10))
-                                        }
+                                        InternalMediaViewSwitch(media: preview)
+                                            .aspectRatio(preview.width / preview.height, contentMode: .fill)
+                                            .frame(height: reader.size.height / (media.count > 2 ? 2 : 1))
+                                            .clipShape(.rect(topLeadingRadius: 0, bottomLeadingRadius: 0, bottomTrailingRadius: media.count > 2 ? (index == 0 ? 0 : 10) : 10, topTrailingRadius: media.count > 2 ? (index == 1 ? 0 : 10) : 10))
                                     }
                                 }
                                 .frame(height: reader.size.height)

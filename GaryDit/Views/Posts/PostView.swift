@@ -45,11 +45,11 @@ struct PostView: View {
                 
                 if let text = viewModel.post.postContent.textContent, text.isEmpty == false {
                     Text(text)
-                        .frame(maxWidth: .infinity, alignment: .leading)
                         .lineLimit(5)
                         .padding(.vertical, 0)
                         .foregroundStyle(.gray)
                         .opacity(0.8)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
             .padding(.horizontal, 8)
