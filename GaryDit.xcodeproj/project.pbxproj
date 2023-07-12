@@ -56,6 +56,7 @@
 		E2A1899E2A423C1000BE1E59 /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A1899D2A423C1000BE1E59 /* LinkView.swift */; };
 		E2A189A12A425F1900BE1E59 /* FLAnimatedImage in Frameworks */ = {isa = PBXBuildFile; productRef = E2A189A02A425F1900BE1E59 /* FLAnimatedImage */; };
 		E2A189A42A425F3800BE1E59 /* GIFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A189A32A425F3800BE1E59 /* GIFView.swift */; };
+		E2A293E32A5EBF77009052C3 /* ZoomableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A293E22A5EBF77009052C3 /* ZoomableScrollView.swift */; };
 		E2C1F7572A5B6D3300384A64 /* BackgroundCleanerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C1F7562A5B6D3300384A64 /* BackgroundCleanerView.swift */; };
 		E2D098942A58602700D05D13 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D098932A58602700D05D13 /* Post.swift */; };
 		E2D098962A5860DB00D05D13 /* PostFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D098952A5860DB00D05D13 /* PostFlags.swift */; };
@@ -132,6 +133,7 @@
 		E2949FD12A40CF75000669C2 /* RedditPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditPostViewModel.swift; sourceTree = "<group>"; };
 		E2A1899D2A423C1000BE1E59 /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
 		E2A189A32A425F3800BE1E59 /* GIFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFView.swift; sourceTree = "<group>"; };
+		E2A293E22A5EBF77009052C3 /* ZoomableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableScrollView.swift; sourceTree = "<group>"; };
 		E2C1F7562A5B6D3300384A64 /* BackgroundCleanerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundCleanerView.swift; sourceTree = "<group>"; };
 		E2D098932A58602700D05D13 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		E2D098952A5860DB00D05D13 /* PostFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFlags.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 			children = (
 				E26988CB2A3D169E004DE85B /* LottieView.swift */,
 				E2C1F7562A5B6D3300384A64 /* BackgroundCleanerView.swift */,
+				E2A293E22A5EBF77009052C3 /* ZoomableScrollView.swift */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -569,6 +572,7 @@
 				E27AC27A2A5B231E000B8737 /* DistinguishmentType.swift in Sources */,
 				E2949FCF2A40CDD5000669C2 /* URL+GaryDit.swift in Sources */,
 				E2949FB72A3F11F6000669C2 /* NavigationRoot.swift in Sources */,
+				E2A293E32A5EBF77009052C3 /* ZoomableScrollView.swift in Sources */,
 				E23EE10E2A43B3D900E03A45 /* VideoView.swift in Sources */,
 				E26988922A3D0A9F004DE85B /* GaryDitApp.swift in Sources */,
 				E23C853B2A5087A20070F81D /* SubredditViewModel.swift in Sources */,
