@@ -33,6 +33,7 @@ struct CachedImageView: View {
             if let image = self.uiImage {
                 Image(uiImage: image)
                     .resizable()
+                    .allowedDynamicRange(.high)
             } else {
                 ProgressView()
             }

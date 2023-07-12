@@ -19,7 +19,6 @@ public struct PostsPage: View {
             List {
                 ForEach(self.viewModel.posts, id: \.postId) { post in
                     PostView(post: post)
-                        .padding(.horizontal, 12)
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
@@ -49,12 +48,13 @@ public struct PostsPage: View {
                         .listRowSeparator(.hidden)
                 }
             }
+            .contentMargins([.horizontal], 12, for: .scrollContent)
             .scrollContentBackground(.hidden)
             .listStyle(.plain)
             .background(Color.layer1)
             .navigationTitle(self.viewModel.subredditName.isEmpty ? "Loading..." : self.viewModel.subredditName)
             .task {
-                self.viewModel.setSubredditName(to: "all", fetchPostsAutomatically: true)
+                self.viewModel.setSubredditName(to: "AMCirclejerk", fetchPostsAutomatically: true)
             }
             .refreshable {
                 await self.viewModel.resetAndFetchPosts()

@@ -12,6 +12,7 @@ public enum PostContentType: String, Codable {
     case textOnly = "textOnly"
     case image = "image"
     case video = "video"
+    case gif = "gif"
     case linkOnly = "linkOnly"
     case mediaGallery = "mediaGallery"
 }

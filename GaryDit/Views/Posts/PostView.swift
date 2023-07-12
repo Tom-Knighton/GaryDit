@@ -12,17 +12,22 @@ import VideoPlayer
 struct PostView: View {
     
     @Environment(SubredditViewModel.self) private var subreddit
-    @ObservedObject private var viewModel: RedditPostViewModel
+    @State private var viewModel: RedditPostViewModel
     @State private var togglePreview: Bool = false
     @State private var isPlayingMedia: Bool = false
-        
+    
+    @State private var presentMedia: Bool = false
+            
     init(post: Post) {
-        self.viewModel = RedditPostViewModel(post: post)
+        self._viewModel = State(initialValue: RedditPostViewModel(post: post))
     }
     
     var body: some View {
         VStack {
             PostTopMediaView(content: viewModel.post.postContent)
+                .onTapGesture {
+                    self.presentMedia = true
+                }
             
             VStack(alignment: .leading, spacing: 0) {
                 Text(viewModel.post.postTitle)
@@ -40,11 +45,11 @@ struct PostView: View {
                 
                 if let text = viewModel.post.postContent.textContent, text.isEmpty == false {
                     Text(text)
-                        .frame(maxWidth: .infinity, alignment: .leading)
                         .lineLimit(5)
                         .padding(.vertical, 0)
                         .foregroundStyle(.gray)
                         .opacity(0.8)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
             .padding(.horizontal, 8)
@@ -96,6 +101,12 @@ struct PostView: View {
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .padding(.vertical, 4)
         .shadow(radius: 3)
+        .fullScreenCover(isPresented: $presentMedia, content: {
+            MediaGalleryView()
+                .environment(viewModel)
+                .background(BackgroundCleanerView())
+        })
+      
     }
     
     @ViewBuilder
