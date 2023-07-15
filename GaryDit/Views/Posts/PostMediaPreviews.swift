@@ -153,7 +153,6 @@ struct PostMediaGallery: View {
                             GeometryReader { reader in
                                 VStack(spacing: 0) {
                                     ForEach(nextTwoPreviews, id: \.url) { preview in
-                                        let previewType = preview.type ?? .image
                                         let index = nextTwoPreviews.firstIndex(where: { $0.url == preview.url })
                                         InternalMediaViewSwitch(media: preview)
                                             .aspectRatio(preview.width / preview.height, contentMode: .fill)

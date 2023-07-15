@@ -159,7 +159,7 @@ extension MediaGalleryView {
     func dragAwayGesture(_ offset: GestureState<CGSize>) -> some Gesture {
         let gesture = DragGesture()
             .updating(offset) { value, outVal, _ in
-                guard self.currentZoomScale == 1 else {
+                guard self.currentZoomScale == 1, currentMediaViewModel?.isScrubbing == false else {
                     return
                 }
                 
