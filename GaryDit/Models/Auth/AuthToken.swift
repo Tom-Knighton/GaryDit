@@ -21,7 +21,7 @@ public struct AuthToken: Codable {
         let calendar = Calendar.current
         let date = calendar.date(byAdding: .second, value: 59, to: Date()) ?? Date()
         
-        var newToken: AuthToken = AuthToken(Token: oauth.accessToken, RefreshToken: oauth.refreshToken, ExpiryDate: date)
+        let newToken: AuthToken = AuthToken(Token: oauth.accessToken, RefreshToken: oauth.refreshToken, ExpiryDate: date)
         return newToken
     }
 }

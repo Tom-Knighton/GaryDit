@@ -29,7 +29,7 @@ struct ContentView: View {
             Task {
                 let authManager = AuthManager()
                 
-                if let token = try? await authManager.validToken() {
+                if let _ = try? await authManager.validToken() {
                     isLoggedIn = true
                 }
                 

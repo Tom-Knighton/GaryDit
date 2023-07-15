@@ -34,7 +34,6 @@ public actor KeychainManager {
         }
         
         do {
-            print(String(data: keychainData, encoding: .utf8))
             return try keychainData.decode(to: T.self)
         } catch {
             print("Deleting token as failed to decode")
@@ -82,8 +81,8 @@ public actor KeychainManager {
             return
         }
         
-        var keychainQueryDict: [String: Any] = setupKeychainQueryDictionary(forKey: key)
-        var updateDict = [SecValueData: dataRep]
+        let keychainQueryDict: [String: Any] = setupKeychainQueryDictionary(forKey: key)
+        let updateDict = [SecValueData: dataRep]
         
         let status: OSStatus = SecItemUpdate(keychainQueryDict as CFDictionary, updateDict as CFDictionary)
         

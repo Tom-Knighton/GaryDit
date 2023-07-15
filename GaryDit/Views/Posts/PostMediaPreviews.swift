@@ -85,7 +85,7 @@ struct PostVideoView: View {
     
     var body: some View {
         VStack{
-            PlayerView(url: url, isPlaying: $isPlayingMedia)
+            PlayerView(viewModel: VideoPlayerViewModel(url: url))
                 .aspectRatio(aspectRatio, contentMode: .fit)
                 .onAppear {
                     self.isPlayingMedia = true

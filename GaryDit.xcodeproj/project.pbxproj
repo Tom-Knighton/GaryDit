@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E21290272A5F55DC007D9068 /* MediaControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21290262A5F55DC007D9068 /* MediaControls.swift */; };
+		E212902B2A6057C9007D9068 /* VideoPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E212902A2A6057C8007D9068 /* VideoPlayerViewModel.swift */; };
 		E23C853B2A5087A20070F81D /* SubredditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C853A2A5087A20070F81D /* SubredditViewModel.swift */; };
 		E23C853D2A508EE10070F81D /* LogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C853C2A508EE10070F81D /* LogService.swift */; };
 		E23C85412A5188E50070F81D /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C85402A5188E50070F81D /* CacheService.swift */; };
@@ -17,6 +19,8 @@
 		E258D81B2A5AEE8B001D493D /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D81A2A5AEE8B001D493D /* Release.xcconfig */; };
 		E258D81C2A5AEE96001D493D /* Development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D8192A5AEE81001D493D /* Development.xcconfig */; };
 		E260D5852A485BF600A60839 /* VideoPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = E260D5842A485BF600A60839 /* VideoPlayer */; };
+		E267458F2A614E06009D3F82 /* Collection+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E267458E2A614E06009D3F82 /* Collection+GaryDit.swift */; };
+		E26745912A6153DD009D3F82 /* Binding+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26745902A6153DD009D3F82 /* Binding+GaryDit.swift */; };
 		E26988922A3D0A9F004DE85B /* GaryDitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988912A3D0A9F004DE85B /* GaryDitApp.swift */; };
 		E26988962A3D0A9F004DE85B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26988952A3D0A9F004DE85B /* ContentView.swift */; };
 		E26988982A3D0AA1004DE85B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E26988972A3D0AA1004DE85B /* Assets.xcassets */; };
@@ -83,6 +87,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E21290262A5F55DC007D9068 /* MediaControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaControls.swift; sourceTree = "<group>"; };
+		E212902A2A6057C8007D9068 /* VideoPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewModel.swift; sourceTree = "<group>"; };
 		E23C853A2A5087A20070F81D /* SubredditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubredditViewModel.swift; sourceTree = "<group>"; };
 		E23C853C2A508EE10070F81D /* LogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogService.swift; sourceTree = "<group>"; };
 		E23C85402A5188E50070F81D /* CacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
@@ -92,6 +98,8 @@
 		E258D8172A5AECC6001D493D /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
 		E258D8192A5AEE81001D493D /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		E258D81A2A5AEE8B001D493D /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		E267458E2A614E06009D3F82 /* Collection+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+GaryDit.swift"; sourceTree = "<group>"; };
+		E26745902A6153DD009D3F82 /* Binding+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+GaryDit.swift"; sourceTree = "<group>"; };
 		E269888E2A3D0A9F004DE85B /* GaryDit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GaryDit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E26988912A3D0A9F004DE85B /* GaryDitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaryDitApp.swift; sourceTree = "<group>"; };
 		E26988952A3D0A9F004DE85B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -342,6 +350,8 @@
 				E2949FC92A40C084000669C2 /* Double+GaryDit.swift */,
 				E2949FCE2A40CDD5000669C2 /* URL+GaryDit.swift */,
 				E2D098992A586ADA00D05D13 /* Date+GaryDit.swift */,
+				E267458E2A614E06009D3F82 /* Collection+GaryDit.swift */,
+				E26745902A6153DD009D3F82 /* Binding+GaryDit.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -403,6 +413,7 @@
 			children = (
 				E2949FD12A40CF75000669C2 /* RedditPostViewModel.swift */,
 				E23C853A2A5087A20070F81D /* SubredditViewModel.swift */,
+				E212902A2A6057C8007D9068 /* VideoPlayerViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -414,6 +425,7 @@
 				E23EE10D2A43B3D900E03A45 /* VideoView.swift */,
 				E258D8112A59DA1A001D493D /* CachedImage.swift */,
 				E27AC27B2A5B4D8B000B8737 /* MediaGalleryView.swift */,
+				E21290262A5F55DC007D9068 /* MediaControls.swift */,
 			);
 			path = Media;
 			sourceTree = "<group>";
@@ -564,6 +576,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E212902B2A6057C9007D9068 /* VideoPlayerViewModel.swift in Sources */,
 				E2949FAC2A3DC8A3000669C2 /* KeychainManager.swift in Sources */,
 				E2D0989A2A586ADA00D05D13 /* Date+GaryDit.swift in Sources */,
 				E2949FCA2A40C084000669C2 /* Double+GaryDit.swift in Sources */,
@@ -572,6 +585,7 @@
 				E27AC27A2A5B231E000B8737 /* DistinguishmentType.swift in Sources */,
 				E2949FCF2A40CDD5000669C2 /* URL+GaryDit.swift in Sources */,
 				E2949FB72A3F11F6000669C2 /* NavigationRoot.swift in Sources */,
+				E26745912A6153DD009D3F82 /* Binding+GaryDit.swift in Sources */,
 				E2A293E32A5EBF77009052C3 /* ZoomableScrollView.swift in Sources */,
 				E23EE10E2A43B3D900E03A45 /* VideoView.swift in Sources */,
 				E26988922A3D0A9F004DE85B /* GaryDitApp.swift in Sources */,
@@ -598,12 +612,14 @@
 				E2949FAA2A3DBF97000669C2 /* APIClient.swift in Sources */,
 				E2949FB52A3DE873000669C2 /* Color+GaryDit.swift in Sources */,
 				E2949FC62A409EE0000669C2 /* ShimViewController.swift in Sources */,
+				E21290272A5F55DC007D9068 /* MediaControls.swift in Sources */,
 				E2C1F7572A5B6D3300384A64 /* BackgroundCleanerView.swift in Sources */,
 				E26988C52A3D0F2E004DE85B /* LandingPage.swift in Sources */,
 				E2A189A42A425F3800BE1E59 /* GIFView.swift in Sources */,
 				E2A1899E2A423C1000BE1E59 /* LinkView.swift in Sources */,
 				E23C853D2A508EE10070F81D /* LogService.swift in Sources */,
 				E2D098982A58617000D05D13 /* PostContent.swift in Sources */,
+				E267458F2A614E06009D3F82 /* Collection+GaryDit.swift in Sources */,
 				E23C85432A51B8E70070F81D /* NoMorePostsView.swift in Sources */,
 				E26988CC2A3D169E004DE85B /* LottieView.swift in Sources */,
 				E258D8122A59DA1A001D493D /* CachedImage.swift in Sources */,

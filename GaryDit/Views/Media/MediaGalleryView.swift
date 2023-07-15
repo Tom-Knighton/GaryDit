@@ -19,9 +19,36 @@ struct MediaGalleryView: View {
     @State private var bgOpacity: Double = 1
     @State private var entireOpacity: Double = 1
     
-    @State private var isPlaying = true
+    @State private var videoViewModels: [VideoPlayerViewModel] = []
+    @State private var currentMediaViewModel: VideoPlayerViewModel? = nil
+    @State private var tabSelectedIndex: Int = 0
+    @State private var draggingThumbnail: UIImage? = nil
     
+    init() {}
+    
+    init(videoViewModel: VideoPlayerViewModel) {
+        currentMediaViewModel = videoViewModel
+    }
+    
+    private func setupMediaViewModels(withExistingVM: VideoPlayerViewModel? = nil) {
+        let mediaToCreateFor = postModel.post.postContent.media.filter { $0.type == .video }
+        for media in mediaToCreateFor {
+            if let vm = withExistingVM, media.url == vm.url {
+                videoViewModels.append(vm)
+            } else {
+                videoViewModels.append(VideoPlayerViewModel(url: media.url))
+            }
+        }
+    }
+    
+    private func getMediaModelForUrl(_ url: String) -> VideoPlayerViewModel? {
+        if let vm = self.videoViewModels.first(where: { $0.url == url }) {
+            return vm
+        }
         
+        return nil
+    }
+    
     var doubleTapGesture: some Gesture {
         TapGesture(count: 2).onEnded {
             withAnimation(.easeInOut(duration: 1)) {
@@ -29,7 +56,6 @@ struct MediaGalleryView: View {
             }
         }
     }
-        
     
     var body: some View {
         ZStack {
@@ -38,7 +64,7 @@ struct MediaGalleryView: View {
                 .ignoresSafeArea()
             
             GeometryReader { reader in
-                TabView {
+                TabView(selection: $tabSelectedIndex) {
                     ForEach(self.postModel.post.postContent.media, id: \.url) { media in
                         ZStack {
                             switch media.type ?? .image {
@@ -50,16 +76,23 @@ struct MediaGalleryView: View {
                                 .gesture(doubleTapGesture)
                             case .gif:
                                 ZoomableScrollView(scale: $currentZoomScale, maxZoom: maxZoomScale) {
-                                    GIFView(url: media.url, isPlaying: $isPlaying)
+                                    GIFView(url: media.url, isPlaying: .constant(true))
                                         .aspectRatio(media.width / media.height, contentMode: .fit)
                                         .border(.red)
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .gesture(doubleTapGesture)
                             case .video:
-                                ZoomableScrollView(scale: $currentZoomScale, maxZoom: maxZoomScale) {
-                                    PlayerView(url: media.url, isPlaying: $isPlaying)
-                                        .aspectRatio(media.width / media.height, contentMode: .fit)
+                                ZStack {
+                                    ZoomableScrollView(scale: $currentZoomScale, maxZoom: maxZoomScale) {
+                                        PlayerView(viewModel: getMediaModelForUrl(media.url) ?? VideoPlayerViewModel(url: media.url))
+                                            .aspectRatio(media.width / media.height, contentMode: .fit)
+                                    }
+                                    if let image = self.draggingThumbnail {
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .aspectRatio(media.width / media.height, contentMode: .fit)
+                                    }
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .gesture(doubleTapGesture)
@@ -69,6 +102,7 @@ struct MediaGalleryView: View {
                             }
                         }
                         .offset(draggingOffset)
+                        .tag(self.postModel.post.postContent.media.firstIndex(where: { $0.url == media.url }) ?? -1)
                     }
                 }
                 .tabViewStyle(.page)
@@ -92,9 +126,25 @@ struct MediaGalleryView: View {
                 Spacer()
             }
             .opacity(bgOpacity)
+            
+            MediaControlsView(mediaViewModel: $currentMediaViewModel ?? VideoPlayerViewModel(url: ""), previewImage: $draggingThumbnail)
+                .opacity(bgOpacity)
         }
         .opacity(entireOpacity)
         .simultaneousGesture(dragAwayGesture($draggingOffset))
+        .onAppear {
+            self.setupMediaViewModels(withExistingVM: currentMediaViewModel)
+            if self.currentMediaViewModel == nil, let url =  postModel.post.postContent.media[safe: tabSelectedIndex]?.url,
+               let vm = videoViewModels.first(where: { $0.url == url }) {
+                
+                self.currentMediaViewModel = vm
+            }
+        }
+        .onChange(of: self.tabSelectedIndex) {
+            if let url = postModel.post.postContent.media[safe: tabSelectedIndex]?.url, let vm = videoViewModels.first(where: { $0.url == url }) {
+                self.currentMediaViewModel = vm
+            }
+        }
     }
 }
 
@@ -104,6 +154,12 @@ extension MediaGalleryView {
             .updating(offset) { value, outVal, _ in
                 guard self.currentZoomScale == 1 else {
                     return
+                }
+                
+                switch(value.translation.width, value.translation.height) {
+                    case (...0, -30...30): return //left swipe
+                    case (0..., -30...30): return //right swipe
+                    default: break
                 }
                 
                 outVal = value.translation
@@ -142,5 +198,4 @@ extension MediaGalleryView {
         
         return gesture
     }
-
 }
