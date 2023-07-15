@@ -22,8 +22,31 @@ struct MediaControlsView: View {
         VStack {
             Spacer()
             
-            VStack {
-                Text(String(describing: progress))
+            VStack(spacing: 16) {
+                HStack(spacing: 16) {
+                    
+                    Button(action: { mediaViewModel.skip(seconds: -10) }) {
+                        Image(systemName: "gobackward.10")
+                            .resizable()
+                            .frame(width: 22, height: 24)
+                    }
+                    .tint(.white)
+                    
+                    Button(action: { self.mediaViewModel.setIsPlaying(!self.mediaViewModel.isPlaying) }) {
+                        Image(systemName: self.mediaViewModel.isPlaying ? "pause.fill" : "play.fill")
+                            .resizable()
+                            .frame(width: 18, height: 24)
+                    }
+                    .tint(.white)
+                    .contentTransition(.symbolEffect(.replace))
+                    
+                    Button(action: { mediaViewModel.skip(seconds: 10)}) {
+                        Image(systemName: "goforward.10")
+                            .resizable()
+                            .frame(width: 22, height: 24)
+                    }
+                    .tint(.white)
+                }
                 HStack {
                     Slider(value: $progress, in: 0...1, step: 0.01) { editing in
                         self.mediaViewModel.avPlayer?.pause()
@@ -48,7 +71,7 @@ struct MediaControlsView: View {
             }
             .padding()
             .frame(maxWidth: .infinity)
-            .background(Material.ultraThick.opacity(0.8))
+            .background(Material.regular.opacity(0.8))
             .clipShape(.rect(cornerRadius: 15))
             .shadow(radius: 3)
             .environment(\.colorScheme, .dark)
@@ -66,11 +89,11 @@ struct MediaControlsView: View {
 }
 
 
-
-#Preview {
-    @State var viewModel = RedditPostViewModel(post: Post(postId: "1", postAuthour: "Banging_Bananas", postSubreddit: "Test", postTitle: "A video!", postScore: 1, postCreatedAt: Date(), postEditedAt: nil, postFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, distinguishmentType: .none), postContent: PostContent(contentType: .video, textContent: nil, media: [PostMedia(url: "https://i.imgur.com/VDBaX2B.mp4", thumbnailUrl: nil, height: 250, width: 500, type: .video)])))
-    
-    return MediaGalleryView()
-        .environment(viewModel)
-        .background(BackgroundCleanerView())
-}
+//
+//#Preview {
+//    @State var viewModel = RedditPostViewModel(post: Post(postId: "1", postAuthour: "Banging_Bananas", postSubreddit: "Test", postTitle: "A video!", postScore: 1, postCreatedAt: Date(), postEditedAt: nil, postFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, distinguishmentType: .none), postContent: PostContent(contentType: .video, textContent: nil, media: [PostMedia(url: "https://i.imgur.com/VDBaX2B.mp4", thumbnailUrl: nil, height: 250, width: 500, type: .video)])))
+//    
+//    return MediaGalleryView()
+//        .environment(viewModel)
+//        .background(BackgroundCleanerView())
+//}

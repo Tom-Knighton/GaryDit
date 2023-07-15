@@ -67,12 +67,12 @@ class PlayerUIView: UIView {
     
     private func setup(gravity: PlayerViewGravity = .fit) async throws {
         Task.detached(priority: .userInitiated) {
-            guard let url = await URL(string: self.vm.url) else {
+            guard let url = await URL(string: self.vm.media.url) else {
                 throw URLError(.badURL)
             }
             
             if let player = await self.vm.avPlayer {
-                print("Existing player for \(await self.vm.url)")
+                print("Existing player for \(await self.vm.media.url)")
                 try? AVAudioSession.sharedInstance().setCategory(.ambient, options: [])
                 await self.layoutAVPlayer(player: player, gravity: gravity)
                 return
@@ -137,7 +137,6 @@ struct PlayerView: UIViewRepresentable {
         
         func updateAvPlayer(_ av: AVPlayer) {
             viewModel.setAvPlayer(av)
-            print("updated av player for \(viewModel.url)")
         }
     }
     
@@ -146,7 +145,6 @@ struct PlayerView: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> PlayerUIView {
-        print("makeui for " + self.viewModel.url)
         let view = PlayerUIView(viewModel: self.viewModel, gravity: .fit, isPlaying: true)
         view.delegate = context.coordinator
         return view

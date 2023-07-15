@@ -33,16 +33,16 @@ struct MediaGalleryView: View {
     private func setupMediaViewModels(withExistingVM: VideoPlayerViewModel? = nil) {
         let mediaToCreateFor = postModel.post.postContent.media.filter { $0.type == .video }
         for media in mediaToCreateFor {
-            if let vm = withExistingVM, media.url == vm.url {
+            if let vm = withExistingVM, media.url == vm.media.url {
                 videoViewModels.append(vm)
             } else {
-                videoViewModels.append(VideoPlayerViewModel(url: media.url))
+                videoViewModels.append(VideoPlayerViewModel(media: media))
             }
         }
     }
     
     private func getMediaModelForUrl(_ url: String) -> VideoPlayerViewModel? {
-        if let vm = self.videoViewModels.first(where: { $0.url == url }) {
+        if let vm = self.videoViewModels.first(where: { $0.media.url == url }) {
             return vm
         }
         
@@ -85,14 +85,19 @@ struct MediaGalleryView: View {
                             case .video:
                                 ZStack {
                                     ZoomableScrollView(scale: $currentZoomScale, maxZoom: maxZoomScale) {
-                                        PlayerView(viewModel: getMediaModelForUrl(media.url) ?? VideoPlayerViewModel(url: media.url))
+                                        PlayerView(viewModel: getMediaModelForUrl(media.url) ?? VideoPlayerViewModel(media: media))
                                             .aspectRatio(media.width / media.height, contentMode: .fit)
+                                            .overlay(
+                                                ZStack {
+                                                    if let image = self.draggingThumbnail {
+                                                        Image(uiImage: image)
+                                                            .resizable()
+                                                            .aspectRatio(media.width / media.height, contentMode: .fit)
+                                                    }
+                                                }
+                                            )
                                     }
-                                    if let image = self.draggingThumbnail {
-                                        Image(uiImage: image)
-                                            .resizable()
-                                            .aspectRatio(media.width / media.height, contentMode: .fit)
-                                    }
+                                    
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .gesture(doubleTapGesture)
@@ -127,21 +132,23 @@ struct MediaGalleryView: View {
             }
             .opacity(bgOpacity)
             
-            MediaControlsView(mediaViewModel: $currentMediaViewModel ?? VideoPlayerViewModel(url: ""), previewImage: $draggingThumbnail)
-                .opacity(bgOpacity)
+            if let binding = Binding<VideoPlayerViewModel>($currentMediaViewModel) {
+                MediaControlsView(mediaViewModel: binding, previewImage: $draggingThumbnail)
+                    .opacity(bgOpacity)
+            }
         }
         .opacity(entireOpacity)
         .simultaneousGesture(dragAwayGesture($draggingOffset))
         .onAppear {
             self.setupMediaViewModels(withExistingVM: currentMediaViewModel)
             if self.currentMediaViewModel == nil, let url =  postModel.post.postContent.media[safe: tabSelectedIndex]?.url,
-               let vm = videoViewModels.first(where: { $0.url == url }) {
+               let vm = videoViewModels.first(where: { $0.media.url == url }) {
                 
                 self.currentMediaViewModel = vm
             }
         }
         .onChange(of: self.tabSelectedIndex) {
-            if let url = postModel.post.postContent.media[safe: tabSelectedIndex]?.url, let vm = videoViewModels.first(where: { $0.url == url }) {
+            if let url = postModel.post.postContent.media[safe: tabSelectedIndex]?.url, let vm = videoViewModels.first(where: { $0.media.url == url }) {
                 self.currentMediaViewModel = vm
             }
         }

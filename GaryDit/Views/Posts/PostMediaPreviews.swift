@@ -38,7 +38,7 @@ struct InternalMediaViewSwitch: View {
                 PostImageView(media: media)
             }
         case .video:
-            PostVideoView(url: media.url, aspectRatio: media.width / media.height)
+            PostVideoView(media: media, aspectRatio: media.width / media.height)
         case .linkOnly:
             PostLinkView(url: media.url, thumbnailUrl: media.thumbnailUrl)
         default:
@@ -75,17 +75,17 @@ struct PostGifView: View {
 
 struct PostVideoView: View {
     @State private var isPlayingMedia = false
-    let url: String
+    let media: PostMedia
     let aspectRatio: Double
     
-    init(url: String, aspectRatio: Double = 1) {
-        self.url = url
+    init(media: PostMedia, aspectRatio: Double = 1) {
+        self.media = media
         self.aspectRatio = aspectRatio
     }
     
     var body: some View {
         VStack{
-            PlayerView(viewModel: VideoPlayerViewModel(url: url))
+            PlayerView(viewModel: VideoPlayerViewModel(media: media))
                 .aspectRatio(aspectRatio, contentMode: .fit)
                 .onAppear {
                     self.isPlayingMedia = true
@@ -138,7 +138,7 @@ struct PostMediaGallery: View {
             if firstPreview.type == .image {
                 PostImageView(media: firstPreview)
             } else {
-                PostVideoView(url: firstPreview.url, aspectRatio: firstPreview.width / firstPreview.height)
+                PostVideoView(media: firstPreview, aspectRatio: firstPreview.width / firstPreview.height)
             }
         } else {
             ZStack(alignment: .topLeading) {
