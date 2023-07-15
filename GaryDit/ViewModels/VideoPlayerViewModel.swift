@@ -17,14 +17,25 @@ class VideoPlayerViewModel {
     
     public var media: PostMedia
     @ObservationIgnored public var avPlayer: AVPlayer?
-    public var currentTime: Double = 0
     public var currentProgress: Double = 0
     public var isPlaying: Bool = false
     public var thumbnailFrames: [UIImage] = []
+    public var isScrubbing: Bool = false
+    public var mediaDuration: Double = 0
+    
+    public var mediaTimePlayed: Double {
+        return currentTime
+    }
+    
+    public var mediaTimeLeft: Double {
+        return Double(max(0, (Int(self.avPlayer?.currentItem?.duration.seconds ?? 0)) - Int(mediaTimePlayed)))
+    }
 
     private var timeObserver: Any?
     private var pauseCancellable: AnyCancellable?
     private var hasTriedThumbnails = false
+    
+    private var currentTime: Double = 0
     
     
     init(media: PostMedia) {
@@ -49,6 +60,7 @@ class VideoPlayerViewModel {
             if self?.hasTriedThumbnails == false {
                 self?.hasTriedThumbnails = true
                 self?.generateThumbnails()
+                self?.mediaDuration = self?.avPlayer?.currentItem?.duration.seconds ?? 0
             }
             
             self?.currentTime = time.seconds
