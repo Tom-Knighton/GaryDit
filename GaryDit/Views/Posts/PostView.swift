@@ -16,7 +16,7 @@ struct PostView: View {
     @State private var togglePreview: Bool = false
     @State private var isPlayingMedia: Bool = false
     
-    @State private var presentMedia: Bool = false
+    @State private var presentMediaUrl: String? = nil
             
     init(post: Post) {
         self._viewModel = State(initialValue: RedditPostViewModel(post: post))
@@ -24,10 +24,7 @@ struct PostView: View {
     
     var body: some View {
         VStack {
-            PostTopMediaView(content: viewModel.post.postContent)
-                .onTapGesture {
-                    self.presentMedia = true
-                }
+            PostTopMediaView(showMediaUrl: $presentMediaUrl, content: viewModel.post.postContent)
             
             VStack(alignment: .leading, spacing: 0) {
                 Text(viewModel.post.postTitle)
@@ -101,12 +98,11 @@ struct PostView: View {
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .padding(.vertical, 4)
         .shadow(radius: 3)
-        .fullScreenCover(isPresented: $presentMedia, content: {
-            MediaGalleryView()
+        .fullScreenCover(item: $presentMediaUrl, content: { index in
+            MediaGalleryView(selectedMediaUrl: index)
                 .environment(viewModel)
                 .background(BackgroundCleanerView())
         })
-      
     }
     
     @ViewBuilder

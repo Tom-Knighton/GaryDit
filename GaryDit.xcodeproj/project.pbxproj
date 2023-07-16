@@ -10,6 +10,7 @@
 		E21290272A5F55DC007D9068 /* MediaControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21290262A5F55DC007D9068 /* MediaControls.swift */; };
 		E212902B2A6057C9007D9068 /* VideoPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E212902A2A6057C8007D9068 /* VideoPlayerViewModel.swift */; };
 		E221C3AE2A63E3A900EBFC51 /* HapticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E221C3AD2A63E3A900EBFC51 /* HapticService.swift */; };
+		E221C3B02A63F2FD00EBFC51 /* String+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E221C3AF2A63F2FD00EBFC51 /* String+GaryDit.swift */; };
 		E23C853B2A5087A20070F81D /* SubredditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C853A2A5087A20070F81D /* SubredditViewModel.swift */; };
 		E23C853D2A508EE10070F81D /* LogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C853C2A508EE10070F81D /* LogService.swift */; };
 		E23C85412A5188E50070F81D /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C85402A5188E50070F81D /* CacheService.swift */; };
@@ -91,6 +92,7 @@
 		E21290262A5F55DC007D9068 /* MediaControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaControls.swift; sourceTree = "<group>"; };
 		E212902A2A6057C8007D9068 /* VideoPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewModel.swift; sourceTree = "<group>"; };
 		E221C3AD2A63E3A900EBFC51 /* HapticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticService.swift; sourceTree = "<group>"; };
+		E221C3AF2A63F2FD00EBFC51 /* String+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+GaryDit.swift"; sourceTree = "<group>"; };
 		E23C853A2A5087A20070F81D /* SubredditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubredditViewModel.swift; sourceTree = "<group>"; };
 		E23C853C2A508EE10070F81D /* LogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogService.swift; sourceTree = "<group>"; };
 		E23C85402A5188E50070F81D /* CacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 				E2D098992A586ADA00D05D13 /* Date+GaryDit.swift */,
 				E267458E2A614E06009D3F82 /* Collection+GaryDit.swift */,
 				E26745902A6153DD009D3F82 /* Binding+GaryDit.swift */,
+				E221C3AF2A63F2FD00EBFC51 /* String+GaryDit.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -624,6 +627,7 @@
 				E23C853D2A508EE10070F81D /* LogService.swift in Sources */,
 				E2D098982A58617000D05D13 /* PostContent.swift in Sources */,
 				E267458F2A614E06009D3F82 /* Collection+GaryDit.swift in Sources */,
+				E221C3B02A63F2FD00EBFC51 /* String+GaryDit.swift in Sources */,
 				E23C85432A51B8E70070F81D /* NoMorePostsView.swift in Sources */,
 				E26988CC2A3D169E004DE85B /* LottieView.swift in Sources */,
 				E258D8122A59DA1A001D493D /* CachedImage.swift in Sources */,

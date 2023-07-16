@@ -56,32 +56,34 @@ struct LinkView: View {
         }
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .task {
-            if !self.fetchMetadata {
-                return
-            }
-            
-            if let cached = self.cache.get(urlString) {
-                self.metadata = cached
-            } else {
-                guard let url = URL(string: urlString) else {
+            Task.detached {
+                if !self.fetchMetadata {
                     return
                 }
                 
-                let provider = LPMetadataProvider()
-                let metadata = try? await provider.startFetchingMetadata(for: url)
-                cache.set(metadata, forKey: urlString)
-                self.metadata = metadata
-            }
-            
-            if let imageCached = self.imageDataCache.get(urlString) {
-                self.imageData = imageCached
-            } else {
-                let _ = metadata?.imageProvider?.loadDataRepresentation(for: UTType.image, completionHandler: { data, error in
-                    if let data {
-                        self.imageData = data
-                        self.imageDataCache.set(data, forKey: urlString)
+                if let cached = self.cache.get(urlString) {
+                    self.metadata = cached
+                } else {
+                    guard let url = URL(string: urlString) else {
+                        return
                     }
-                })
+                    
+                    let provider = LPMetadataProvider()
+                    let metadata = try? await provider.startFetchingMetadata(for: url)
+                    cache.set(metadata, forKey: urlString)
+                    self.metadata = metadata
+                }
+                
+                if let imageCached = self.imageDataCache.get(urlString) {
+                    self.imageData = imageCached
+                } else {
+                    let _ = metadata?.imageProvider?.loadDataRepresentation(for: UTType.image, completionHandler: { data, error in
+                        if let data {
+                            self.imageData = data
+                            self.imageDataCache.set(data, forKey: urlString)
+                        }
+                    })
+                }
             }
         }
     }

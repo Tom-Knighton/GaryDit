@@ -9,15 +9,20 @@ import SwiftUI
 
 struct PostTopMediaView: View {
     
+    @State private var mediaViewModel: VideoPlayerViewModel?
+    @Binding var showMediaUrl: String?
     var content: PostContent
     
     var body: some View {
         let media = content.media
         if let first = media.first {
             if content.contentType == .mediaGallery {
-                PostMediaGallery(media: media)
+                PostMediaGallery(showMediaUrl: $showMediaUrl, media: media)
             } else {
                 InternalMediaViewSwitch(media: first)
+                    .onTapGesture {
+                        self.showMediaUrl = first.url
+                    }
             }
         } else {
             EmptyView()
@@ -74,6 +79,7 @@ struct PostGifView: View {
 }
 
 struct PostVideoView: View {
+    @State private var videoViewModel: VideoPlayerViewModel
     @State private var isPlayingMedia = false
     let media: PostMedia
     let aspectRatio: Double
@@ -81,11 +87,12 @@ struct PostVideoView: View {
     init(media: PostMedia, aspectRatio: Double = 1) {
         self.media = media
         self.aspectRatio = aspectRatio
+        self._videoViewModel = State(initialValue: VideoPlayerViewModel(media: media))
     }
     
     var body: some View {
         VStack{
-            PlayerView(viewModel: VideoPlayerViewModel(media: media))
+            PlayerView(viewModel: videoViewModel)
                 .aspectRatio(aspectRatio, contentMode: .fit)
                 .onAppear {
                     self.isPlayingMedia = true
@@ -128,6 +135,7 @@ struct PostLinkView: View {
 
 struct PostMediaGallery: View {
     
+    @Binding var showMediaUrl: String?
     let media: [PostMedia]
     
     var body: some View {
@@ -135,11 +143,17 @@ struct PostMediaGallery: View {
         let nextTwoPreviews = Array(media.dropFirst().prefix(2))
         
         if let firstPreview, nextTwoPreviews.isEmpty {
-            if firstPreview.type == .image {
-                PostImageView(media: firstPreview)
-            } else {
-                PostVideoView(media: firstPreview, aspectRatio: firstPreview.width / firstPreview.height)
+            ZStack {
+                if firstPreview.type == .image {
+                    PostImageView(media: firstPreview)
+                } else {
+                    PostVideoView(media: firstPreview, aspectRatio: firstPreview.width / firstPreview.height)
+                }
             }
+            .onTapGesture {
+                self.showMediaUrl = firstPreview.url
+            }
+            
         } else {
             ZStack(alignment: .topLeading) {
                 if let firstPreview {
@@ -149,7 +163,9 @@ struct PostMediaGallery: View {
                                 .aspectRatio(firstPreview.width / firstPreview.height, contentMode: .fill)
                                 .gridCellColumns(media.count > 2 ? 2 : 1)
                                 .clipShape(.rect(topLeadingRadius: 10, bottomLeadingRadius: 10, bottomTrailingRadius: 0, topTrailingRadius: 0))
-                            
+                                .onTapGesture {
+                                    self.showMediaUrl = firstPreview.url
+                                }
                             GeometryReader { reader in
                                 VStack(spacing: 0) {
                                     ForEach(nextTwoPreviews, id: \.url) { preview in
@@ -158,6 +174,9 @@ struct PostMediaGallery: View {
                                             .aspectRatio(preview.width / preview.height, contentMode: .fill)
                                             .frame(height: reader.size.height / (media.count > 2 ? 2 : 1))
                                             .clipShape(.rect(topLeadingRadius: 0, bottomLeadingRadius: 0, bottomTrailingRadius: media.count > 2 ? (index == 0 ? 0 : 10) : 10, topTrailingRadius: media.count > 2 ? (index == 1 ? 0 : 10) : 10))
+                                            .onTapGesture {
+                                                self.showMediaUrl = preview.url
+                                            }
                                     }
                                 }
                                 .frame(height: reader.size.height)

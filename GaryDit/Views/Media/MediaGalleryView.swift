@@ -21,12 +21,15 @@ struct MediaGalleryView: View {
     
     @State private var videoViewModels: [VideoPlayerViewModel] = []
     @State private var currentMediaViewModel: VideoPlayerViewModel? = nil
-    @State private var tabSelectedIndex: Int = 0
+    @State private var tabSelectedIndex: String = ""
     @State private var draggingThumbnail: UIImage? = nil
     
-    init() {}
+    init(selectedMediaUrl: String) {
+        _tabSelectedIndex = State(initialValue: selectedMediaUrl)
+    }
     
-    init(videoViewModel: VideoPlayerViewModel) {
+    init(selectedMediaUrl: String, videoViewModel: VideoPlayerViewModel) {
+        _tabSelectedIndex = State(initialValue: selectedMediaUrl)
         currentMediaViewModel = videoViewModel
     }
     
@@ -108,7 +111,7 @@ struct MediaGalleryView: View {
                             }
                         }
                         .offset(draggingOffset)
-                        .tag(self.postModel.post.postContent.media.firstIndex(where: { $0.url == media.url }) ?? -1)
+                        .tag(media.url)
                     }
                 }
                 .tabViewStyle(.page)
@@ -142,16 +145,14 @@ struct MediaGalleryView: View {
         .simultaneousGesture(dragAwayGesture($draggingOffset))
         .onAppear {
             self.setupMediaViewModels(withExistingVM: currentMediaViewModel)
-            if self.currentMediaViewModel == nil, let url =  postModel.post.postContent.media[safe: tabSelectedIndex]?.url {
-                let vm = videoViewModels.first(where: { $0.media.url == url })
+            if self.currentMediaViewModel == nil {
+                let vm = videoViewModels.first(where: { $0.media.url == self.tabSelectedIndex })
                 self.currentMediaViewModel = vm
             }
         }
         .onChange(of: self.tabSelectedIndex) {
-            if let url = postModel.post.postContent.media[safe: tabSelectedIndex]?.url {
-                let vm = videoViewModels.first(where: { $0.media.url == url })
-                self.currentMediaViewModel = vm
-            }
+            let vm = videoViewModels.first(where: { $0.media.url == tabSelectedIndex })
+            self.currentMediaViewModel = vm
         }
     }
 }
