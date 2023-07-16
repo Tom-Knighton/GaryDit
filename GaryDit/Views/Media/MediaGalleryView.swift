@@ -73,6 +73,7 @@ struct MediaGalleryView: View {
                                     CachedImageView(url: media.url)
                                         .scaledToFit()
                                 }
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .gesture(doubleTapGesture)
                             case .gif:
                                 ZoomableScrollView(scale: $currentZoomScale, maxZoom: maxZoomScale) {
@@ -141,14 +142,14 @@ struct MediaGalleryView: View {
         .simultaneousGesture(dragAwayGesture($draggingOffset))
         .onAppear {
             self.setupMediaViewModels(withExistingVM: currentMediaViewModel)
-            if self.currentMediaViewModel == nil, let url =  postModel.post.postContent.media[safe: tabSelectedIndex]?.url,
-               let vm = videoViewModels.first(where: { $0.media.url == url }) {
-                
+            if self.currentMediaViewModel == nil, let url =  postModel.post.postContent.media[safe: tabSelectedIndex]?.url {
+                let vm = videoViewModels.first(where: { $0.media.url == url })
                 self.currentMediaViewModel = vm
             }
         }
         .onChange(of: self.tabSelectedIndex) {
-            if let url = postModel.post.postContent.media[safe: tabSelectedIndex]?.url, let vm = videoViewModels.first(where: { $0.media.url == url }) {
+            if let url = postModel.post.postContent.media[safe: tabSelectedIndex]?.url {
+                let vm = videoViewModels.first(where: { $0.media.url == url })
                 self.currentMediaViewModel = vm
             }
         }
@@ -159,7 +160,7 @@ extension MediaGalleryView {
     func dragAwayGesture(_ offset: GestureState<CGSize>) -> some Gesture {
         let gesture = DragGesture()
             .updating(offset) { value, outVal, _ in
-                guard self.currentZoomScale == 1, currentMediaViewModel?.isScrubbing == false else {
+                guard self.currentZoomScale == 1, (currentMediaViewModel?.isScrubbing ?? false) == false else {
                     return
                 }
                 
