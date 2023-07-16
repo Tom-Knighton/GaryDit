@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E21290272A5F55DC007D9068 /* MediaControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21290262A5F55DC007D9068 /* MediaControls.swift */; };
 		E212902B2A6057C9007D9068 /* VideoPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E212902A2A6057C8007D9068 /* VideoPlayerViewModel.swift */; };
+		E221C3AE2A63E3A900EBFC51 /* HapticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E221C3AD2A63E3A900EBFC51 /* HapticService.swift */; };
 		E23C853B2A5087A20070F81D /* SubredditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C853A2A5087A20070F81D /* SubredditViewModel.swift */; };
 		E23C853D2A508EE10070F81D /* LogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C853C2A508EE10070F81D /* LogService.swift */; };
 		E23C85412A5188E50070F81D /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C85402A5188E50070F81D /* CacheService.swift */; };
@@ -89,6 +90,7 @@
 /* Begin PBXFileReference section */
 		E21290262A5F55DC007D9068 /* MediaControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaControls.swift; sourceTree = "<group>"; };
 		E212902A2A6057C8007D9068 /* VideoPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewModel.swift; sourceTree = "<group>"; };
+		E221C3AD2A63E3A900EBFC51 /* HapticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticService.swift; sourceTree = "<group>"; };
 		E23C853A2A5087A20070F81D /* SubredditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubredditViewModel.swift; sourceTree = "<group>"; };
 		E23C853C2A508EE10070F81D /* LogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogService.swift; sourceTree = "<group>"; };
 		E23C85402A5188E50070F81D /* CacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 				E2949FBA2A3F1C05000669C2 /* SubredditService.swift */,
 				E23C853C2A508EE10070F81D /* LogService.swift */,
 				E23C85402A5188E50070F81D /* CacheService.swift */,
+				E221C3AD2A63E3A900EBFC51 /* HapticService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -584,6 +587,7 @@
 				E26988DD2A3DB53D004DE85B /* Codable+GaryDit.swift in Sources */,
 				E27AC27A2A5B231E000B8737 /* DistinguishmentType.swift in Sources */,
 				E2949FCF2A40CDD5000669C2 /* URL+GaryDit.swift in Sources */,
+				E221C3AE2A63E3A900EBFC51 /* HapticService.swift in Sources */,
 				E2949FB72A3F11F6000669C2 /* NavigationRoot.swift in Sources */,
 				E26745912A6153DD009D3F82 /* Binding+GaryDit.swift in Sources */,
 				E2A293E32A5EBF77009052C3 /* ZoomableScrollView.swift in Sources */,

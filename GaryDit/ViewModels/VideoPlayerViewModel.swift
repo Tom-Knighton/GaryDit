@@ -22,6 +22,12 @@ class VideoPlayerViewModel {
     public var thumbnailFrames: [UIImage] = []
     public var isScrubbing: Bool = false
     public var mediaDuration: Double = 0
+    public var mediaHasAudio: Bool = false
+
+    
+    public var mediaIsMuted: Bool {
+        return self.avPlayer?.isMuted ?? true
+    }
     
     public var mediaTimePlayed: Double {
         return currentTime
@@ -61,6 +67,10 @@ class VideoPlayerViewModel {
                 self?.hasTriedThumbnails = true
                 self?.generateThumbnails()
                 self?.mediaDuration = self?.avPlayer?.currentItem?.duration.seconds ?? 0
+                Task { [weak self] in
+                    let audioGroup = try? await self?.avPlayer?.currentItem?.asset.loadMediaSelectionGroup(for: .audible)
+                    self?.mediaHasAudio = audioGroup?.options.compactMap { $0.mediaType }.contains(.audio) == true
+                }
             }
             
             self?.currentTime = time.seconds
@@ -118,6 +128,8 @@ class VideoPlayerViewModel {
         } else {
             self.avPlayer?.pause()
         }
+        
+        HapticService.start(.soft)
     }
     
     public func skip(seconds: Double) {
@@ -129,5 +141,11 @@ class VideoPlayerViewModel {
         let newTime = max(0, min(duration.seconds, currentTime + seconds))
         
         player.seek(to: CMTime(seconds: newTime, preferredTimescale: 1000), toleranceBefore: .zero, toleranceAfter: .zero)
+        HapticService.start(.soft)
+    }
+    
+    public func toggleMute() {
+        self.avPlayer?.isMuted = !(self.avPlayer?.isMuted ?? true)
+        HapticService.start(.soft)
     }
 }

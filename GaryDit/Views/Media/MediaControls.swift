@@ -22,34 +22,54 @@ struct MediaControlsView: View {
             Spacer()
             
             VStack(spacing: 16) {
-                HStack(spacing: 30) {
-                    
-                    Button(action: { mediaViewModel.skip(seconds: -10) }) {
-                        Image(systemName: "gobackward.10")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 24, height: 24)
+                ZStack {
+                    HStack(spacing: 30) {
+                        
+                        Spacer()
+                        Button(action: { mediaViewModel.skip(seconds: -10) }) {
+                            Image(systemName: "gobackward.10")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 24, height: 24)
+                        }
+                        .tint(.white)
+                        
+                        Button(action: { self.mediaViewModel.setIsPlaying(!self.mediaViewModel.isPlaying) }) {
+                            Image(systemName: self.mediaViewModel.isPlaying ? "pause.fill" : "play.fill")
+                                .resizable()
+                                .frame(width: 18, height: 24)
+                        }
+                        .tint(.white)
+                        
+                        Button(action: { mediaViewModel.skip(seconds: 10)}) {
+                            Image(systemName: "goforward.10")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 24, height: 24)
+                        }
+                        .tint(.white)
+                        
+                        Spacer()
                     }
-                    .tint(.white)
                     
-                    Button(action: { self.mediaViewModel.setIsPlaying(!self.mediaViewModel.isPlaying) }) {
-                        Image(systemName: self.mediaViewModel.isPlaying ? "pause.fill" : "play.fill")
-                            .resizable()
-                            .frame(width: 18, height: 24)
+                    if mediaViewModel.mediaHasAudio {
+                        HStack {
+                            Spacer()
+                            Button(action: { mediaViewModel.toggleMute() }) {
+                                Image(systemName: mediaViewModel.mediaIsMuted ? "speaker.slash.fill" : "speaker.wave.3.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 24, height: 24)
+                            }
+                            .tint(.white)
+                            Spacer().frame(width: 8)
+                        }
                     }
-                    .tint(.white)
-                    .contentTransition(.symbolEffect(.replace))
-                    
-                    Button(action: { mediaViewModel.skip(seconds: 10)}) {
-                        Image(systemName: "goforward.10")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 24, height: 24)
-                    }
-                    .tint(.white)
                 }
+               
                 HStack {
                     Slider(value: $progress, in: 0...1, step: 0.01) { editing in
+                        let shouldUnpause = self.mediaViewModel.isPlaying
                         self.mediaViewModel.avPlayer?.pause()
                         self.mediaViewModel.isScrubbing = editing
                         if let duration = self.mediaViewModel.avPlayer?.currentItem?.duration {
@@ -58,6 +78,10 @@ struct MediaControlsView: View {
                         
                         if (!editing) {
                             self.previewImage = nil
+                        }
+                        
+                        if shouldUnpause {
+                            self.mediaViewModel.avPlayer?.play()
                         }
                     }
                     .onChange(of: self.progress) {
@@ -105,7 +129,7 @@ struct MediaControlsView: View {
 }
 
 
-
+//
 //#Preview {
 //    @State var viewModel = RedditPostViewModel(post: Post(postId: "1", postAuthour: "Banging_Bananas", postSubreddit: "Test", postTitle: "A video!", postScore: 1, postCreatedAt: Date(), postEditedAt: nil, postFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, distinguishmentType: .none), postContent: PostContent(contentType: .video, textContent: nil, media: [PostMedia(url: "https://i.imgur.com/VDBaX2B.mp4", thumbnailUrl: nil, height: 250, width: 500, type: .video, hlsDashUrl: nil)])))
 //    
