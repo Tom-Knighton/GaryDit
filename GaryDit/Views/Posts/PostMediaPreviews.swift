@@ -85,23 +85,75 @@ struct PostVideoView: View {
     let media: PostMedia
     let aspectRatio: Double
     
+    @State private var mediaModel: VideoPlayerViewModel?
+    
     init(media: PostMedia, aspectRatio: Double = 1) {
         self.media = media
         self.aspectRatio = aspectRatio
     }
     
     var body: some View {
-        VStack{
-            PlayerView(viewModel: postModel.getMediaModelForUrl(media.url) ?? VideoPlayerViewModel(media: media))
-                .aspectRatio(aspectRatio, contentMode: .fit)
-                .onAppear {
-                    self.isPlayingMedia = true
+        ZStack {
+            VStack(spacing: 0) {
+                if let mediaModel {
+                    PlayerView(viewModel: mediaModel)
+                        .aspectRatio(aspectRatio, contentMode: .fit)
+                        .onAppear {
+                            self.isPlayingMedia = true
+                        }
+                        .onDisappear {
+                            self.isPlayingMedia = false
+                        }
+                        .overlay(
+                            GeometryReader { reader in
+                                VStack {
+                                    Spacer()
+                                    Rectangle()
+                                        .frame(height: 2)
+                                        .background(.white.opacity(0.4))
+                                        .frame(width: reader.size.width * mediaModel.currentProgress)
+                                }
+                            }
+                            
+                        )
+                } else {
+                    ContentUnavailableView("Error loading video", systemImage: "exclamationmark.circle.fill")
                 }
-                .onDisappear {
-                    self.isPlayingMedia = false
+            }
+            .frame(maxWidth: .infinity)
+            
+            if let mediaModel, mediaModel.mediaHasAudio {
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Image(systemName: mediaModel.mediaIsMuted == true ? "speaker.slash.fill" : "speaker.wave.3.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 24, height: 24)
+                            .padding(6)
+                            .background(Material.thick)
+                            .clipShape(.rect(cornerRadius: 10))
+                            .accessibilityAddTraits(.isButton)
+                            .frame(width: 40, height: 40)
+                            .contentShape(Rectangle())
+                            .frame(width: 24, height: 24)
+                            .highPriorityGesture(TapGesture().onEnded({ _ in
+                                NotificationCenter.default.post(name: .AllPlayersStopAudio, object: nil, userInfo: ["excludingUrl": media.url])
+                                mediaModel.toggleMute()
+                            }))
+                    }
+                    .padding(.all, 8)
+                    
+                    Spacer().frame(height: 4)
                 }
+            }
         }
-        .frame(maxWidth: .infinity)
+        .frame(minHeight: 8)
+        .task {
+            let vm = postModel.videoViewModels.first(where: { $0.media.url == media.url })
+            self.mediaModel = vm
+        }
     }
 }
 

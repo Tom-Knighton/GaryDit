@@ -16,7 +16,6 @@ import Combine
 public class VideoPlayerViewModel {
     
     public var media: PostMedia
-    @ObservationIgnored public var avPlayer: AVPlayer?
     public var currentProgress: Double = 0
     public var isPlaying: Bool = false
     public var thumbnailFrames: [UIImage] = []
@@ -26,7 +25,7 @@ public class VideoPlayerViewModel {
 
     
     public var mediaIsMuted: Bool {
-        return self.avPlayer?.isMuted ?? true
+        return _internalAVIsMuted
     }
     
     public var mediaTimePlayed: Double {
@@ -37,15 +36,33 @@ public class VideoPlayerViewModel {
         return Double(max(0, (Int(self.avPlayer?.currentItem?.duration.seconds ?? 0)) - Int(mediaTimePlayed)))
     }
 
+    public var avPlayer: AVPlayer?
+    
     private var timeObserver: Any?
     private var pauseCancellable: AnyCancellable?
     private var hasTriedThumbnails = false
-    
     private var currentTime: Double = 0
-    
+    private var notificationCancellable: Cancellable?
+    private var _mutedCancellable: Cancellable?
+    private var _internalAVIsMuted: Bool = true
     
     init(media: PostMedia) {
         self.media = media
+        
+        notificationCancellable = NotificationCenter.default
+            .publisher(for: .AllPlayersStopAudio)
+            .sink() { [weak self] output in
+                
+                if let excluding = output.userInfo?["excludingUrl"] as? String, excluding == media.url {
+                    return
+                }
+                
+                self?.avPlayer?.isMuted = true
+            }
+    }
+    
+    deinit {
+        self.notificationCancellable?.cancel()
     }
     
     public func setAvPlayer(_ to: AVPlayer) {
@@ -56,7 +73,7 @@ public class VideoPlayerViewModel {
         }
         
         self.pauseCancellable?.cancel()
-        self.pauseCancellable = nil
+        self._mutedCancellable?.cancel()
         
         self.timeObserver = self.avPlayer?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.01, preferredTimescale: 1000), queue: .main, using: { [weak self] time in
             guard self?.avPlayer?.currentItem?.status == .readyToPlay else {
@@ -80,6 +97,11 @@ public class VideoPlayerViewModel {
         self.pauseCancellable = self.avPlayer?.publisher(for: \.timeControlStatus)
             .sink { [unowned self] status in
                 self.isPlaying = status == .playing
+            }
+        
+        self._mutedCancellable = self.avPlayer?.publisher(for: \.isMuted)
+            .sink { [unowned self] isMuted in
+                self._internalAVIsMuted = isMuted
             }
     }
     
@@ -145,7 +167,7 @@ public class VideoPlayerViewModel {
     }
     
     public func toggleMute() {
-        self.avPlayer?.isMuted = !(self.avPlayer?.isMuted ?? true)
+        self.avPlayer?.isMuted.toggle()
         HapticService.start(.soft)
     }
 }
