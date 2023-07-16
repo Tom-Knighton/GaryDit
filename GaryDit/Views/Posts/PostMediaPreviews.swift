@@ -79,7 +79,8 @@ struct PostGifView: View {
 }
 
 struct PostVideoView: View {
-    @State private var videoViewModel: VideoPlayerViewModel
+    
+    @Environment(RedditPostViewModel.self) private var postModel
     @State private var isPlayingMedia = false
     let media: PostMedia
     let aspectRatio: Double
@@ -87,12 +88,11 @@ struct PostVideoView: View {
     init(media: PostMedia, aspectRatio: Double = 1) {
         self.media = media
         self.aspectRatio = aspectRatio
-        self._videoViewModel = State(initialValue: VideoPlayerViewModel(media: media))
     }
     
     var body: some View {
         VStack{
-            PlayerView(viewModel: videoViewModel)
+            PlayerView(viewModel: postModel.getMediaModelForUrl(media.url) ?? VideoPlayerViewModel(media: media))
                 .aspectRatio(aspectRatio, contentMode: .fit)
                 .onAppear {
                     self.isPlayingMedia = true

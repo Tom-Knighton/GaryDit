@@ -13,7 +13,7 @@ import CoreMedia
 import Combine
 
 @Observable
-class VideoPlayerViewModel {
+public class VideoPlayerViewModel {
     
     public var media: PostMedia
     @ObservationIgnored public var avPlayer: AVPlayer?

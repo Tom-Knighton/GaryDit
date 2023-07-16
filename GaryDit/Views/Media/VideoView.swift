@@ -72,7 +72,6 @@ class PlayerUIView: UIView {
             }
             
             if let player = await self.vm.avPlayer {
-                print("Existing player for \(await self.vm.media.url)")
                 try? AVAudioSession.sharedInstance().setCategory(.ambient, options: [])
                 await self.layoutAVPlayer(player: player, gravity: gravity)
                 return
@@ -110,12 +109,6 @@ class PlayerUIView: UIView {
         }
     }
     
-    func togglePlay(_ to: Bool) {
-        self.avPlayer?.seek(to: CMTime.zero)
-        to ? self.avPlayer?.play() : self.avPlayer?.pause()
-        self.isPlaying = to
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         playerLayer.frame = bounds
@@ -150,9 +143,5 @@ struct PlayerView: UIViewRepresentable {
         return view
     }
     
-    func updateUIView(_ uiView: PlayerUIView, context: Context) {
-//        if isPlaying != uiView.isPlaying {
-//            uiView.togglePlay(isPlaying)
-//        }
-    }
+    func updateUIView(_ uiView: PlayerUIView, context: Context) {}
 }

@@ -25,6 +25,7 @@ struct PostView: View {
     var body: some View {
         VStack {
             PostTopMediaView(showMediaUrl: $presentMediaUrl, content: viewModel.post.postContent)
+                .environment(viewModel)
             
             VStack(alignment: .leading, spacing: 0) {
                 Text(viewModel.post.postTitle)
