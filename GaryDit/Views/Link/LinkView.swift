@@ -18,14 +18,11 @@ struct LinkView: View {
     @State private var fetchMetadata: Bool = true
     @State private var imageData: Data?
     
-    private var cache = Cache<String, LPLinkMetadata?>()
-    private var imageDataCache = Cache<String, Data>()
-    
     init(url: String, overrideImage: String? = nil, fetchMetadata: Bool = true) {
         self.urlString = url
         self.overrideImageUrl = overrideImage
         
-        if let cached = cache.get(url) {
+        if let cached = GlobalCaches.linkCache.get(url) {
             self.fetchMetadata = false
             self.metadata = cached
         } else {
@@ -61,7 +58,7 @@ struct LinkView: View {
                     return
                 }
                 
-                if let cached = self.cache.get(urlString) {
+                if let cached = GlobalCaches.linkCache.get(urlString) {
                     self.metadata = cached
                 } else {
                     guard let url = URL(string: urlString) else {
@@ -70,17 +67,17 @@ struct LinkView: View {
                     
                     let provider = LPMetadataProvider()
                     let metadata = try? await provider.startFetchingMetadata(for: url)
-                    cache.set(metadata, forKey: urlString)
+                    GlobalCaches.linkCache.set(metadata, forKey: urlString)
                     self.metadata = metadata
                 }
                 
-                if let imageCached = self.imageDataCache.get(urlString) {
+                if let imageCached = GlobalCaches.imageUrlDataCache.get(urlString) {
                     self.imageData = imageCached
                 } else {
                     let _ = metadata?.imageProvider?.loadDataRepresentation(for: UTType.image, completionHandler: { data, error in
                         if let data {
                             self.imageData = data
-                            self.imageDataCache.set(data, forKey: urlString)
+                            GlobalCaches.imageUrlDataCache.set(data, forKey: urlString)
                         }
                     })
                 }

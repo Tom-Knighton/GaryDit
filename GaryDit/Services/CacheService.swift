@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class Cache<Key: Hashable, Value> {
+public final class Cache<Key: Hashable, Value> {
     
     private let wrapped = NSCache<WrappedKey, Entry>()
     private let dateProvider: () -> Date

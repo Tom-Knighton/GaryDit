@@ -14,8 +14,6 @@ struct CachedImageView: View {
     var displayThumbnail: Binding<Bool>
     @State private var uiImage: UIImage?
     
-    private var imageCache = Cache<String, UIImage>()
-    
     init(url: String, thumbnailUrl: String? = nil) {
         self.url = url
         self.thumbnailUrl = thumbnailUrl
@@ -46,12 +44,13 @@ struct CachedImageView: View {
     
     @Sendable
     private func load() async {
-        if let image = self.imageCache.get(url) {
-            self.uiImage = image
+        if let imageData = GlobalCaches.imageUrlDataCache.get(url) {
+            self.uiImage = UIImage(data: imageData)
         } else {
             guard let url = URL(string: url) else { return }
             if let (urlData, _) = try? await URLSession.shared.data(from: url) {
                 self.uiImage = UIImage(data: urlData)
+                GlobalCaches.imageUrlDataCache.set(urlData, forKey: self.url)
             }
         }
     }
