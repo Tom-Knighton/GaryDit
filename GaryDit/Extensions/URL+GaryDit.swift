@@ -14,7 +14,7 @@ extension URL {
     @MainActor
     func getMetadata() async -> LPLinkMetadata? {
         do {
-            var provider = LPMetadataProvider()
+            let provider = LPMetadataProvider()
             let meta = try await provider.startFetchingMetadata(for: self)
             return meta
         } catch {

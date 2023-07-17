@@ -19,7 +19,29 @@ public class RedditPostViewModel {
     
     public var post: Post
     
+    public var videoViewModels: [VideoPlayerViewModel] = []
+    
     init(post: Post) {
         self.post = post
+        self.setupMediaViewModels()
+    }
+    
+    public func setupMediaViewModels(withExistingVM: VideoPlayerViewModel? = nil) {
+        let mediaToCreateFor = post.postContent.media.filter { $0.type == .video }
+        for media in mediaToCreateFor {
+            if let vm = withExistingVM, media.url == vm.media.url {
+                videoViewModels.append(vm)
+            } else {
+                videoViewModels.append(VideoPlayerViewModel(media: media))
+            }
+        }
+    }
+    
+    public func getMediaModelForUrl(_ url: String) -> VideoPlayerViewModel? {
+        if let vm = self.videoViewModels.first(where: { $0.media.url == url }) {
+            return vm
+        }
+        
+        return nil
     }
 }

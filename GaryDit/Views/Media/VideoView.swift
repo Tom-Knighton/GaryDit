@@ -9,6 +9,10 @@ import Foundation
 import SwiftUI
 import AVFoundation
 
+protocol VideoViewDelegate {
+    func updateAvPlayer(_ av: AVPlayer)
+}
+
 enum PlayerViewGravity {
     case fit
     case fill
@@ -29,7 +33,9 @@ enum PlayerViewGravity {
 class PlayerUIView: UIView {
     
     var isPlaying: Bool = false
-    var url: String
+    var vm: VideoPlayerViewModel
+    
+    var delegate: VideoViewDelegate?
     
     override static var layerClass: AnyClass {
         return AVPlayerLayer.self
@@ -41,15 +47,12 @@ class PlayerUIView: UIView {
     
     var avPlayer: AVPlayer? {
         get {
-            return playerLayer.player
-        }
-        set {
-            playerLayer.player = newValue
+            return vm.avPlayer
         }
     }
     
-    init(url: String, gravity: PlayerViewGravity = .fit, isPlaying: Bool = false) {
-        self.url = url
+    init(viewModel: VideoPlayerViewModel, gravity: PlayerViewGravity = .fit, isPlaying: Bool = false) {
+        self.vm = viewModel
         self.isPlaying = isPlaying
         super.init(frame: .zero)
         
@@ -63,41 +66,47 @@ class PlayerUIView: UIView {
     }
     
     private func setup(gravity: PlayerViewGravity = .fit) async throws {
-        await Task.detached(priority: .userInitiated) {
-            guard let url = await URL(string: self.url) else {
+        Task.detached(priority: .userInitiated) {
+            guard let url = await URL(string: self.vm.media.url) else {
                 throw URLError(.badURL)
+            }
+            
+            if let player = await self.vm.avPlayer {
+                try? AVAudioSession.sharedInstance().setCategory(.ambient, options: [])
+                await self.layoutAVPlayer(player: player, gravity: gravity)
+                return
             }
             
             let asset = AVAsset(url: url)
             let _ = try await asset.load(.tracks, .duration, .isPlayable)
             
             let composition = AVPlayerItem(asset: asset)
-            let avPlayer = AVPlayer(playerItem: composition)
-            avPlayer.isMuted = true
+            
+            let player = AVPlayer(playerItem: composition)
+            player.isMuted = true
             
             try? AVAudioSession.sharedInstance().setCategory(.ambient, options: [])
             
-            await MainActor.run {
-                self.playerLayer.player = avPlayer
-                self.playerLayer.videoGravity = gravity.avGravity
-                self.frame = self.playerLayer.visibleRect
-                
-                if (self.isPlaying) {
-                    self.playerLayer.player?.play()
-                }
-                
-                _ = NotificationCenter.default.addObserver(forName: AVPlayerItem.didPlayToEndTimeNotification, object: self.avPlayer?.currentItem, queue: nil) { [avPlayer] _ in
-                    avPlayer.seek(to: CMTime.zero)
-                    avPlayer.play()
-                }
-            }
+            await self.delegate?.updateAvPlayer(player)
+            await self.layoutAVPlayer(player: player, gravity: gravity)
         }
     }
     
-    func togglePlay(_ to: Bool) {
-        self.avPlayer?.seek(to: CMTime.zero)
-        to ? self.avPlayer?.play() : self.avPlayer?.pause()
-        self.isPlaying = to
+    func layoutAVPlayer(player: AVPlayer, gravity: PlayerViewGravity) async {
+        await MainActor.run {
+            self.playerLayer.player = player
+            self.playerLayer.videoGravity = gravity.avGravity
+            self.frame = self.playerLayer.visibleRect
+            
+            if (self.isPlaying) {
+                self.playerLayer.player?.play()
+            }
+            
+            _ = NotificationCenter.default.addObserver(forName: AVPlayerItem.didPlayToEndTimeNotification, object: self.avPlayer?.currentItem, queue: nil) { [weak self] _ in
+                self?.avPlayer?.seek(to: CMTime.zero)
+                self?.avPlayer?.play()
+            }
+        }
     }
     
     override func layoutSubviews() {
@@ -109,18 +118,30 @@ class PlayerUIView: UIView {
 
 struct PlayerView: UIViewRepresentable {
     
-    var url: String
-    @Binding var isPlaying: Bool
-    var gravity: PlayerViewGravity = .fit
+    var viewModel: VideoPlayerViewModel
+    
+    class Coordinator: VideoViewDelegate {
+        
+        private var viewModel: VideoPlayerViewModel
+        
+        init(_ vm: VideoPlayerViewModel) {
+            self.viewModel = vm
+        }
+        
+        func updateAvPlayer(_ av: AVPlayer) {
+            viewModel.setAvPlayer(av)
+        }
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(viewModel)
+    }
     
     func makeUIView(context: Context) -> PlayerUIView {
-        let view = PlayerUIView(url: self.url, gravity: self.gravity, isPlaying: isPlaying)
+        let view = PlayerUIView(viewModel: self.viewModel, gravity: .fit, isPlaying: true)
+        view.delegate = context.coordinator
         return view
     }
     
-    func updateUIView(_ uiView: PlayerUIView, context: Context) {
-        if isPlaying != uiView.isPlaying {
-            uiView.togglePlay(isPlaying)
-        }
-    }
+    func updateUIView(_ uiView: PlayerUIView, context: Context) {}
 }
