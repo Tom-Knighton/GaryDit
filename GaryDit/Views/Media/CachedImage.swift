@@ -50,7 +50,7 @@ struct CachedImageView: View {
             guard let url = URL(string: url) else { return }
             if let (urlData, _) = try? await URLSession.shared.data(from: url) {
                 self.uiImage = UIImage(data: urlData)
-                GlobalCaches.imageUrlDataCache.set(urlData, forKey: self.url)
+                await GlobalCaches.imageUrlDataCache.set(urlData, forKey: self.url)
             }
         }
     }

@@ -22,6 +22,7 @@ public final class Cache<Key: Hashable, Value> {
         wrapped.delegate = keyTracker
     }
     
+    @MainActor
     func set(_ value: Value, forKey key: Key, expires: TimeInterval? = nil) {
         var expiryDate: Date? = nil
         if let expires {
@@ -49,6 +50,7 @@ public final class Cache<Key: Hashable, Value> {
         wrapped.removeObject(forKey: WrappedKey(key))
     }
     
+    @MainActor
     subscript(key: Key) -> Value? {
         get { return get(key) }
         set {
