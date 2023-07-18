@@ -14,6 +14,7 @@ struct MediaGalleryView: View {
     
     @GestureState private var draggingOffset: CGSize = .zero
     
+    @State private var isScrubbing: Bool = false
     @State private var currentZoomScale: CGFloat = 1
     @State private var maxZoomScale: CGFloat = 10
     @State private var bgOpacity: Double = 1
@@ -140,23 +141,39 @@ extension MediaGalleryView {
     func dragAwayGesture(_ offset: GestureState<CGSize>) -> some Gesture {
         let gesture = DragGesture()
             .updating(offset) { value, outVal, _ in
-                guard self.currentZoomScale == 1, (currentMediaViewModel?.isScrubbing ?? false) == false else {
+                guard self.currentZoomScale == 1 else {
                     return
                 }
                 
-                switch(value.translation.width, value.translation.height) {
-                    case (...0, -30...30): return //left swipe
-                    case (0..., -30...30): return //right swipe
-                    default: break
+                if (self.isScrubbing) {
+                    //Do scrubbing logic instead....
+                    return
                 }
-                
-                outVal = value.translation
-                
-                let halfHeight = UIScreen.main.bounds.height / 2
-                let progress = value.translation.height / halfHeight
-                DispatchQueue.main.async {
-                    withAnimation(.easeInOut) {
-                        bgOpacity = Double(1 - (progress < 0 ? -progress : progress))
+            
+                if -30...30 ~= value.translation.height && (value.translation.width > 30 || value.translation.width < -30) {
+                    outVal = .zero
+                    DispatchQueue.main.async {
+                        self.isScrubbing = true
+                    }
+                    return
+                } else {
+                    print(value.translation.height)
+                    print(value.translation.width)
+    //
+    //                switch(value.translation.width, value.translation.height) {
+    //                    case (...0, -30...30): return //left swipe
+    //                    case (0..., -30...30): return //right swipe
+    //                    default: break
+    //                }
+                    
+                    outVal = value.translation
+                    
+                    let halfHeight = UIScreen.main.bounds.height / 2
+                    let progress = value.translation.height / halfHeight
+                    DispatchQueue.main.async {
+                        withAnimation(.easeInOut) {
+                            bgOpacity = Double(1 - (progress < 0 ? -progress : progress))
+                        }
                     }
                 }
             }
@@ -165,6 +182,7 @@ extension MediaGalleryView {
                     return
                 }
                 
+                self.isScrubbing = false
                 var translation = value.translation.height
                 
                 if translation < 0 {
