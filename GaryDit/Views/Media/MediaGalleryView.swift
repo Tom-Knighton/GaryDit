@@ -15,6 +15,7 @@ struct MediaGalleryView: View {
     @GestureState private var draggingOffset: CGSize = .zero
     
     @State private var isScrubbing: Bool = false
+    @State private var scrubOffset: CGSize = .zero
     @State private var currentZoomScale: CGFloat = 1
     @State private var maxZoomScale: CGFloat = 10
     @State private var bgOpacity: Double = 1
@@ -146,7 +147,14 @@ extension MediaGalleryView {
                 }
                 
                 if (self.isScrubbing) {
-                    //Do scrubbing logic instead....
+                    DispatchQueue.main.async {
+                        if value.translation.width < self.scrubOffset.width { // Left swipe
+                            print("left")
+                        } else if value.translation.width > self.scrubOffset.width { // Right swipe
+                            print("right")
+                        }
+                        self.scrubOffset = value.translation
+                    }
                     return
                 }
             
@@ -157,9 +165,6 @@ extension MediaGalleryView {
                     }
                     return
                 } else {
-                    print(value.translation.height)
-                    print(value.translation.width)
-    //
     //                switch(value.translation.width, value.translation.height) {
     //                    case (...0, -30...30): return //left swipe
     //                    case (0..., -30...30): return //right swipe
