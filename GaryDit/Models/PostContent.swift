@@ -36,4 +36,5 @@ public struct PostMedia: Codable {
     let width: Double
     let type: PostContentType?
     let hlsDashUrl: String?
+    let mediaText: String?
 }
