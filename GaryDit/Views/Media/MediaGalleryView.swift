@@ -45,7 +45,6 @@ struct MediaGalleryView: View {
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .ignoresSafeArea()
-                                .gesture(viewModel.doubleTapZoomGesture)
                             case .gif:
                                 ZoomableScrollView(scale: $viewModel.currentZoomScale, maxZoom: viewModel.maxZoomScale) {
                                     GIFView(url: media.url, isPlaying: .constant(true))
@@ -54,7 +53,6 @@ struct MediaGalleryView: View {
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .ignoresSafeArea()
-                                .gesture(viewModel.doubleTapZoomGesture)
                             case .video:
                                 ZStack {
                                     ZoomableScrollView(scale: $viewModel.currentZoomScale, maxZoom: viewModel.maxZoomScale) {
@@ -73,7 +71,6 @@ struct MediaGalleryView: View {
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .ignoresSafeArea()
-                                .gesture(viewModel.doubleTapZoomGesture)
                                 
                             default:
                                 EmptyView()
@@ -112,7 +109,7 @@ struct MediaGalleryView: View {
         }
         .opacity(viewModel.entireViewOpacity)
         .simultaneousGesture(dragAwayGesture($draggingOffset))
-        .gesture(controlTapGesture())
+        .simultaneousGesture(exclusiveTapGestures())
         .onChange(of: viewModel.selectedTabUrl, initial: true) {
             let vm = postModel.videoViewModels.first(where: { $0.media.url == viewModel.selectedTabUrl })
             self.currentMediaViewModel = vm
@@ -209,16 +206,23 @@ extension MediaGalleryView {
 
 extension MediaGalleryView {
     
-    func controlTapGesture() -> some Gesture {
-        TapGesture(count: 1)
+    func exclusiveTapGestures() -> some Gesture {
+        
+        TapGesture(count: 2) // Double tap zoom
             .onEnded { _ in
-                withAnimation(.easeInOut(duration: 0.35)) {
-                    self.viewModel.displayControls.toggle()
-                }
-                
-                if self.currentMediaViewModel == nil || self.currentMediaViewModel?.isPlaying == true {
-                    self.viewModel.timeoutControls()
-                }
+                self.viewModel.doubleTapZoomGesture()
             }
+            .exclusively(before:
+                TapGesture(count: 1) // Single tap control toggle
+                    .onEnded({ _ in
+                        withAnimation(.easeInOut(duration: 0.35)) {
+                            self.viewModel.displayControls.toggle()
+                        }
+                        
+                        if self.currentMediaViewModel == nil || self.currentMediaViewModel?.isPlaying == true {
+                            self.viewModel.timeoutControls()
+                        }
+                })
+            )
     }
 }
