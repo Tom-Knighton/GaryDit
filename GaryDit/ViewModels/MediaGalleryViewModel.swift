@@ -67,7 +67,7 @@ public class MediaGalleryViewModel {
         })
         
         if let controlTimeoutTask {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: controlTimeoutTask)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: controlTimeoutTask)
         }
     }
 }
