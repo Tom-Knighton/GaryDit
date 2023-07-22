@@ -39,7 +39,7 @@ public class MediaGalleryViewModel {
     public var doubleTapZoomGesture: some Gesture {
         TapGesture(count: 2).onEnded {
             withAnimation(.easeInOut(duration: 1)) {
-                self.currentZoomScale = self.currentZoomScale == 1 ? self.maxZoomScale / 2 : 1
+                self.currentZoomScale = self.currentZoomScale == 1 ? 5 : 1
             }
         }
     }

@@ -44,6 +44,7 @@ struct MediaGalleryView: View {
                                         .scaledToFit()
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .ignoresSafeArea()
                                 .gesture(viewModel.doubleTapZoomGesture)
                             case .gif:
                                 ZoomableScrollView(scale: $viewModel.currentZoomScale, maxZoom: viewModel.maxZoomScale) {
@@ -52,6 +53,7 @@ struct MediaGalleryView: View {
                                         .border(.red)
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .ignoresSafeArea()
                                 .gesture(viewModel.doubleTapZoomGesture)
                             case .video:
                                 ZStack {
@@ -68,9 +70,9 @@ struct MediaGalleryView: View {
                                                 }
                                             )
                                     }
-                                    
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .ignoresSafeArea()
                                 .gesture(viewModel.doubleTapZoomGesture)
                                 
                             default:
