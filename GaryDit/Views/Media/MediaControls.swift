@@ -16,6 +16,7 @@ struct MediaControlsView: View {
     @State private var progress: CGFloat = 0.1
     
     @State private var lastKnownProgress: CGFloat = 0
+    @State private var shouldUnpauseAfterScrub: Bool = false
         
     var body: some View {
         VStack {
@@ -69,8 +70,11 @@ struct MediaControlsView: View {
                
                 HStack {
                     Slider(value: $progress, in: 0...1, step: 0.01) { editing in
-                        let shouldUnpause = self.mediaViewModel.isPlaying
-                        self.mediaViewModel.avPlayer?.pause()
+                        if editing {
+                            self.shouldUnpauseAfterScrub = self.mediaViewModel.isPlaying
+                        }
+                        
+                        self.mediaViewModel.setIsPlaying(false)
                         self.mediaViewModel.isScrubbing = editing
                         if let duration = self.mediaViewModel.avPlayer?.currentItem?.duration {
                             self.mediaViewModel.avPlayer?.seek(to: CMTime(seconds: Double(duration.seconds * progress), preferredTimescale: 1000), toleranceBefore: .zero, toleranceAfter: .zero)
@@ -78,10 +82,7 @@ struct MediaControlsView: View {
                         
                         if (!editing) {
                             self.previewImage = nil
-                        }
-                        
-                        if shouldUnpause {
-                            self.mediaViewModel.avPlayer?.play()
+                            self.mediaViewModel.setIsPlaying(self.shouldUnpauseAfterScrub)
                         }
                     }
                     .onChange(of: self.progress) {
