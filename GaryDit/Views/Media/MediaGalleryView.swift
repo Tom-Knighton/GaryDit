@@ -83,8 +83,8 @@ struct MediaGalleryView: View {
                         .tag(media.url)
                     }
                 }
-                .tabViewStyle(.page)
-                .indexViewStyle(.page(backgroundDisplayMode: .always))
+                .tabViewStyle(.page(indexDisplayMode: self.viewModel.displayControls ? .automatic : .never))
+                .indexViewStyle(.page(backgroundDisplayMode: self.viewModel.displayControls ? .always : .interactive))
             }
             
             VStack(spacing: 0) {
@@ -103,18 +103,26 @@ struct MediaGalleryView: View {
                 }
                 Spacer()
             }
-            .opacity(viewModel.backgroundOpacity)
-            
+            .opacity(self.viewModel.displayControls ? viewModel.backgroundOpacity : 0)
+
             if let binding = Binding<VideoPlayerViewModel>($currentMediaViewModel) {
                 MediaControlsView(mediaViewModel: binding, previewImage: $viewModel.scrubThumbnail)
-                    .opacity(viewModel.backgroundOpacity)
+                    .opacity(self.viewModel.displayControls ? viewModel.backgroundOpacity : 0)
             }
         }
         .opacity(viewModel.entireViewOpacity)
         .simultaneousGesture(dragAwayGesture($draggingOffset))
+        .gesture(controlTapGesture())
         .onChange(of: viewModel.selectedTabUrl, initial: true) {
             let vm = postModel.videoViewModels.first(where: { $0.media.url == viewModel.selectedTabUrl })
             self.currentMediaViewModel = vm
+        }
+        .onChange(of: currentMediaViewModel?.isPlaying, initial: true) {
+            if currentMediaViewModel?.isPlaying == false {
+                self.viewModel.controlTimeoutTask?.cancel()
+            } else {
+                self.viewModel.timeoutControls()
+            }
         }
     }
 }
@@ -196,5 +204,21 @@ extension MediaGalleryView {
             }
         
         return gesture
+    }
+}
+
+extension MediaGalleryView {
+    
+    func controlTapGesture() -> some Gesture {
+        TapGesture(count: 1)
+            .onEnded { _ in
+                withAnimation(.easeInOut(duration: 0.35)) {
+                    self.viewModel.displayControls.toggle()
+                }
+                
+                if self.currentMediaViewModel == nil || self.currentMediaViewModel?.isPlaying == true {
+                    self.viewModel.timeoutControls()
+                }
+            }
     }
 }

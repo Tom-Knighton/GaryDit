@@ -13,6 +13,10 @@ import SwiftUI
 @Observable
 public class MediaGalleryViewModel {
     
+    //MARK: Controls
+    public var displayControls: Bool = true
+    public var controlTimeoutTask: DispatchWorkItem?
+
     //MARK: Scrubbing
     public var isScrubbing: Bool = false
     public var scrubOffset: CGSize = .zero
@@ -31,6 +35,8 @@ public class MediaGalleryViewModel {
     //MARK: Tab view
     public var selectedTabUrl: String
     
+    //MARK: Private
+    
     init(initialTabUrl: String) {
         self.selectedTabUrl = initialTabUrl
     }
@@ -41,6 +47,27 @@ public class MediaGalleryViewModel {
             withAnimation(.easeInOut(duration: 1)) {
                 self.currentZoomScale = self.currentZoomScale == 1 ? 5 : 1
             }
+        }
+    }
+    
+    func timeoutControls() {
+        if let controlTimeoutTask {
+            controlTimeoutTask.cancel()
+        }
+        
+        controlTimeoutTask = DispatchWorkItem(block: { [weak self] in
+            guard self?.isScrubbing == false else {
+                self?.timeoutControls()
+                return
+            }
+            
+            withAnimation(.easeInOut(duration: 0.5)) {
+                self?.displayControls = false
+            }
+        })
+        
+        if let controlTimeoutTask {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: controlTimeoutTask)
         }
     }
 }
