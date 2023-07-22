@@ -67,17 +67,19 @@ struct LinkView: View {
                     
                     let provider = LPMetadataProvider()
                     let metadata = try? await provider.startFetchingMetadata(for: url)
-                    GlobalCaches.linkCache.set(metadata, forKey: urlString)
+                    await GlobalCaches.linkCache.set(metadata, forKey: urlString)
                     self.metadata = metadata
                 }
                 
-                if let imageCached = GlobalCaches.imageUrlDataCache.get(urlString) {
+                if let imageCached = await GlobalCaches.imageUrlDataCache.get(urlString) {
                     self.imageData = imageCached
                 } else {
                     let _ = metadata?.imageProvider?.loadDataRepresentation(for: UTType.image, completionHandler: { data, error in
                         if let data {
                             self.imageData = data
-                            GlobalCaches.imageUrlDataCache.set(data, forKey: urlString)
+                            Task {
+                                await GlobalCaches.imageUrlDataCache.set(data, forKey: urlString)
+                            }
                         }
                     })
                 }

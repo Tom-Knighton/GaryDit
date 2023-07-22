@@ -44,14 +44,19 @@ struct CachedImageView: View {
     
     @Sendable
     private func load() async {
-        if let imageData = GlobalCaches.imageUrlDataCache.get(url) {
-            self.uiImage = UIImage(data: imageData)
-        } else {
-            guard let url = URL(string: url) else { return }
-            if let (urlData, _) = try? await URLSession.shared.data(from: url) {
-                self.uiImage = UIImage(data: urlData)
-                GlobalCaches.imageUrlDataCache.set(urlData, forKey: self.url)
+        Task.detached {
+            if let imageData = GlobalCaches.imageUrlDataCache.get(url) {
+                self.uiImage = UIImage(data: imageData)
+            } else {
+                guard let url = URL(string: url) else { return }
+                if let (urlData, _) = try? await URLSession.shared.data(from: url) {
+                    await GlobalCaches.imageUrlDataCache.set(urlData, forKey: self.url)
+                    await MainActor.run {
+                        self.uiImage = UIImage(data: urlData)
+                    }
+                }
             }
         }
+        
     }
 }
