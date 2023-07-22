@@ -216,7 +216,7 @@ extension MediaGalleryView {
                     self.viewModel.displayControls.toggle()
                 }
                 
-                if self.currentMediaViewModel?.isPlaying == true {
+                if self.currentMediaViewModel == nil || self.currentMediaViewModel?.isPlaying == true {
                     self.viewModel.timeoutControls()
                 }
             }
