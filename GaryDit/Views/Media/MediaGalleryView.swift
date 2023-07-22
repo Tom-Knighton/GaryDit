@@ -83,8 +83,8 @@ struct MediaGalleryView: View {
                         .tag(media.url)
                     }
                 }
-                .tabViewStyle(.page)
-                .indexViewStyle(.page(backgroundDisplayMode: .always))
+                .tabViewStyle(.page(indexDisplayMode: self.viewModel.displayControls ? .automatic : .never))
+                .indexViewStyle(.page(backgroundDisplayMode: self.viewModel.displayControls ? .always : .interactive))
             }
             
             VStack(spacing: 0) {
