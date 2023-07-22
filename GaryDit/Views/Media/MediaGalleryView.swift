@@ -144,7 +144,7 @@ extension MediaGalleryView {
                     return
                 }
             
-                if -30...30 ~= value.translation.height && (value.translation.width > 30 || value.translation.width < -30) {
+                if self.currentMediaViewModel != nil && -30...30 ~= value.translation.height && (value.translation.width > 30 || value.translation.width < -30) {
                     outVal = .zero
                     DispatchQueue.main.async {
                         viewModel.isScrubbing = true
