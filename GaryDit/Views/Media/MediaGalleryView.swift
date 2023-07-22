@@ -6,6 +6,7 @@
 //
 import Foundation
 import SwiftUI
+import CoreMedia
 
 struct MediaGalleryView: View {
     
@@ -20,6 +21,8 @@ struct MediaGalleryView: View {
     @State private var maxZoomScale: CGFloat = 10
     @State private var bgOpacity: Double = 1
     @State private var entireOpacity: Double = 1
+    @State private var scrubProgress: Double = 0
+    @State private var cachedProgressWasPaused: Bool = false
     
     @State private var currentMediaViewModel: VideoPlayerViewModel? = nil
     @State private var tabSelectedIndex: String = ""
@@ -149,9 +152,14 @@ extension MediaGalleryView {
                 if (self.isScrubbing) {
                     DispatchQueue.main.async {
                         if value.translation.width < self.scrubOffset.width { // Left swipe
-                            print("left")
+                            self.scrubProgress = max(0, self.scrubProgress - 0.02)
                         } else if value.translation.width > self.scrubOffset.width { // Right swipe
-                            print("right")
+                            self.scrubProgress = max(0, self.scrubProgress + 0.02)
+                        }
+                        
+                        self.draggingThumbnail = self.currentMediaViewModel?.thumbnailFrames[safe: Int(min(99, self.scrubProgress * 100))]
+                        if let duration = self.currentMediaViewModel?.avPlayer?.currentItem?.duration {
+                            self.currentMediaViewModel?.avPlayer?.seek(to: CMTime(seconds: Double(duration.seconds * scrubProgress), preferredTimescale: 1000), toleranceBefore: .zero, toleranceAfter: .zero)
                         }
                         self.scrubOffset = value.translation
                     }
@@ -162,15 +170,12 @@ extension MediaGalleryView {
                     outVal = .zero
                     DispatchQueue.main.async {
                         self.isScrubbing = true
+                        self.scrubProgress = self.currentMediaViewModel?.currentProgress ?? 0
+                        self.cachedProgressWasPaused = self.currentMediaViewModel?.isPlaying ?? false
+                        self.currentMediaViewModel?.setIsPlaying(false)
                     }
                     return
                 } else {
-    //                switch(value.translation.width, value.translation.height) {
-    //                    case (...0, -30...30): return //left swipe
-    //                    case (0..., -30...30): return //right swipe
-    //                    default: break
-    //                }
-                    
                     outVal = value.translation
                     
                     let halfHeight = UIScreen.main.bounds.height / 2
@@ -187,7 +192,12 @@ extension MediaGalleryView {
                     return
                 }
                 
-                self.isScrubbing = false
+                DispatchQueue.main.async{
+                    self.isScrubbing = false
+                    self.draggingThumbnail = nil
+                    self.currentMediaViewModel?.setIsPlaying(self.cachedProgressWasPaused)
+                }
+
                 var translation = value.translation.height
                 
                 if translation < 0 {
