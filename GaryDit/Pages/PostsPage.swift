@@ -54,7 +54,7 @@ public struct PostsPage: View {
             .background(Color.layer1)
             .navigationTitle(self.viewModel.subredditName.isEmpty ? "Loading..." : self.viewModel.subredditName)
             .task {
-                self.viewModel.setSubredditName(to: "GaryDitTesting", fetchPostsAutomatically: true)
+                self.viewModel.setSubredditName(to: "All", fetchPostsAutomatically: true)
             }
             .refreshable {
                 await self.viewModel.resetAndFetchPosts()

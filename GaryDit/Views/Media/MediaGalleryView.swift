@@ -98,14 +98,21 @@ struct MediaGalleryView: View {
                     }
                     Spacer().frame(width: 16)
                 }
+                
                 Spacer()
+                
+                if let currentMedia = self.postModel.post.postContent.media.first(where: { $0.url == self.viewModel.selectedTabUrl }) {
+                    MediaOverlayBar(media: currentMedia)
+                        .padding(.horizontal, 16)
+                }
+                if let binding = Binding<VideoPlayerViewModel>($currentMediaViewModel) {
+                    MediaControlsView(mediaViewModel: binding, previewImage: $viewModel.scrubThumbnail)
+                }
+                Spacer().frame(height: 40)
             }
             .opacity(self.viewModel.displayControls ? viewModel.backgroundOpacity : 0)
 
-            if let binding = Binding<VideoPlayerViewModel>($currentMediaViewModel) {
-                MediaControlsView(mediaViewModel: binding, previewImage: $viewModel.scrubThumbnail)
-                    .opacity(self.viewModel.displayControls ? viewModel.backgroundOpacity : 0)
-            }
+            
         }
         .opacity(viewModel.entireViewOpacity)
         .simultaneousGesture(dragAwayGesture($draggingOffset))
@@ -219,7 +226,8 @@ extension MediaGalleryView {
                             self.viewModel.displayControls.toggle()
                         }
                         
-                        if self.currentMediaViewModel == nil || self.currentMediaViewModel?.isPlaying == true {
+                        let currentUrl = self.postModel.post.postContent.media.first(where: { $0.url == self.viewModel.selectedTabUrl })
+                        if (currentUrl?.mediaText == nil && self.currentMediaViewModel == nil) || self.currentMediaViewModel?.isPlaying == true {
                             self.viewModel.timeoutControls()
                         }
                 })

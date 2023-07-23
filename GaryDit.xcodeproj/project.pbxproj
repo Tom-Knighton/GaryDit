@@ -18,6 +18,7 @@
 		E23EE10E2A43B3D900E03A45 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23EE10D2A43B3D900E03A45 /* VideoView.swift */; };
 		E240D17B2A65C6DC00B5EED5 /* GlobalCaches.swift in Sources */ = {isa = PBXBuildFile; fileRef = E240D17A2A65C6DC00B5EED5 /* GlobalCaches.swift */; };
 		E240D17D2A6BF8B700B5EED5 /* MediaGalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E240D17C2A6BF8B700B5EED5 /* MediaGalleryViewModel.swift */; };
+		E240D17F2A6C929900B5EED5 /* MediaOverlayBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E240D17E2A6C929900B5EED5 /* MediaOverlayBar.swift */; };
 		E258D8122A59DA1A001D493D /* CachedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E258D8112A59DA1A001D493D /* CachedImage.swift */; };
 		E258D8182A5AECC6001D493D /* Local.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D8172A5AECC6001D493D /* Local.xcconfig */; };
 		E258D81B2A5AEE8B001D493D /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D81A2A5AEE8B001D493D /* Release.xcconfig */; };
@@ -103,6 +104,7 @@
 		E23EE10D2A43B3D900E03A45 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		E240D17A2A65C6DC00B5EED5 /* GlobalCaches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalCaches.swift; sourceTree = "<group>"; };
 		E240D17C2A6BF8B700B5EED5 /* MediaGalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaGalleryViewModel.swift; sourceTree = "<group>"; };
+		E240D17E2A6C929900B5EED5 /* MediaOverlayBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaOverlayBar.swift; sourceTree = "<group>"; };
 		E258D8112A59DA1A001D493D /* CachedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImage.swift; sourceTree = "<group>"; };
 		E258D8172A5AECC6001D493D /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
 		E258D8192A5AEE81001D493D /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 				E258D8112A59DA1A001D493D /* CachedImage.swift */,
 				E27AC27B2A5B4D8B000B8737 /* MediaGalleryView.swift */,
 				E21290262A5F55DC007D9068 /* MediaControls.swift */,
+				E240D17E2A6C929900B5EED5 /* MediaOverlayBar.swift */,
 			);
 			path = Media;
 			sourceTree = "<group>";
@@ -599,6 +602,7 @@
 				E26988DD2A3DB53D004DE85B /* Codable+GaryDit.swift in Sources */,
 				E240D17D2A6BF8B700B5EED5 /* MediaGalleryViewModel.swift in Sources */,
 				E27AC27A2A5B231E000B8737 /* DistinguishmentType.swift in Sources */,
+				E240D17F2A6C929900B5EED5 /* MediaOverlayBar.swift in Sources */,
 				E240D17B2A65C6DC00B5EED5 /* GlobalCaches.swift in Sources */,
 				E2949FCF2A40CDD5000669C2 /* URL+GaryDit.swift in Sources */,
 				E221C3AE2A63E3A900EBFC51 /* HapticService.swift in Sources */,
