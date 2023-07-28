@@ -17,6 +17,7 @@ struct MediaGalleryView: View {
     
     @State private var viewModel: MediaGalleryViewModel
     @State private var currentMediaViewModel: VideoPlayerViewModel? = nil
+    @State private var overrideMediaPlaying: Bool = true
     
     init(selectedMediaUrl: String) {
         _viewModel = State(initialValue: MediaGalleryViewModel(initialTabUrl: selectedMediaUrl))
@@ -56,7 +57,7 @@ struct MediaGalleryView: View {
                             case .video:
                                 ZStack {
                                     ZoomableScrollView(scale: $viewModel.currentZoomScale, maxZoom: viewModel.maxZoomScale) {
-                                        PlayerView(viewModel: postModel.getMediaModelForUrl(media.url) ?? VideoPlayerViewModel(media: media))
+                                        PlayerView(viewModel: postModel.getMediaModelForUrl(media.url) ?? VideoPlayerViewModel(media: media), isPlaying: $overrideMediaPlaying)
                                             .aspectRatio(media.width / media.height, contentMode: .fit)
                                             .overlay(
                                                 ZStack {
@@ -82,6 +83,7 @@ struct MediaGalleryView: View {
                 }
                 .tabViewStyle(.page(indexDisplayMode: self.viewModel.displayControls ? .automatic : .never))
                 .indexViewStyle(.page(backgroundDisplayMode: self.viewModel.displayControls ? .always : .interactive))
+                .simultaneousGesture(exclusiveTapGestures())
             }
             
             VStack(spacing: 0) {
@@ -106,7 +108,7 @@ struct MediaGalleryView: View {
                         .padding(.horizontal, 16)
                 }
                 if let binding = Binding<VideoPlayerViewModel>($currentMediaViewModel) {
-                    MediaControlsView(mediaViewModel: binding, previewImage: $viewModel.scrubThumbnail)
+                    MediaControlsView(mediaViewModel: binding, galleryViewModel: $viewModel, previewImage: $viewModel.scrubThumbnail)
                 }
                 Spacer().frame(height: 40)
             }
@@ -116,7 +118,6 @@ struct MediaGalleryView: View {
         }
         .opacity(viewModel.entireViewOpacity)
         .simultaneousGesture(dragAwayGesture($draggingOffset))
-        .simultaneousGesture(exclusiveTapGestures())
         .onChange(of: viewModel.selectedTabUrl, initial: true) {
             let vm = postModel.videoViewModels.first(where: { $0.media.url == viewModel.selectedTabUrl })
             self.currentMediaViewModel = vm

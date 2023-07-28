@@ -12,6 +12,7 @@ import CoreMedia
 struct MediaControlsView: View {
         
     @Binding var mediaViewModel: VideoPlayerViewModel
+    @Binding var galleryViewModel: MediaGalleryViewModel
     @Binding var previewImage: UIImage?
     @State private var progress: CGFloat = 0.1
     
@@ -24,7 +25,7 @@ struct MediaControlsView: View {
                 HStack(spacing: 30) {
                     
                     Spacer()
-                    Button(action: { mediaViewModel.skip(seconds: -10) }) {
+                    Button(action: { mediaViewModel.skip(seconds: -10); galleryViewModel.timeoutControls() }) {
                         Image(systemName: "gobackward.10")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -32,14 +33,14 @@ struct MediaControlsView: View {
                     }
                     .tint(.white)
                     
-                    Button(action: { self.mediaViewModel.setIsPlaying(!self.mediaViewModel.isPlaying) }) {
+                    Button(action: { self.mediaViewModel.setIsPlaying(!self.mediaViewModel.isPlaying); galleryViewModel.timeoutControls() }) {
                         Image(systemName: self.mediaViewModel.isPlaying ? "pause.fill" : "play.fill")
                             .resizable()
                             .frame(width: 18, height: 24)
                     }
                     .tint(.white)
                     
-                    Button(action: { mediaViewModel.skip(seconds: 10)}) {
+                    Button(action: { mediaViewModel.skip(seconds: 10); galleryViewModel.timeoutControls() }) {
                         Image(systemName: "goforward.10")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -53,7 +54,7 @@ struct MediaControlsView: View {
                 if mediaViewModel.mediaHasAudio {
                     HStack {
                         Spacer()
-                        Button(action: { mediaViewModel.toggleMute() }) {
+                        Button(action: { mediaViewModel.toggleMute(); galleryViewModel.timeoutControls() }) {
                             Image(systemName: mediaViewModel.mediaIsMuted ? "speaker.slash.fill" : "speaker.wave.3.fill")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
