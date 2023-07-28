@@ -55,11 +55,11 @@
 		E2949FB32A3DE3F7000669C2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FB22A3DE3F7000669C2 /* User.swift */; };
 		E2949FB52A3DE873000669C2 /* Color+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FB42A3DE873000669C2 /* Color+GaryDit.swift */; };
 		E2949FB72A3F11F6000669C2 /* NavigationRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FB62A3F11F6000669C2 /* NavigationRoot.swift */; };
-		E2949FB92A3F1AFF000669C2 /* PostsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FB82A3F1AFF000669C2 /* PostsPage.swift */; };
+		E2949FB92A3F1AFF000669C2 /* PostListPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FB82A3F1AFF000669C2 /* PostListPage.swift */; };
 		E2949FBB2A3F1C05000669C2 /* SubredditService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FBA2A3F1C05000669C2 /* SubredditService.swift */; };
 		E2949FBD2A3F1D15000669C2 /* SubredditResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FBC2A3F1D15000669C2 /* SubredditResponse.swift */; };
 		E2949FC02A3F2951000669C2 /* OnTypeMismatchWrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FBF2A3F2951000669C2 /* OnTypeMismatchWrappers.swift */; };
-		E2949FC32A3F2C70000669C2 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FC22A3F2C70000669C2 /* PostView.swift */; };
+		E2949FC32A3F2C70000669C2 /* ListPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FC22A3F2C70000669C2 /* ListPostView.swift */; };
 		E2949FC62A409EE0000669C2 /* ShimViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FC52A409EE0000669C2 /* ShimViewController.swift */; };
 		E2949FC82A40C054000669C2 /* Int+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FC72A40C054000669C2 /* Int+GaryDit.swift */; };
 		E2949FCA2A40C084000669C2 /* Double+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FC92A40C084000669C2 /* Double+GaryDit.swift */; };
@@ -145,11 +145,11 @@
 		E2949FB22A3DE3F7000669C2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E2949FB42A3DE873000669C2 /* Color+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+GaryDit.swift"; sourceTree = "<group>"; };
 		E2949FB62A3F11F6000669C2 /* NavigationRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRoot.swift; sourceTree = "<group>"; };
-		E2949FB82A3F1AFF000669C2 /* PostsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsPage.swift; sourceTree = "<group>"; };
+		E2949FB82A3F1AFF000669C2 /* PostListPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListPage.swift; sourceTree = "<group>"; };
 		E2949FBA2A3F1C05000669C2 /* SubredditService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubredditService.swift; sourceTree = "<group>"; };
 		E2949FBC2A3F1D15000669C2 /* SubredditResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubredditResponse.swift; sourceTree = "<group>"; };
 		E2949FBF2A3F2951000669C2 /* OnTypeMismatchWrappers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTypeMismatchWrappers.swift; sourceTree = "<group>"; };
-		E2949FC22A3F2C70000669C2 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		E2949FC22A3F2C70000669C2 /* ListPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPostView.swift; sourceTree = "<group>"; };
 		E2949FC52A409EE0000669C2 /* ShimViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimViewController.swift; sourceTree = "<group>"; };
 		E2949FC72A40C054000669C2 /* Int+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+GaryDit.swift"; sourceTree = "<group>"; };
 		E2949FC92A40C084000669C2 /* Double+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+GaryDit.swift"; sourceTree = "<group>"; };
@@ -278,7 +278,7 @@
 				E26988C42A3D0F2E004DE85B /* LandingPage.swift */,
 				E2949FAD2A3DDA4A000669C2 /* HomePage.swift */,
 				E2949FB62A3F11F6000669C2 /* NavigationRoot.swift */,
-				E2949FB82A3F1AFF000669C2 /* PostsPage.swift */,
+				E2949FB82A3F1AFF000669C2 /* PostListPage.swift */,
 				E21D05182A73FD6A00CEF29C /* PostPage.swift */,
 			);
 			path = Pages;
@@ -289,7 +289,7 @@
 			children = (
 				E2A189A22A425F3000BE1E59 /* Media */,
 				E2949FCB2A40CD1A000669C2 /* Link */,
-				E2949FC12A3F2C67000669C2 /* Posts */,
+				E2949FC12A3F2C67000669C2 /* Post List */,
 				E26988CA2A3D1694004DE85B /* Misc */,
 			);
 			path = Views;
@@ -403,14 +403,14 @@
 			path = "Property wrappers";
 			sourceTree = "<group>";
 		};
-		E2949FC12A3F2C67000669C2 /* Posts */ = {
+		E2949FC12A3F2C67000669C2 /* Post List */ = {
 			isa = PBXGroup;
 			children = (
-				E2949FC22A3F2C70000669C2 /* PostView.swift */,
+				E2949FC22A3F2C70000669C2 /* ListPostView.swift */,
 				E23C85422A51B8E70070F81D /* NoMorePostsView.swift */,
 				E2D0989B2A59AF2300D05D13 /* PostMediaPreviews.swift */,
 			);
-			path = Posts;
+			path = "Post List";
 			sourceTree = "<group>";
 		};
 		E2949FC42A409ED4000669C2 /* Auth */ = {
@@ -622,7 +622,7 @@
 				E27479E72A6454A3002A0483 /* NotificationCenter+GaryDit.swift in Sources */,
 				E2949FBD2A3F1D15000669C2 /* SubredditResponse.swift in Sources */,
 				E2949FA42A3DBAEF000669C2 /* AuthError.swift in Sources */,
-				E2949FC32A3F2C70000669C2 /* PostView.swift in Sources */,
+				E2949FC32A3F2C70000669C2 /* ListPostView.swift in Sources */,
 				E2949FBB2A3F1C05000669C2 /* SubredditService.swift in Sources */,
 				E2D0989C2A59AF2300D05D13 /* PostMediaPreviews.swift in Sources */,
 				E2949FD22A40CF75000669C2 /* RedditPostViewModel.swift in Sources */,
@@ -633,7 +633,7 @@
 				E26988962A3D0A9F004DE85B /* ContentView.swift in Sources */,
 				E2949FC02A3F2951000669C2 /* OnTypeMismatchWrappers.swift in Sources */,
 				E2D098942A58602700D05D13 /* Post.swift in Sources */,
-				E2949FB92A3F1AFF000669C2 /* PostsPage.swift in Sources */,
+				E2949FB92A3F1AFF000669C2 /* PostListPage.swift in Sources */,
 				E26988D72A3DA7E9004DE85B /* OAuthResponse.swift in Sources */,
 				E2D098962A5860DB00D05D13 /* PostFlags.swift in Sources */,
 				E27AC27C2A5B4D8C000B8737 /* MediaGalleryView.swift in Sources */,

@@ -82,6 +82,7 @@ struct PostVideoView: View {
     
     @Environment(RedditPostViewModel.self) private var postModel
     @State private var isPlayingMedia = false
+    @State private var cachedWasPlayingBeforeMedia: Bool = false
     let media: PostMedia
     let aspectRatio: Double
     
@@ -153,8 +154,17 @@ struct PostVideoView: View {
         .task {
             let vm = postModel.videoViewModels.first(where: { $0.media.url == media.url })
             self.mediaModel = vm
-            if vm == nil {
-                print("found nil for vm")
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .MediaGalleryFullscreenPresented)) { notification in
+            let excepting = notification.userInfo?["except"] as? String
+            if excepting == nil || excepting != media.url {
+                self.cachedWasPlayingBeforeMedia = self.isPlayingMedia
+                self.isPlayingMedia = false
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .MediaGalleryFullscreenDismissed)) { _ in
+            if self.cachedWasPlayingBeforeMedia == true {
+                self.isPlayingMedia = true
             }
         }
     }

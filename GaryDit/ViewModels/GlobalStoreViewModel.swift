@@ -11,7 +11,26 @@ import SwiftUI
 
 class GlobalStoreViewModel: ObservableObject {
     
-    @Published public var PostPageNavPath = NavigationPath()
+    @Published public var postListPath = NavigationPath()
+        
+}
+
+extension NavigationPath {
     
-    public static var shared: GlobalStoreViewModel = GlobalStoreViewModel()
+    /// Pops the last n views, where n is `levels`
+    /// If `levels` is larger than the actual path count, the navigation stack will just go back to the first view
+    /// - Parameter levels: The amount of data to remove from the path
+    public mutating func goBack(_ levels: Int = 1) {
+        if levels >= self.count {
+            self.popToRoot()
+            return
+        }
+        
+        self.removeLast(levels)
+    }
+    
+    /// Removes all data from the path
+    public mutating func popToRoot() {
+        self.removeLast(self.count)
+    }
 }

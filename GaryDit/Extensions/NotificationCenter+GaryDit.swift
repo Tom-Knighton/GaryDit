@@ -10,4 +10,6 @@ import Foundation
 extension Notification.Name {
     
     static let AllPlayersStopAudio = Notification.Name("AllPlayersStopAudio")
+    static let MediaGalleryFullscreenPresented = Notification.Name("MediaGalleryFullscreenPresented")
+    static let MediaGalleryFullscreenDismissed = Notification.Name("MediaGalleryFullscreenDismissed")
 }

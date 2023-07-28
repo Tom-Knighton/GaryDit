@@ -17,16 +17,10 @@ public struct NavigationRootPage: View {
         
         TabView(selection: $tabSelection, content: {
             
-            NavigationStack(path: $globalVM.PostPageNavPath) {
-                PostsPage()
+            NavigationStack(path: $globalVM.postListPath) {
+                PostListPage()
                     .navigationDestination(for: Post.self) { post in
                         PostPage(post: post)
-                    }
-                    .onAppear {
-                        Task {
-                            //TODO: Remove
-                            globalVM.PostPageNavPath.append(Post(postId: "1", postAuthour: "Test", postSubreddit: "Test", postTitle: "Test", postScore: 1, postCreatedAt: Date(), postEditedAt: nil, postFlagDetails: PostFlags(isNSFW: true, isSaved: true, isLocked: true, isStickied: true, isArchived: true, distinguishmentType: .none), postContent: PostContent(contentType: .textOnly, textContent: "Here", media: [])))                        //                            self.mapNavigator.push(OfflineTimetableNavLink(name: "Stratford", stopPointId: "HUBSRA", lineId: "central"))
-                        }
                     }
             }
             .tag(0)
