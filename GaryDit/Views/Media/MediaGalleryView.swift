@@ -45,7 +45,6 @@ struct MediaGalleryView: View {
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .ignoresSafeArea()
-                                .gesture(viewModel.doubleTapZoomGesture)
                             case .gif:
                                 ZoomableScrollView(scale: $viewModel.currentZoomScale, maxZoom: viewModel.maxZoomScale) {
                                     GIFView(url: media.url, isPlaying: .constant(true))
@@ -54,7 +53,6 @@ struct MediaGalleryView: View {
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .ignoresSafeArea()
-                                .gesture(viewModel.doubleTapZoomGesture)
                             case .video:
                                 ZStack {
                                     ZoomableScrollView(scale: $viewModel.currentZoomScale, maxZoom: viewModel.maxZoomScale) {
@@ -73,7 +71,6 @@ struct MediaGalleryView: View {
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .ignoresSafeArea()
-                                .gesture(viewModel.doubleTapZoomGesture)
                                 
                             default:
                                 EmptyView()
@@ -101,18 +98,25 @@ struct MediaGalleryView: View {
                     }
                     Spacer().frame(width: 16)
                 }
+                
                 Spacer()
+                
+                if let currentMedia = self.postModel.post.postContent.media.first(where: { $0.url == self.viewModel.selectedTabUrl }) {
+                    MediaOverlayBar(media: currentMedia)
+                        .padding(.horizontal, 16)
+                }
+                if let binding = Binding<VideoPlayerViewModel>($currentMediaViewModel) {
+                    MediaControlsView(mediaViewModel: binding, previewImage: $viewModel.scrubThumbnail)
+                }
+                Spacer().frame(height: 40)
             }
             .opacity(self.viewModel.displayControls ? viewModel.backgroundOpacity : 0)
 
-            if let binding = Binding<VideoPlayerViewModel>($currentMediaViewModel) {
-                MediaControlsView(mediaViewModel: binding, previewImage: $viewModel.scrubThumbnail)
-                    .opacity(self.viewModel.displayControls ? viewModel.backgroundOpacity : 0)
-            }
+            
         }
         .opacity(viewModel.entireViewOpacity)
         .simultaneousGesture(dragAwayGesture($draggingOffset))
-        .gesture(controlTapGesture())
+        .simultaneousGesture(exclusiveTapGestures())
         .onChange(of: viewModel.selectedTabUrl, initial: true) {
             let vm = postModel.videoViewModels.first(where: { $0.media.url == viewModel.selectedTabUrl })
             self.currentMediaViewModel = vm
@@ -209,16 +213,24 @@ extension MediaGalleryView {
 
 extension MediaGalleryView {
     
-    func controlTapGesture() -> some Gesture {
-        TapGesture(count: 1)
+    func exclusiveTapGestures() -> some Gesture {
+        
+        TapGesture(count: 2) // Double tap zoom
             .onEnded { _ in
-                withAnimation(.easeInOut(duration: 0.35)) {
-                    self.viewModel.displayControls.toggle()
-                }
-                
-                if self.currentMediaViewModel == nil || self.currentMediaViewModel?.isPlaying == true {
-                    self.viewModel.timeoutControls()
-                }
+                self.viewModel.doubleTapZoomGesture()
             }
+            .exclusively(before:
+                TapGesture(count: 1) // Single tap control toggle
+                    .onEnded({ _ in
+                        withAnimation(.easeInOut(duration: 0.35)) {
+                            self.viewModel.displayControls.toggle()
+                        }
+                        
+                        let currentUrl = self.postModel.post.postContent.media.first(where: { $0.url == self.viewModel.selectedTabUrl })
+                        if (currentUrl?.mediaText == nil && self.currentMediaViewModel == nil) || self.currentMediaViewModel?.isPlaying == true {
+                            self.viewModel.timeoutControls()
+                        }
+                })
+            )
     }
 }

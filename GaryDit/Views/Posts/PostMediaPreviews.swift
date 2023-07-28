@@ -100,9 +100,11 @@ struct PostVideoView: View {
                         .aspectRatio(aspectRatio, contentMode: .fit)
                         .onAppear {
                             self.isPlayingMedia = true
+                            self.mediaModel?.setIsPlaying(true)
                         }
                         .onDisappear {
                             self.isPlayingMedia = false
+                            self.mediaModel?.setIsPlaying(false)
                         }
                         .overlay(
                             GeometryReader { reader in

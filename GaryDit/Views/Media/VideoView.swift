@@ -138,7 +138,7 @@ struct PlayerView: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> PlayerUIView {
-        let view = PlayerUIView(viewModel: self.viewModel, gravity: .fit, isPlaying: true)
+        let view = PlayerUIView(viewModel: self.viewModel, gravity: .fit, isPlaying: false)
         view.delegate = context.coordinator
         return view
     }
