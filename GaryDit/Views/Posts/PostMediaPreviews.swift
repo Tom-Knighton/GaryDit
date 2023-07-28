@@ -96,15 +96,13 @@ struct PostVideoView: View {
         ZStack {
             VStack(spacing: 0) {
                 if let mediaModel {
-                    PlayerView(viewModel: mediaModel)
+                    PlayerView(viewModel: mediaModel, isPlaying: $isPlayingMedia)
                         .aspectRatio(aspectRatio, contentMode: .fit)
                         .onAppear {
                             self.isPlayingMedia = true
-                            self.mediaModel?.setIsPlaying(true)
                         }
                         .onDisappear {
                             self.isPlayingMedia = false
-                            self.mediaModel?.setIsPlaying(false)
                         }
                         .overlay(
                             GeometryReader { reader in
@@ -155,6 +153,9 @@ struct PostVideoView: View {
         .task {
             let vm = postModel.videoViewModels.first(where: { $0.media.url == media.url })
             self.mediaModel = vm
+            if vm == nil {
+                print("found nil for vm")
+            }
         }
     }
 }

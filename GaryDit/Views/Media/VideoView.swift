@@ -119,6 +119,7 @@ class PlayerUIView: UIView {
 struct PlayerView: UIViewRepresentable {
     
     var viewModel: VideoPlayerViewModel
+    @Binding var isPlaying: Bool
     
     class Coordinator: VideoViewDelegate {
         
@@ -138,10 +139,18 @@ struct PlayerView: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> PlayerUIView {
-        let view = PlayerUIView(viewModel: self.viewModel, gravity: .fit, isPlaying: false)
+        let view = PlayerUIView(viewModel: self.viewModel, gravity: .fit, isPlaying: isPlaying)
         view.delegate = context.coordinator
         return view
     }
     
-    func updateUIView(_ uiView: PlayerUIView, context: Context) {}
+    func updateUIView(_ uiView: PlayerUIView, context: Context) {
+        if isPlaying {
+            uiView.isPlaying = true
+            viewModel.avPlayer?.play()
+        } else {
+            uiView.isPlaying = false
+            viewModel.avPlayer?.pause()
+        }
+    }
 }
