@@ -1,5 +1,5 @@
 //
-//  PostsPage.swift
+//  PostListPage.swift
 //  GaryDit
 //
 //  Created by Tom Knighton on 18/06/2023.
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-public struct PostsPage: View {
+public struct PostListPage: View {
     
     @State private var viewModel = SubredditViewModel(subredditName: "")
     
@@ -18,7 +18,7 @@ public struct PostsPage: View {
             
             List {
                 ForEach(self.viewModel.posts, id: \.postId) { post in
-                    PostView(post: post)
+                    ListPostView(post: post)
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)

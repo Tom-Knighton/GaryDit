@@ -12,7 +12,7 @@ import OAuthSwift
 @main
 struct GaryDitApp: App {
     
-    @State private var globalViewModel = GlobalStoreViewModel.shared
+    @StateObject private var globalViewModel = GlobalStoreViewModel()
     
     init() {
         //iOS changes the tab bar when there's nothing under it...
@@ -24,13 +24,13 @@ struct GaryDitApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(globalViewModel)
                 .onOpenURL(perform: { url in
                     if url.host() == "garydit-oauth-cb" {
                         print(url)
                         OAuthSwift.handle(url: url)
                     }
                 })
+                .environmentObject(globalViewModel)
         }
     }
 }
