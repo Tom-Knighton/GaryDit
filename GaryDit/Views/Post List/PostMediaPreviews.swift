@@ -218,7 +218,6 @@ struct PostMediaGallery: View {
             .onTapGesture {
                 self.showMediaUrl = firstPreview.url
             }
-            
         } else {
             ZStack(alignment: .topLeading) {
                 if let firstPreview {

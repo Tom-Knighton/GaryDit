@@ -34,6 +34,7 @@ struct ListPostView: View {
                         .bold()
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.top, viewModel.post.postContent.media.isEmpty ? 8 : 0)
+                        .fixedSize(horizontal: false, vertical: true)
                     
                     if viewModel.post.postFlagDetails.isNSFW {
                         Text("NSFW")
