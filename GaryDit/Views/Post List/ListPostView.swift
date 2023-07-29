@@ -99,7 +99,7 @@ struct ListPostView: View {
             .accessibilityRespondsToUserInteraction()
             .contentShape(Rectangle())
             .onTapGesture {
-                self.globalVM.postListPath.append(viewModel.post)
+                self.globalVM.postListPath.append(viewModel)
             }
         }
         .padding(.bottom, 8)

@@ -37,12 +37,30 @@
       }
     },
     {
+      "identity" : "garyditmarkdownview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Tom-Knighton/GaryDitMarkdownView",
+      "state" : {
+        "branch" : "main",
+        "revision" : "eb590ab29699bc53d84fb621ba6bd3a72e1d4d36"
+      }
+    },
+    {
       "identity" : "gsplayer",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/wxxsw/GSPlayer.git",
       "state" : {
         "revision" : "aa6dad7943d52f5207f7fcc2ad3e4274583443b8",
         "version" : "0.2.26"
+      }
+    },
+    {
+      "identity" : "highlightr",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/raspu/Highlightr.git",
+      "state" : {
+        "revision" : "93199b9e434f04bda956a613af8f571933f9f037",
+        "version" : "2.1.2"
       }
     },
     {
@@ -70,6 +88,24 @@
       "state" : {
         "revision" : "d85964b96dbce94df961f28b996187c835089903",
         "version" : "2.2.0"
+      }
+    },
+    {
+      "identity" : "swift-cmark",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tom-knighton/swift-cmark.git",
+      "state" : {
+        "branch" : "gfm",
+        "revision" : "a2b1be501f2c49bd5795866fafff15c00c75eea8"
+      }
+    },
+    {
+      "identity" : "swift-markdown",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Tom-Knighton/swift-markdown.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "26b1d5f081ae32f1bc3631e31e0fb83305686c91"
       }
     },
     {

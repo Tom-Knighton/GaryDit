@@ -67,7 +67,7 @@ public actor APIClient {
         }
 
         urlRequest.setValue("Bearer \(token.Token)", forHTTPHeaderField: "Authorization")
-        
+        print(token.Token)
         return urlRequest
     }
 }

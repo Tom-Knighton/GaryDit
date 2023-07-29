@@ -34,9 +34,16 @@ struct MediaControlsView: View {
                     .tint(.white)
                     
                     Button(action: { self.mediaViewModel.setIsPlaying(!self.mediaViewModel.isPlaying); galleryViewModel.timeoutControls() }) {
-                        Image(systemName: self.mediaViewModel.isPlaying ? "pause.fill" : "play.fill")
-                            .resizable()
-                            .frame(width: 18, height: 24)
+                        if self.mediaViewModel.isPlaying { // iOS 17 bug prevents ternary from working here for some reason :(
+                            Image(systemName: "pause.fill")
+                                .resizable()
+                                .frame(width: 18, height: 24)
+                        } else {
+                            Image(systemName: "play.fill")
+                                .resizable()
+                                .frame(width: 18, height: 24)
+                        }
+                        
                     }
                     .tint(.white)
                     
@@ -55,10 +62,18 @@ struct MediaControlsView: View {
                     HStack {
                         Spacer()
                         Button(action: { mediaViewModel.toggleMute(); galleryViewModel.timeoutControls() }) {
-                            Image(systemName: mediaViewModel.mediaIsMuted ? "speaker.slash.fill" : "speaker.wave.3.fill")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 24, height: 24)
+                            if mediaViewModel.mediaIsMuted { // iOS 17 bug prevents ternary from working here for some reason :(
+                                Image(systemName: "speaker.slash.fill" )
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 24, height: 24)
+                            } else {
+                                Image(systemName: "speaker.wave.3.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 24, height: 24)
+                            }
+                            
                         }
                         .tint(.white)
                         Spacer().frame(width: 8)
