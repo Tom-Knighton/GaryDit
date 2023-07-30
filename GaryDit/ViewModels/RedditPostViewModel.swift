@@ -20,6 +20,20 @@ public class RedditPostViewModel {
     public var post: Post
     
     public var videoViewModels: [VideoPlayerViewModel] = []
+    public var overrideVideosDontStopWhenDisappear: Bool = false
+    public var displayMediaBelowTitle: Bool {
+        if post.postContent.contentType == .linkOnly {
+            return true
+        }
+        
+        return false
+    }
+    public var hasBeenEdited: Bool {
+        return post.postEditedAt != nil
+    }
+    public var creationOrEditTime: Date {
+        return post.postEditedAt ?? post.postCreatedAt
+    }
     
     init(post: Post) {
         self.post = post
@@ -43,5 +57,16 @@ public class RedditPostViewModel {
         }
         
         return nil
+    }
+}
+
+extension RedditPostViewModel: Hashable {
+    
+    public static func == (lhs: RedditPostViewModel, rhs: RedditPostViewModel) -> Bool {
+        return lhs.post.postId == rhs.post.postId
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(post)
     }
 }

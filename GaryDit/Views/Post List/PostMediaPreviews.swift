@@ -103,6 +103,8 @@ struct PostVideoView: View {
                             self.isPlayingMedia = true
                         }
                         .onDisappear {
+                            guard  !self.postModel.overrideVideosDontStopWhenDisappear else { return }
+                            
                             self.isPlayingMedia = false
                         }
                         .overlay(

@@ -10,19 +10,28 @@ import SwiftUI
 
 struct PostPage: View {
     
-    var post: Post
+    @State private var viewModel: RedditPostViewModel
+    
+    init(post: Post) {
+        _viewModel = State(wrappedValue: RedditPostViewModel(post: post))
+    }
+    
+    init(postViewModel: RedditPostViewModel) {
+        _viewModel = State(wrappedValue: postViewModel)
+    }
     
     var body: some View {
         
         ZStack {
             Color.layer1.ignoresSafeArea()
-            VStack {
-                Spacer()
-                Text(post.postTitle)
-                Spacer()
+            ScrollView {
+                VStack {
+                    PostViewPostDetails(viewModel: viewModel)
+                    Spacer()
+                }
             }
-            
         }
-        .navigationTitle(post.postTitle)
+        .navigationTitle(Text("^[\(viewModel.post.postCommentCount) Comment](inflect: true)"))
+        .navigationBarTitleDisplayMode(.inline)
     }
 }

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import SwiftUI
 /// The type of content this post holds. Note that with image and video, there may also be text to display
 public enum PostContentType: String, Codable {
     case textOnly = "textOnly"
@@ -22,11 +22,20 @@ public struct PostContent: Codable {
     /// The type of content
     let contentType: PostContentType
     
-    /// The text content, if any, of this post
+    /// The raw text content, if any, of this post
     let textContent: String?
     
     /// Any media belonging to this post
     let media: [PostMedia]
+    
+    /// The text content, if any, as a LocalizedStringKey
+    func markdownText() -> LocalizedStringKey? {
+        if let textContent {
+            return LocalizedStringKey(textContent)
+        }
+        
+        return nil
+    }
 }
 
 public struct PostMedia: Codable {

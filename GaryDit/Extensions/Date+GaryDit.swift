@@ -15,6 +15,13 @@ extension Date {
         formatter.allowedUnits = [.year, .month, .day, .hour, .minute, .second]
         formatter.zeroFormattingBehavior = .dropAll
         formatter.maximumUnitCount = 1
-        return String(format: formatter.string(from: self, to: Date()) ?? "", locale: .current)
+        var ago = String(format: formatter.string(from: self, to: Date()) ?? "", locale: .current)
+        
+        let letters = ago.filter({$0.isLetter})
+        if letters.count == 1 && letters == "s" {
+            ago = "Now"
+        }
+        
+        return ago
     }
 }

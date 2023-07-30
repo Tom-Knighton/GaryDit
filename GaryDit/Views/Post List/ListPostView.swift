@@ -83,7 +83,7 @@ struct ListPostView: View {
                             }
                             HStack(spacing: 2) {
                                 Text(Image(systemName: "message"))
-                                Text(viewModel.post.postScore.friendlyFormat()) //TODO
+                                Text(viewModel.post.postCommentCount.friendlyFormat())
                             }
                             HStack(spacing: 2) {
                                 Text(Image(systemName: "clock"))
@@ -99,7 +99,7 @@ struct ListPostView: View {
             .accessibilityRespondsToUserInteraction()
             .contentShape(Rectangle())
             .onTapGesture {
-                self.globalVM.postListPath.append(viewModel.post)
+                self.globalVM.postListPath.append(viewModel)
             }
         }
         .padding(.bottom, 8)
