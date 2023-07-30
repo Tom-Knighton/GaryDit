@@ -16,24 +16,19 @@ struct PostViewPostDetails: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            PostTopMediaView(showMediaUrl: $showMediaUrl, content: viewModel.post.postContent)
-                .clipShape(.rect(cornerRadius: 10))
-                .shadow(radius: 3)
-                .environment(viewModel)
-                .padding(.top, 4)
-                .onAppear {
-                    self.viewModel.overrideVideosDontStopWhenDisappear = true
-                }
-                .onDisappear {
-                    self.viewModel.overrideVideosDontStopWhenDisappear = false
-                }
-            
+                        
+            if viewModel.displayMediaBelowTitle == false {
+                mediaView()
+            }
             Text(viewModel.post.postTitle)
                 .font(.title3)
                 .bold()
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 8)
                 .fixedSize(horizontal: false, vertical: true)
+            if viewModel.displayMediaBelowTitle {
+                mediaView()
+            }
             
             if let text = viewModel.post.postContent.textContent {
                 Spacer().frame(height: 16)
@@ -57,5 +52,20 @@ struct PostViewPostDetails: View {
                 NotificationCenter.default.post(name: .MediaGalleryFullscreenDismissed, object: nil, userInfo: [:])
             }
         }
+    }
+    
+    @ViewBuilder
+    func mediaView() -> some View {
+        PostTopMediaView(showMediaUrl: $showMediaUrl, content: viewModel.post.postContent)
+            .clipShape(.rect(cornerRadius: 10))
+            .shadow(radius: 3)
+            .environment(viewModel)
+            .padding(.top, 4)
+            .onAppear {
+                self.viewModel.overrideVideosDontStopWhenDisappear = true
+            }
+            .onDisappear {
+                self.viewModel.overrideVideosDontStopWhenDisappear = false
+            }
     }
 }

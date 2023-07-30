@@ -21,6 +21,13 @@ public class RedditPostViewModel {
     
     public var videoViewModels: [VideoPlayerViewModel] = []
     public var overrideVideosDontStopWhenDisappear: Bool = false
+    public var displayMediaBelowTitle: Bool {
+        if post.postContent.contentType == .linkOnly {
+            return true
+        }
+        
+        return false
+    }
     
     init(post: Post) {
         self.post = post
