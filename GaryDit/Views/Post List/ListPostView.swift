@@ -83,7 +83,7 @@ struct ListPostView: View {
                             }
                             HStack(spacing: 2) {
                                 Text(Image(systemName: "message"))
-                                Text(viewModel.post.postScore.friendlyFormat()) //TODO
+                                Text(viewModel.post.postCommentCount.friendlyFormat())
                             }
                             HStack(spacing: 2) {
                                 Text(Image(systemName: "clock"))

@@ -35,7 +35,7 @@ struct PostViewPostDetails: View {
                 MarkdownView(text: .constant(text))
             }
             
-            Divider()
+            self.bottomBar()
         }
         .padding(.horizontal, 12)
         .background(Color.layer1)
@@ -68,4 +68,81 @@ struct PostViewPostDetails: View {
                 self.viewModel.overrideVideosDontStopWhenDisappear = false
             }
     }
+    
+    @ViewBuilder
+    func bottomBar() -> some View {
+        VStack(alignment: .leading) {
+            Text("In **\(viewModel.post.postSubreddit)** by **\(viewModel.post.postAuthour)**")
+            HStack {
+                HStack(spacing: 2) {
+                    Text(Image(systemName: "arrow.up"))
+                    Text(viewModel.post.postScore.friendlyFormat())
+                }
+                HStack(spacing: 2) {
+                    Text(Image(systemName: "smiley"))
+                    Text("\(viewModel.post.postScorePercentage)%")
+                }
+                HStack(spacing: 2) {
+                    Text(Image(systemName: viewModel.hasBeenEdited ? "pencil" : "clock"))
+                    Text(viewModel.creationOrEditTime.friendlyAgo)
+                }
+            }
+            
+            Divider()
+                .overlay(.primary)
+            HStack {
+                Spacer()
+                Button(action: {}) {
+                    Image(systemName: "arrow.up")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 25, height: 25)
+                }
+                .foregroundStyle(.blue)
+                Spacer()
+                Button(action: {}) {
+                    Image(systemName: "arrow.down")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 25, height: 25)
+                }
+                .foregroundStyle(.blue)
+                Spacer()
+                Button(action: {}) {
+                    Image(systemName: "bookmark")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 25, height: 25)
+                }
+                .foregroundStyle(.blue)
+                Spacer()
+                Button(action: {}) {
+                    Image(systemName: "arrowshape.turn.up.backward")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 25, height: 25)
+                }
+                .foregroundStyle(.blue)
+                Spacer()
+                Button(action: {}) {
+                    Image(systemName: "square.and.arrow.up")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 25, height: 25)
+                }
+                .foregroundStyle(.blue)
+                Spacer()
+            }
+            Divider()
+                .overlay(.primary)
+        }
+        .foregroundStyle(.gray)
+    }
 }
+
+//#Preview {
+//    ScrollView {
+//        PostViewPostDetails(viewModel: RedditPostViewModel(post: Post(postId: "1", postAuthour: "UkPolBot", postSubreddit: "UKPolitics", postTitle: "Daily Megathread - 30/07/2023", postScore: 4, postCreatedAt: Date(), postEditedAt: Date(), postFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: true, isArchived: false, isSpoiler: false, distinguishmentType: .none), postContent: PostContent(contentType: .textOnly, textContent: "---\r\n\r\n**[👋](https://i.imgur.com/h5wkqf4.png) Welcome to /r/ukpolitics' daily megathreads, for light real-time discussion of the day's latest developments.**\r\n\r\n---\r\n\r\n\r\nPlease do not submit articles to the megathread which clearly stand as their own submission. Links as comments are not useful here. Add a headline, tweet content or explainer please.\r\n\r\nThis thread will automatically roll over into a new one at **4,000** comments, and at 06:00 GMT each morning.\r\n\r\nYou can join **[our Discord server](https://discord.gg/DPQERCvzbg)** for real-time discussion with fellow subreddit users, and **[follow our Twitter account](https://twitter.com/rukpoliticsmods)** to keep up with the latest developments.\r\n\r\n---\r\n\r\n###Useful Links\r\n\r\n**** · [**🌎 International Politics Discussion Thread**](https://www.reddit.com/r/ukpolitics/comments/14peq9l/international_politics_discussion_thread/?sort=new)\r\n\r\n[**📺 Daily Parliament Guide**](https://parliamentlive.tv/Guide) . [**📜 Commons**](https://parliamentlive.tv/Commons) . [**📜 Lords**](https://parliamentlive.tv/Lords) . [**📜 Committees**](https://parliamentlive.tv/Committees)\r\n\r\n[**📋 Spring 2023 Subreddit Survey by /u/lets_chill_dude**](https://old.reddit.com/r/ukpolitics/comments/13fqgjf/rukpolitics_spring_23_survey/)\r\n\r\n---", media: []))))
+//    }
+//    
+//}

@@ -31,7 +31,7 @@ struct PostPage: View {
                 }
             }
         }
-        .navigationTitle("1 Comment")
+        .navigationTitle(Text("^[\(viewModel.post.postCommentCount) Comment](inflect: true)"))
         .navigationBarTitleDisplayMode(.inline)
     }
 }

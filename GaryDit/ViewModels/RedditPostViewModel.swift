@@ -28,6 +28,12 @@ public class RedditPostViewModel {
         
         return false
     }
+    public var hasBeenEdited: Bool {
+        return post.postEditedAt != nil
+    }
+    public var creationOrEditTime: Date {
+        return post.postEditedAt ?? post.postCreatedAt
+    }
     
     init(post: Post) {
         self.post = post

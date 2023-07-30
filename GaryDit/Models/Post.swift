@@ -25,11 +25,17 @@ public struct Post: Codable {
     /// The total number of upvotes - downvotes to display for a post
     let postScore: Int
     
+    /// The ratio of upvotes to downvotes - as a percentage
+    let postScorePercentage: Int
+    
     /// The date the post was initially created at
     let postCreatedAt: Date
     
     /// If the post has been edited, this is the date it was *last* edited at
     let postEditedAt: Date?
+    
+    /// The number of comments on this post
+    let postCommentCount: Int
     
     /// Flags regarding this post, i.e. isNSFW etc...
     let postFlagDetails: PostFlags
