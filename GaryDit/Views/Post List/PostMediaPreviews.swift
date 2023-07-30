@@ -12,14 +12,15 @@ struct PostTopMediaView: View {
     @State private var mediaViewModel: VideoPlayerViewModel?
     @Binding var showMediaUrl: String?
     var content: PostContent
-    
+    @State public var isSpoiler: Bool = false
+
     var body: some View {
         let media = content.media
         if let first = media.first {
             if content.contentType == .mediaGallery {
-                PostMediaGallery(showMediaUrl: $showMediaUrl, media: media)
+                PostMediaGallery(isSpoiler: $isSpoiler, showMediaUrl: $showMediaUrl, media: media)
             } else {
-                InternalMediaViewSwitch(media: first)
+                InternalMediaViewSwitch(media: first, isSpoiler: $isSpoiler)
                     .onTapGesture {
                         self.showMediaUrl = first.url
                     }
@@ -30,22 +31,51 @@ struct PostTopMediaView: View {
     }
 }
 
+struct SpoilerBlur: View {
+    
+    var body: some View {
+        Rectangle()
+            .fill(.regularMaterial)
+    }
+}
+
 struct InternalMediaViewSwitch: View {
     
     var media: PostMedia
+    @Binding var isSpoiler: Bool
     
     var body: some View {
         switch media.type {
         case .image:
             if media.url.contains(".gif") {
                 PostGifView(url: media.url, aspectRatio: media.width / media.height)
+                    .overlay {
+                        if isSpoiler {
+                            SpoilerBlur()
+                        }
+                    }
             } else {
                 PostImageView(media: media)
+                    .overlay {
+                        if isSpoiler {
+                            SpoilerBlur()
+                        }
+                    }
             }
         case .video:
             PostVideoView(media: media, aspectRatio: media.width / media.height)
+                .overlay {
+                    if isSpoiler {
+                        SpoilerBlur()
+                    }
+                }
         case .linkOnly:
             PostLinkView(url: media.url, thumbnailUrl: media.thumbnailUrl)
+                .overlay {
+                    if isSpoiler {
+                        SpoilerBlur()
+                    }
+                }
         default:
             EmptyView()
         }
@@ -202,6 +232,7 @@ struct PostLinkView: View {
 
 struct PostMediaGallery: View {
     
+    @Binding var isSpoiler: Bool
     @Binding var showMediaUrl: String?
     let media: [PostMedia]
     
@@ -225,7 +256,7 @@ struct PostMediaGallery: View {
                 if let firstPreview {
                     Grid(horizontalSpacing: 2) {
                         GridRow {
-                            InternalMediaViewSwitch(media: firstPreview)
+                            InternalMediaViewSwitch(media: firstPreview, isSpoiler: $isSpoiler)
                                 .aspectRatio(firstPreview.width / firstPreview.height, contentMode: .fill)
                                 .gridCellColumns(media.count > 2 ? 2 : 1)
                                 .clipShape(.rect(topLeadingRadius: 10, bottomLeadingRadius: 10, bottomTrailingRadius: 0, topTrailingRadius: 0))
@@ -236,7 +267,7 @@ struct PostMediaGallery: View {
                                 VStack(spacing: 0) {
                                     ForEach(nextTwoPreviews, id: \.url) { preview in
                                         let index = nextTwoPreviews.firstIndex(where: { $0.url == preview.url })
-                                        InternalMediaViewSwitch(media: preview)
+                                        InternalMediaViewSwitch(media: preview, isSpoiler: $isSpoiler)
                                             .aspectRatio(preview.width / preview.height, contentMode: .fill)
                                             .frame(height: reader.size.height / (media.count > 2 ? 2 : 1))
                                             .clipShape(.rect(topLeadingRadius: 0, bottomLeadingRadius: 0, bottomTrailingRadius: media.count > 2 ? (index == 0 ? 0 : 10) : 10, topTrailingRadius: media.count > 2 ? (index == 1 ? 0 : 10) : 10))

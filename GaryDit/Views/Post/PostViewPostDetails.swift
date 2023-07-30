@@ -56,7 +56,7 @@ struct PostViewPostDetails: View {
     
     @ViewBuilder
     func mediaView() -> some View {
-        PostTopMediaView(showMediaUrl: $showMediaUrl, content: viewModel.post.postContent)
+        PostTopMediaView(showMediaUrl: $showMediaUrl, content: viewModel.post.postContent, isSpoiler: viewModel.post.postFlagDetails.isSpoiler)
             .clipShape(.rect(cornerRadius: 10))
             .shadow(radius: 3)
             .environment(viewModel)

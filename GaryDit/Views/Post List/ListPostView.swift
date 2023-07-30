@@ -25,7 +25,7 @@ struct ListPostView: View {
     
     var body: some View {
         VStack {
-            PostTopMediaView(showMediaUrl: $presentMediaUrl, content: viewModel.post.postContent)
+            PostTopMediaView(showMediaUrl: $presentMediaUrl, content: viewModel.post.postContent, isSpoiler: viewModel.post.postFlagDetails.isSpoiler)
                 .environment(viewModel)
             
             VStack {
@@ -36,12 +36,21 @@ struct ListPostView: View {
                         .padding(.top, viewModel.post.postContent.media.isEmpty ? 8 : 0)
                         .fixedSize(horizontal: false, vertical: true)
                     
-                    if viewModel.post.postFlagDetails.isNSFW {
-                        Text("NSFW")
-                            .font(.caption2)
-                            .padding(4)
-                            .background(.red)
-                            .clipShape(.rect(cornerRadius: 5))
+                    HStack {
+                        if viewModel.post.postFlagDetails.isNSFW {
+                            Text("NSFW")
+                                .font(.caption2)
+                                .padding(4)
+                                .background(.red)
+                                .clipShape(.rect(cornerRadius: 5))
+                        }
+                        if viewModel.post.postFlagDetails.isSpoiler {
+                            Text("SPOILER")
+                                .font(.caption2)
+                                .padding(4)
+                                .background(.gray)
+                                .clipShape(.rect(cornerRadius: 5))
+                        }
                     }
                     
                     if let text = viewModel.post.postContent.textContent, text.isEmpty == false {
