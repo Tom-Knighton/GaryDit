@@ -35,7 +35,7 @@ public struct PostComment: Codable {
     public let commentFlagDetails: PostFlags
     
     /// Any replies to this comment
-    public let replies: [PostComment]
+    public var replies: [PostComment]
     
     /// If present, the comment is a 'Load more' link that represents comment ids to be loaded as children to this object's parent
     public let loadMoreLink: LoadMoreLink?

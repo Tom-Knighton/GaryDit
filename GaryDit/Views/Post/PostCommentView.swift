@@ -13,42 +13,58 @@ struct PostCommentView: View {
     
     @Binding public var comment: PostComment
     
+    var nestLevel: Double = 0
+    
     var body: some View {
         VStack {
-            Divider()
+            Spacer().frame(height: 4)
             HStack {
-                Text(comment.commentAuthour)
-                    .bold()
-                    .foregroundStyle(.primary)
-                
-                HStack(spacing: 1) {
-                    Image(systemName: "arrow.up")
-                    Text(String(describing: comment.commentScore))
+                if nestLevel > 0 {
+                    RoundedRectangle(cornerRadius: 1.5)
+                        .frame(width: 2)
+                        .foregroundStyle(Color(hue: 1 / nestLevel, saturation: 1, brightness: 1))
                 }
-                Spacer()
-                Button(action: {}) {
-                    Image(systemName: "ellipsis")
-                        .bold()
+                VStack {
+                    Divider()
+                    HStack {
+                        Text(comment.commentAuthour)
+                            .bold()
+                            .foregroundStyle(.primary)
+                        
+                        HStack(spacing: 1) {
+                            Image(systemName: "arrow.up")
+                            Text(String(describing: comment.commentScore))
+                        }
+                        Spacer()
+                        Button(action: {}) {
+                            Image(systemName: "ellipsis")
+                                .bold()
+                        }
+                        if comment.commentEditedAt != nil {
+                            Image(systemName: "pencil")
+                        }
+                        Text((comment.commentEditedAt ?? comment.commentCreatedAt).friendlyAgo)
+                    }
+                    .foregroundStyle(.gray)
+                    .font(.subheadline)
+                    .tint(.gray)
+                    
+                    MarkdownView(text: .constant(comment.commentText))
+                        .imageProvider(CustomImageProvider(medias: self.comment.media), forURLScheme: "https")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    ForEach(comment.media.filter { $0.isInline == false }, id: \.url) { media in
+                        LinkView(url: media.url, fetchMetadata: true, isCompact: true)
+                    }
                 }
-                if comment.commentEditedAt != nil {
-                    Image(systemName: "pencil")
-                }
-                Text((comment.commentEditedAt ?? comment.commentCreatedAt).friendlyAgo)
             }
-            .foregroundStyle(.gray)
-            .font(.subheadline)
-            .tint(.gray)
             
-            MarkdownView(text: .constant(comment.commentText))
-                .imageProvider(CustomImageProvider(medias: self.comment.media), forURLScheme: "https")
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            ForEach(comment.media.filter { $0.isInline == false }, id: \.url) { media in
-                LinkView(url: media.url, fetchMetadata: true, isCompact: true)
+            ForEach($comment.replies, id: \.commentId) { $reply in
+                PostCommentView(comment: $reply, nestLevel: self.nestLevel + 1)
             }
+            Spacer().frame(height: 4)
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 4)
+        .padding(.leading, nestLevel * 2.5)
         .background(Color.layer1)
     }
     

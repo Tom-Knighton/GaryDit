@@ -21,6 +21,7 @@ struct PostCommentListView: View {
                 PostCommentView(comment: $comment)
             }
         }
+        .padding(.horizontal, 12)
         .task {
             print("here")
             await self.viewModel.loadComments()
