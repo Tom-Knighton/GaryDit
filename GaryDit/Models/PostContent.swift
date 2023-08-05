@@ -46,4 +46,5 @@ public struct PostMedia: Codable {
     let type: PostContentType?
     let hlsDashUrl: String?
     let mediaText: String?
+    let isInline: Bool
 }

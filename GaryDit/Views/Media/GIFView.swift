@@ -21,20 +21,26 @@ struct GIFImage: UIViewRepresentable {
     
     func makeUIView(context: Context) -> UIGIFImage {
         let view = UIGIFImage(frame: .zero)
-        Task {
+        Task.detached {
+            if let cached = GlobalCaches.imageUrlDataCache.get(urlString) {
+                await view.updateGIF(data: cached)
+                return
+            }
+            
             guard let url = URL(string: urlString) else { return }
             if let (urlData, _) = try? await URLSession.shared.data(from: url) {
-                view.updateGIF(data: urlData)
+                await view.updateGIF(data: urlData)
+                await GlobalCaches.imageUrlDataCache.set(urlData, forKey: urlString)
             }
         }
         return view
     }
     
     func updateUIView(_ uiView: UIViewType, context: Context) {
-        Task {
+        Task.detached {
             guard let url = URL(string: urlString) else { return }
             if let (urlData, _) = try? await URLSession.shared.data(from: url) {
-                uiView.updateGIF(data: urlData)
+                await uiView.updateGIF(data: urlData)
             }
         }
     }
@@ -83,7 +89,7 @@ class UIGIFImage: UIView {
     }
     
     private func initView() {
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
     }
 }
 
@@ -178,55 +184,37 @@ struct GIFView: UIViewRepresentable {
         
         let view = UIView(frame: .zero)
         
-        
-        
-        
         view.addSubview(activityIndicator)
-        
         view.addSubview(imageView)
         
-        
-        
-        
         imageView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
-        
         imageView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         
-        
-        
-        
         activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        
         activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        
-        
-        
         return view
-        
     }
-    
-    
-    
+
     func updateUIView(_ uiView: UIView, context: Context) {
         
         activityIndicator.startAnimating()
         
         guard let url = URL(string: url) else { return }
-        
-        DispatchQueue.global().async {
+        Task.detached {
             if let data = try? Data(contentsOf: url) {
                 let image = FLAnimatedImage(animatedGIFData: data)
                 DispatchQueue.main.async {
                     activityIndicator.stopAnimating()
                     imageView.animatedImage = image
+                    
+                    if isPlaying {
+                        imageView.startAnimating()
+                    } else {
+                        imageView.stopAnimating()
+                    }
                 }
-            }
-            
-            if isPlaying {
-                imageView.startAnimating()
-            } else {
-                imageView.stopAnimating()
+                
             }
         }
     }

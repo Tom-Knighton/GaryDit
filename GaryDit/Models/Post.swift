@@ -42,6 +42,9 @@ public struct Post: Codable {
     
     /// The actual content of this post
     let postContent: PostContent
+    
+    /// How the user has voted, if at all, on this post
+    let postVoteStatus: VoteStatus
 }
 
 extension Post: Hashable {
@@ -53,4 +56,10 @@ extension Post: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(postId)
     }
+}
+
+public enum VoteStatus: String, Codable {
+    case upvoted = "upvoted"
+    case downvoted = "downvoted"
+    case noVote = "noVote"
 }

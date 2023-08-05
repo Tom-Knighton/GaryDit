@@ -12,4 +12,5 @@ public class GlobalCaches {
     
     public static let linkCache = Cache<String, LPLinkMetadata?>()
     public static let imageUrlDataCache = Cache<String, Data>()
+    public static let gifAspectRatioCAche = Cache<String, Double>()
 }
