@@ -19,6 +19,7 @@ public class RedditPostViewModel {
     
     public var post: Post
     
+    public var comments: [PostComment] = []
     public var videoViewModels: [VideoPlayerViewModel] = []
     public var overrideVideosDontStopWhenDisappear: Bool = false
     public var displayMediaBelowTitle: Bool {
@@ -57,6 +58,16 @@ public class RedditPostViewModel {
         }
         
         return nil
+    }
+    
+    public func loadComments() async {
+        do {
+            let comments = try await PostService.GetPostComments(for: self.post.postId)
+            self.comments = comments
+            print("comments: \(comments.count)")
+        } catch {
+            print("error getting comments")
+        }
     }
 }
 

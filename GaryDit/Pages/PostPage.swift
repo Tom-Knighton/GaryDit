@@ -27,6 +27,7 @@ struct PostPage: View {
             ScrollView {
                 VStack {
                     PostViewPostDetails(viewModel: viewModel)
+                    PostCommentListView(viewModel: viewModel)
                     Spacer()
                 }
             }

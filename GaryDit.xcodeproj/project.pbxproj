@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		E21290272A5F55DC007D9068 /* MediaControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21290262A5F55DC007D9068 /* MediaControls.swift */; };
 		E212902B2A6057C9007D9068 /* VideoPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E212902A2A6057C8007D9068 /* VideoPlayerViewModel.swift */; };
+		E214948B2A7D6190009CF39E /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E214948A2A7D6190009CF39E /* PostComment.swift */; };
+		E214948D2A7D630E009CF39E /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E214948C2A7D630E009CF39E /* PostService.swift */; };
+		E214948F2A7D7F27009CF39E /* PostCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E214948E2A7D7F27009CF39E /* PostCommentView.swift */; };
 		E21D05172A73F89A00CEF29C /* GlobalStoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21D05162A73F89A00CEF29C /* GlobalStoreViewModel.swift */; };
 		E21D05192A73FD6A00CEF29C /* PostPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21D05182A73FD6A00CEF29C /* PostPage.swift */; };
 		E221C3AE2A63E3A900EBFC51 /* HapticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E221C3AD2A63E3A900EBFC51 /* HapticService.swift */; };
@@ -25,6 +28,7 @@
 		E258D8182A5AECC6001D493D /* Local.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D8172A5AECC6001D493D /* Local.xcconfig */; };
 		E258D81B2A5AEE8B001D493D /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D81A2A5AEE8B001D493D /* Release.xcconfig */; };
 		E258D81C2A5AEE96001D493D /* Development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D8192A5AEE81001D493D /* Development.xcconfig */; };
+		E25FDB772A76D54E00F7494C /* PostCommentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25FDB762A76D54E00F7494C /* PostCommentListView.swift */; };
 		E260D5852A485BF600A60839 /* VideoPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = E260D5842A485BF600A60839 /* VideoPlayer */; };
 		E267458F2A614E06009D3F82 /* Collection+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E267458E2A614E06009D3F82 /* Collection+GaryDit.swift */; };
 		E26745912A6153DD009D3F82 /* Binding+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26745902A6153DD009D3F82 /* Binding+GaryDit.swift */; };
@@ -99,6 +103,9 @@
 /* Begin PBXFileReference section */
 		E21290262A5F55DC007D9068 /* MediaControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaControls.swift; sourceTree = "<group>"; };
 		E212902A2A6057C8007D9068 /* VideoPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewModel.swift; sourceTree = "<group>"; };
+		E214948A2A7D6190009CF39E /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
+		E214948C2A7D630E009CF39E /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
+		E214948E2A7D7F27009CF39E /* PostCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentView.swift; sourceTree = "<group>"; };
 		E21D05162A73F89A00CEF29C /* GlobalStoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalStoreViewModel.swift; sourceTree = "<group>"; };
 		E21D05182A73FD6A00CEF29C /* PostPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPage.swift; sourceTree = "<group>"; };
 		E221C3AD2A63E3A900EBFC51 /* HapticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticService.swift; sourceTree = "<group>"; };
@@ -115,6 +122,7 @@
 		E258D8172A5AECC6001D493D /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
 		E258D8192A5AEE81001D493D /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		E258D81A2A5AEE8B001D493D /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		E25FDB762A76D54E00F7494C /* PostCommentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentListView.swift; sourceTree = "<group>"; };
 		E267458E2A614E06009D3F82 /* Collection+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+GaryDit.swift"; sourceTree = "<group>"; };
 		E26745902A6153DD009D3F82 /* Binding+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+GaryDit.swift"; sourceTree = "<group>"; };
 		E269888E2A3D0A9F004DE85B /* GaryDit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GaryDit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -335,6 +343,7 @@
 				E23C853C2A508EE10070F81D /* LogService.swift */,
 				E23C85402A5188E50070F81D /* CacheService.swift */,
 				E221C3AD2A63E3A900EBFC51 /* HapticService.swift */,
+				E214948C2A7D630E009CF39E /* PostService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -349,6 +358,7 @@
 				E2D098952A5860DB00D05D13 /* PostFlags.swift */,
 				E2D098972A58617000D05D13 /* PostContent.swift */,
 				E27AC2792A5B231E000B8737 /* DistinguishmentType.swift */,
+				E214948A2A7D6190009CF39E /* PostComment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -463,6 +473,8 @@
 			isa = PBXGroup;
 			children = (
 				E2CD0E212A75115200BAFEA1 /* PostViewPostDetails.swift */,
+				E25FDB762A76D54E00F7494C /* PostCommentListView.swift */,
+				E214948E2A7D7F27009CF39E /* PostCommentView.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -627,6 +639,7 @@
 				E240D17B2A65C6DC00B5EED5 /* GlobalCaches.swift in Sources */,
 				E2949FCF2A40CDD5000669C2 /* URL+GaryDit.swift in Sources */,
 				E221C3AE2A63E3A900EBFC51 /* HapticService.swift in Sources */,
+				E214948F2A7D7F27009CF39E /* PostCommentView.swift in Sources */,
 				E2949FB72A3F11F6000669C2 /* NavigationRoot.swift in Sources */,
 				E26745912A6153DD009D3F82 /* Binding+GaryDit.swift in Sources */,
 				E2A293E32A5EBF77009052C3 /* ZoomableScrollView.swift in Sources */,
@@ -643,6 +656,8 @@
 				E2CD0E222A75115200BAFEA1 /* PostViewPostDetails.swift in Sources */,
 				E2949FD22A40CF75000669C2 /* RedditPostViewModel.swift in Sources */,
 				E2949FAE2A3DDA4A000669C2 /* HomePage.swift in Sources */,
+				E25FDB772A76D54E00F7494C /* PostCommentListView.swift in Sources */,
+				E214948B2A7D6190009CF39E /* PostComment.swift in Sources */,
 				E2949FB32A3DE3F7000669C2 /* User.swift in Sources */,
 				E2949FB12A3DE06C000669C2 /* UserService.swift in Sources */,
 				E2949FC82A40C054000669C2 /* Int+GaryDit.swift in Sources */,
@@ -664,6 +679,7 @@
 				E2A1899E2A423C1000BE1E59 /* LinkView.swift in Sources */,
 				E23C853D2A508EE10070F81D /* LogService.swift in Sources */,
 				E2D098982A58617000D05D13 /* PostContent.swift in Sources */,
+				E214948D2A7D630E009CF39E /* PostService.swift in Sources */,
 				E267458F2A614E06009D3F82 /* Collection+GaryDit.swift in Sources */,
 				E21D05172A73F89A00CEF29C /* GlobalStoreViewModel.swift in Sources */,
 				E21D05192A73FD6A00CEF29C /* PostPage.swift in Sources */,

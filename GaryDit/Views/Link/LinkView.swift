@@ -17,11 +17,12 @@ struct LinkView: View {
     @State private var overrideImageUrl: String?
     @State private var fetchMetadata: Bool = true
     @State private var imageData: Data?
+    @State private var isCompact: Bool
     
-    init(url: String, overrideImage: String? = nil, fetchMetadata: Bool = true) {
+    init(url: String, overrideImage: String? = nil, fetchMetadata: Bool = true, isCompact: Bool = false) {
         self.urlString = url
         self.overrideImageUrl = overrideImage
-        
+        self.isCompact = isCompact
         if let cached = GlobalCaches.linkCache.get(url) {
             self.fetchMetadata = false
             self.metadata = cached
@@ -30,25 +31,39 @@ struct LinkView: View {
         }
     }
     
+    
     var body: some View {
         ZStack {
-            urlImage()
-            VStack {
-                Spacer()
+            if isCompact {
                 HStack {
-                    if let host = metadata?.url?.host() ?? URL(string: self.urlString)?.host() {
-                        Text(host.replacingOccurrences(of: "www.", with: ""))
-                            .bold()
-                        Divider()
-                    }
+                    urlImage()
+                        .frame(width: 40, height: 40)
+                        .aspectRatio(contentMode: .fill)
+                        .clipped()
                     Text(metadata?.url?.absoluteString ?? self.urlString)
+                        .lineLimit(1)
+                    Spacer()
                 }
-                .frame(maxHeight: 20)
-                .font(.system(size: 12))
-                .lineLimit(1)
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(Material.regular)
+                .background(Color.layer2.overlay(Material.thick))
+            } else {
+                urlImage()
+                VStack {
+                    Spacer()
+                    HStack {
+                        if let host = metadata?.url?.host() ?? URL(string: self.urlString)?.host() {
+                            Text(host.replacingOccurrences(of: "www.", with: ""))
+                                .bold()
+                            Divider()
+                        }
+                        Text(metadata?.url?.absoluteString ?? self.urlString)
+                    }
+                    .frame(maxHeight: 20)
+                    .font(.system(size: 12))
+                    .lineLimit(1)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Material.regular)
+                }
             }
         }
         .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -95,6 +110,7 @@ struct LinkView: View {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
+                    .background(.gray)
             } placeholder: {
                 Rectangle()
                     .redacted(reason: .placeholder)
@@ -103,8 +119,10 @@ struct LinkView: View {
             Image(uiImage: uiImage)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
+                .background(.gray)
         } else {
             Rectangle()
+                .redacted(reason: .placeholder)
         }
     }
 }
