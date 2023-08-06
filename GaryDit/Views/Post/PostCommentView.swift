@@ -11,7 +11,7 @@ import MarkdownView
 
 struct PostCommentView: View {
     
-    @Binding public var comment: PostComment
+    public var comment: PostComment
     
     var nestLevel: Double = 0
     
@@ -63,8 +63,8 @@ struct PostCommentView: View {
                 }
             }
             
-            ForEach($comment.replies, id: \.commentId) { $reply in
-                PostCommentView(comment: $reply, nestLevel: self.nestLevel + 1)
+            ForEach(comment.replies, id: \.commentId) { reply in
+                PostCommentView(comment: reply, nestLevel: self.nestLevel + 1)
             }
         }
         .padding(.leading, nestLevel * 2.5)
@@ -90,13 +90,10 @@ struct CustomImageProvider: ImageDisplayable {
     
     private var inlineMedias: [PostMedia]
     init(medias: [PostMedia]) {
-        print("loading with media count \(medias.count)")
         self.inlineMedias = medias
-        print(medias.first?.url)
     }
     
     func getInlineMedia(for url: String) -> PostMedia? {
-        let mapped = inlineMedias.compactMap({ $0.url })
         return inlineMedias.first(where: { $0.url == url && $0.isInline == true })
     }
     
@@ -138,7 +135,7 @@ struct CustomImageProvider: ImageDisplayable {
 #Preview {
     ScrollView {
         VStack {
-            PostCommentView(comment: .constant(PostComment(commentId: "1", commentAuthour: "Banging_Bananas", commentScore: 1, commentText: "> Yes \nI want a Democrat to say something similar to see the hypocritical outrage.\n\n\"I am going to hurt Republicans if I get elected\"\n\nOh my god! such retoric! He's gone too dar! My pearls! They're clutcjhed!", commentCreatedAt: Date(), commentEditedAt: nil, voteStatus: .noVote, commentFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, isSpoiler: false, distinguishmentType: .none), replies: [PostComment(commentId: "1", commentAuthour: "Banging_Bananas", commentScore: 1, commentText: "I want a Democrat to say something similar to see the hypocritical outrage.\n\n\"I am going to hurt Republicans if I get elected\"\n\nOh my god! such retoric! He's gone too dar! My pearls! They're clutcjhed!", commentCreatedAt: Date(), commentEditedAt: nil, voteStatus: .noVote, commentFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, isSpoiler: false, distinguishmentType: .none), replies: [PostComment(commentId: "1", commentAuthour: "Banging_Bananas", commentScore: 1, commentText: "I want a Democrat to say something similar to see the hypocritical outrage.\n\n\"I am going to hurt Republicans if I get elected\"\n\nOh my god! such retoric! He's gone too dar! My pearls! They're clutcjhed!", commentCreatedAt: Date(), commentEditedAt: nil, voteStatus: .noVote, commentFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, isSpoiler: false, distinguishmentType: .none), replies: [PostComment(commentId: "1", commentAuthour: "Banging_Bananas", commentScore: 1, commentText: "I want a Democrat to say something similar to see the hypocritical outrage.\n\n\"I am going to hurt Republicans if I get elected\"\n\nOh my god! such retoric! He's gone too dar! My pearls! They're clutcjhed!", commentCreatedAt: Date(), commentEditedAt: nil, voteStatus: .noVote, commentFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, isSpoiler: false, distinguishmentType: .none), replies: [], loadMoreLink: nil, media: [])], loadMoreLink: nil, media: [])], loadMoreLink: nil, media: [])], loadMoreLink: nil, media: [])))
+            PostCommentView(comment: PostComment(commentId: "1", commentAuthour: "Banging_Bananas", commentScore: 1, commentText: "> Yes \nI want a Democrat to say something similar to see the hypocritical outrage.\n\n\"I am going to hurt Republicans if I get elected\"\n\nOh my god! such retoric! He's gone too dar! My pearls! They're clutcjhed!", commentCreatedAt: Date(), commentEditedAt: nil, voteStatus: .noVote, commentFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, isSpoiler: false, distinguishmentType: .none), replies: [PostComment(commentId: "1", commentAuthour: "Banging_Bananas", commentScore: 1, commentText: "I want a Democrat to say something similar to see the hypocritical outrage.\n\n\"I am going to hurt Republicans if I get elected\"\n\nOh my god! such retoric! He's gone too dar! My pearls! They're clutcjhed!", commentCreatedAt: Date(), commentEditedAt: nil, voteStatus: .noVote, commentFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, isSpoiler: false, distinguishmentType: .none), replies: [PostComment(commentId: "1", commentAuthour: "Banging_Bananas", commentScore: 1, commentText: "I want a Democrat to say something similar to see the hypocritical outrage.\n\n\"I am going to hurt Republicans if I get elected\"\n\nOh my god! such retoric! He's gone too dar! My pearls! They're clutcjhed!", commentCreatedAt: Date(), commentEditedAt: nil, voteStatus: .noVote, commentFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, isSpoiler: false, distinguishmentType: .none), replies: [PostComment(commentId: "1", commentAuthour: "Banging_Bananas", commentScore: 1, commentText: "I want a Democrat to say something similar to see the hypocritical outrage.\n\n\"I am going to hurt Republicans if I get elected\"\n\nOh my god! such retoric! He's gone too dar! My pearls! They're clutcjhed!", commentCreatedAt: Date(), commentEditedAt: nil, voteStatus: .noVote, commentFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, isSpoiler: false, distinguishmentType: .none), replies: [], loadMoreLink: nil, media: [])], loadMoreLink: nil, media: [])], loadMoreLink: nil, media: [])], loadMoreLink: nil, media: []))
 
         }
         .padding(.horizontal, 12)

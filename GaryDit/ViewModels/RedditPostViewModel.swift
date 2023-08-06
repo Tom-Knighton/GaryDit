@@ -22,6 +22,8 @@ public class RedditPostViewModel {
     public var comments: [PostComment] = []
     public var videoViewModels: [VideoPlayerViewModel] = []
     public var overrideVideosDontStopWhenDisappear: Bool = false
+    public var isLoadingComments: Bool = false
+    
     public var displayMediaBelowTitle: Bool {
         if post.postContent.contentType == .linkOnly {
             return true
@@ -61,12 +63,15 @@ public class RedditPostViewModel {
     }
     
     public func loadComments() async {
-        do {
-            let comments = try await PostService.GetPostComments(for: self.post.postId)
-            self.comments = comments
-            print("comments: \(comments.count)")
-        } catch {
-            print("error getting comments")
+        Task.detached {
+            self.isLoadingComments = true
+            defer { self.isLoadingComments = false }
+            do {
+                let comments = try await PostService.GetPostComments(for: self.post.postId)
+                self.comments = comments
+            } catch {
+                print("error getting comments")
+            }
         }
     }
 }
