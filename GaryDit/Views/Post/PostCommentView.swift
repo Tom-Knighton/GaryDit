@@ -21,8 +21,9 @@ struct PostCommentView: View {
             HStack {
                 if nestLevel > 0 {
                     RoundedRectangle(cornerRadius: 1.5)
+                        .padding(.vertical, 6)
                         .frame(width: 2)
-                        .foregroundStyle(Color(hue: 1 / nestLevel, saturation: 1, brightness: 1))
+                        .foregroundStyle(getNestLevelColor(nestLevel: Int(self.nestLevel)))
                 }
                 VStack {
                     Divider()
@@ -48,24 +49,40 @@ struct PostCommentView: View {
                     .foregroundStyle(.gray)
                     .font(.subheadline)
                     .tint(.gray)
+                    .padding(.bottom, 4)
                     
                     MarkdownView(text: .constant(comment.commentText))
                         .imageProvider(CustomImageProvider(medias: self.comment.media), forURLScheme: "https")
+                        .font(.body, for: .blockQuote)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
                     ForEach(comment.media.filter { $0.isInline == false }, id: \.url) { media in
                         LinkView(url: media.url, fetchMetadata: true, isCompact: true)
                     }
+                    Spacer().frame(height: 4)
                 }
             }
             
             ForEach($comment.replies, id: \.commentId) { $reply in
                 PostCommentView(comment: $reply, nestLevel: self.nestLevel + 1)
             }
-            Spacer().frame(height: 4)
         }
         .padding(.leading, nestLevel * 2.5)
         .background(Color.layer1)
+    }
+    
+    func getNestLevelColor(nestLevel: Int) -> Color {
+        let colours: [Color] = [
+            Color.red,
+            Color.orange,
+            Color.yellow,
+            Color.green,
+            Color.blue,
+            Color.indigo,
+            Color.purple
+        ]
+        
+        return colours[(nestLevel - 1) % (colours.count + 1)]
     }
     
     
@@ -118,4 +135,15 @@ struct CustomImageProvider: ImageDisplayable {
         }
         
     }
+}
+
+#Preview {
+    ScrollView {
+        VStack {
+            PostCommentView(comment: .constant(PostComment(commentId: "1", commentAuthour: "Banging_Bananas", commentScore: 1, commentText: "> Yes \nI want a Democrat to say something similar to see the hypocritical outrage.\n\n\"I am going to hurt Republicans if I get elected\"\n\nOh my god! such retoric! He's gone too dar! My pearls! They're clutcjhed!", commentCreatedAt: Date(), commentEditedAt: nil, voteStatus: .noVote, commentFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, isSpoiler: false, distinguishmentType: .none), replies: [PostComment(commentId: "1", commentAuthour: "Banging_Bananas", commentScore: 1, commentText: "I want a Democrat to say something similar to see the hypocritical outrage.\n\n\"I am going to hurt Republicans if I get elected\"\n\nOh my god! such retoric! He's gone too dar! My pearls! They're clutcjhed!", commentCreatedAt: Date(), commentEditedAt: nil, voteStatus: .noVote, commentFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, isSpoiler: false, distinguishmentType: .none), replies: [PostComment(commentId: "1", commentAuthour: "Banging_Bananas", commentScore: 1, commentText: "I want a Democrat to say something similar to see the hypocritical outrage.\n\n\"I am going to hurt Republicans if I get elected\"\n\nOh my god! such retoric! He's gone too dar! My pearls! They're clutcjhed!", commentCreatedAt: Date(), commentEditedAt: nil, voteStatus: .noVote, commentFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, isSpoiler: false, distinguishmentType: .none), replies: [PostComment(commentId: "1", commentAuthour: "Banging_Bananas", commentScore: 1, commentText: "I want a Democrat to say something similar to see the hypocritical outrage.\n\n\"I am going to hurt Republicans if I get elected\"\n\nOh my god! such retoric! He's gone too dar! My pearls! They're clutcjhed!", commentCreatedAt: Date(), commentEditedAt: nil, voteStatus: .noVote, commentFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, isSpoiler: false, distinguishmentType: .none), replies: [], loadMoreLink: nil, media: [])], loadMoreLink: nil, media: [])], loadMoreLink: nil, media: [])], loadMoreLink: nil, media: [])))
+
+        }
+        .padding(.horizontal, 12)
+    }
+  
 }

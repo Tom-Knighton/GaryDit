@@ -37,7 +37,7 @@ struct LinkView: View {
             if isCompact {
                 HStack {
                     urlImage()
-                        .frame(width: 40, height: 40)
+                        .frame(width: 60, height: 60)
                         .aspectRatio(contentMode: .fill)
                         .clipped()
                     Text(metadata?.url?.absoluteString ?? self.urlString)
