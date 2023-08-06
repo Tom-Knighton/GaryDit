@@ -57,7 +57,7 @@ struct PostCommentView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
                     ForEach(comment.media.filter { $0.isInline == false }, id: \.url) { media in
-                        LinkView(url: media.url, fetchMetadata: true, isCompact: true)
+                        LinkView(url: media.url, fetchMetadata: true, isCompact: true, overrideTitle: media.mediaText)
                     }
                     Spacer().frame(height: 4)
                 }
