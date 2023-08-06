@@ -27,12 +27,19 @@ struct PostPage: View {
             ScrollView {
                 VStack {
                     PostViewPostDetails(viewModel: viewModel)
-                    PostCommentListView(viewModel: viewModel)
+                    if self.viewModel.isLoadingComments {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                    }
+                    PostCommentListView(comments: self.viewModel.comments)
                     Spacer()
                 }
             }
         }
         .navigationTitle(Text("^[\(viewModel.post.postCommentCount) Comment](inflect: true)"))
         .navigationBarTitleDisplayMode(.inline)
+        .task {
+            await self.viewModel.loadComments()
+        }
     }
 }

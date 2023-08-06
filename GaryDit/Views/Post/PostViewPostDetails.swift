@@ -106,45 +106,15 @@ struct PostViewPostDetails: View {
                 .overlay(.primary)
             HStack {
                 Spacer()
-                Button(action: {}) {
-                    Image(systemName: "arrow.up")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 25, height: 25)
-                }
-                .foregroundStyle(.blue)
+                PostActionButton(systemIcon: "arrow.up", tintColor: .gray, isActive: false)
                 Spacer()
-                Button(action: {}) {
-                    Image(systemName: "arrow.down")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 25, height: 25)
-                }
-                .foregroundStyle(.blue)
+                PostActionButton(systemIcon: "arrow.down", tintColor: .gray, isActive: false)
                 Spacer()
-                Button(action: {}) {
-                    Image(systemName: "bookmark")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 25, height: 25)
-                }
-                .foregroundStyle(.blue)
+                PostActionButton(systemIcon: "bookmark", tintColor: .gray, isActive: false)
                 Spacer()
-                Button(action: {}) {
-                    Image(systemName: "arrowshape.turn.up.backward")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 25, height: 25)
-                }
-                .foregroundStyle(.blue)
+                PostActionButton(systemIcon: "arrowshape.turn.up.backward", tintColor: .gray, isActive: false)
                 Spacer()
-                Button(action: {}) {
-                    Image(systemName: "square.and.arrow.up")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 25, height: 25)
-                }
-                .foregroundStyle(.blue)
+                PostActionButton(systemIcon: "square.and.arrow.up", tintColor: .gray, isActive: false)
                 Spacer()
             }
             Divider()

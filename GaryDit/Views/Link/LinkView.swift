@@ -18,11 +18,13 @@ struct LinkView: View {
     @State private var fetchMetadata: Bool = true
     @State private var imageData: Data?
     @State private var isCompact: Bool
+    @State private var overrideTitle: String?
     
-    init(url: String, overrideImage: String? = nil, fetchMetadata: Bool = true, isCompact: Bool = false) {
+    init(url: String, overrideImage: String? = nil, fetchMetadata: Bool = true, isCompact: Bool = false, overrideTitle: String? = nil) {
         self.urlString = url
         self.overrideImageUrl = overrideImage
         self.isCompact = isCompact
+        self.overrideTitle = overrideTitle
         if let cached = GlobalCaches.linkCache.get(url) {
             self.fetchMetadata = false
             self.metadata = cached
@@ -37,11 +39,18 @@ struct LinkView: View {
             if isCompact {
                 HStack {
                     urlImage()
-                        .frame(width: 40, height: 40)
+                        .frame(width: 60, height: 60)
                         .aspectRatio(contentMode: .fill)
                         .clipped()
-                    Text(metadata?.url?.absoluteString ?? self.urlString)
-                        .lineLimit(1)
+                    VStack {
+                        if let title = overrideTitle {
+                            Text(title)
+                                .lineLimit(1)
+                        }
+                        Text(metadata?.url?.absoluteString ?? self.urlString)
+                            .lineLimit(1)
+                            .foregroundStyle(.gray)
+                    }
                     Spacer()
                 }
                 .background(Color.layer2.overlay(Material.thick))

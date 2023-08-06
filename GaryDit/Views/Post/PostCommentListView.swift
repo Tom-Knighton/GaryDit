@@ -11,23 +11,14 @@ import MarkdownView
 
 struct PostCommentListView: View {
     
-    @Bindable var viewModel: RedditPostViewModel
-    
-    
-    
+    var comments: [PostComment]
+
     var body: some View {
         VStack {
-            ForEach(self.$viewModel.comments, id: \.commentId) { $comment in
-                PostCommentView(comment: $comment)
+            ForEach(comments, id: \.commentId) { comment in
+                PostCommentView(comment: comment)
             }
         }
         .padding(.horizontal, 12)
-        .task {
-            print("here")
-            await self.viewModel.loadComments()
-        }
-        .onChange(of: self.viewModel.comments, initial: true) { oldValue, newValue in
-            print("comments changed: \(newValue.count)")
-        }
     }
 }
