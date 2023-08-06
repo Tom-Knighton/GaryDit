@@ -82,10 +82,8 @@ struct PostCommentView: View {
             Color.purple
         ]
         
-        return colours[(nestLevel - 1) % (colours.count + 1)]
-    }
-    
-    
+        return colours[(nestLevel - 1) % colours.count]
+    }    
 }
 
 struct CustomImageProvider: ImageDisplayable {
