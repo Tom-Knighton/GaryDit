@@ -12,6 +12,7 @@
 		E214948B2A7D6190009CF39E /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E214948A2A7D6190009CF39E /* PostComment.swift */; };
 		E214948D2A7D630E009CF39E /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E214948C2A7D630E009CF39E /* PostService.swift */; };
 		E214948F2A7D7F27009CF39E /* PostCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E214948E2A7D7F27009CF39E /* PostCommentView.swift */; };
+		E21494912A7FA9C4009CF39E /* PostActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21494902A7FA9C4009CF39E /* PostActionButton.swift */; };
 		E21D05172A73F89A00CEF29C /* GlobalStoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21D05162A73F89A00CEF29C /* GlobalStoreViewModel.swift */; };
 		E21D05192A73FD6A00CEF29C /* PostPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21D05182A73FD6A00CEF29C /* PostPage.swift */; };
 		E221C3AE2A63E3A900EBFC51 /* HapticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E221C3AD2A63E3A900EBFC51 /* HapticService.swift */; };
@@ -106,6 +107,7 @@
 		E214948A2A7D6190009CF39E /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		E214948C2A7D630E009CF39E /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		E214948E2A7D7F27009CF39E /* PostCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentView.swift; sourceTree = "<group>"; };
+		E21494902A7FA9C4009CF39E /* PostActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostActionButton.swift; sourceTree = "<group>"; };
 		E21D05162A73F89A00CEF29C /* GlobalStoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalStoreViewModel.swift; sourceTree = "<group>"; };
 		E21D05182A73FD6A00CEF29C /* PostPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPage.swift; sourceTree = "<group>"; };
 		E221C3AD2A63E3A900EBFC51 /* HapticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticService.swift; sourceTree = "<group>"; };
@@ -424,6 +426,7 @@
 				E2949FC22A3F2C70000669C2 /* ListPostView.swift */,
 				E23C85422A51B8E70070F81D /* NoMorePostsView.swift */,
 				E2D0989B2A59AF2300D05D13 /* PostMediaPreviews.swift */,
+				E21494902A7FA9C4009CF39E /* PostActionButton.swift */,
 			);
 			path = "Post List";
 			sourceTree = "<group>";
@@ -676,6 +679,7 @@
 				E2C1F7572A5B6D3300384A64 /* BackgroundCleanerView.swift in Sources */,
 				E26988C52A3D0F2E004DE85B /* LandingPage.swift in Sources */,
 				E2A189A42A425F3800BE1E59 /* GIFView.swift in Sources */,
+				E21494912A7FA9C4009CF39E /* PostActionButton.swift in Sources */,
 				E2A1899E2A423C1000BE1E59 /* LinkView.swift in Sources */,
 				E23C853D2A508EE10070F81D /* LogService.swift in Sources */,
 				E2D098982A58617000D05D13 /* PostContent.swift in Sources */,

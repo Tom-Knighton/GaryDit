@@ -37,6 +37,9 @@ public struct Post: Codable {
     /// The number of comments on this post
     let postCommentCount: Int
     
+    /// The icon of the subreddit the post was posted to
+    let subredditIcon: String?
+    
     /// Flags regarding this post, i.e. isNSFW etc...
     let postFlagDetails: PostFlags
     
