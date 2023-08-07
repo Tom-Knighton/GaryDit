@@ -25,6 +25,7 @@
 		E240D17B2A65C6DC00B5EED5 /* GlobalCaches.swift in Sources */ = {isa = PBXBuildFile; fileRef = E240D17A2A65C6DC00B5EED5 /* GlobalCaches.swift */; };
 		E240D17D2A6BF8B700B5EED5 /* MediaGalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E240D17C2A6BF8B700B5EED5 /* MediaGalleryViewModel.swift */; };
 		E240D17F2A6C929900B5EED5 /* MediaOverlayBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E240D17E2A6C929900B5EED5 /* MediaOverlayBar.swift */; };
+		E249CF502A802F490063E95E /* MoreCommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E249CF4F2A802F490063E95E /* MoreCommentsView.swift */; };
 		E258D8122A59DA1A001D493D /* CachedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E258D8112A59DA1A001D493D /* CachedImage.swift */; };
 		E258D8182A5AECC6001D493D /* Local.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D8172A5AECC6001D493D /* Local.xcconfig */; };
 		E258D81B2A5AEE8B001D493D /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D81A2A5AEE8B001D493D /* Release.xcconfig */; };
@@ -120,6 +121,7 @@
 		E240D17A2A65C6DC00B5EED5 /* GlobalCaches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalCaches.swift; sourceTree = "<group>"; };
 		E240D17C2A6BF8B700B5EED5 /* MediaGalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaGalleryViewModel.swift; sourceTree = "<group>"; };
 		E240D17E2A6C929900B5EED5 /* MediaOverlayBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaOverlayBar.swift; sourceTree = "<group>"; };
+		E249CF4F2A802F490063E95E /* MoreCommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreCommentsView.swift; sourceTree = "<group>"; };
 		E258D8112A59DA1A001D493D /* CachedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImage.swift; sourceTree = "<group>"; };
 		E258D8172A5AECC6001D493D /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
 		E258D8192A5AEE81001D493D /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
@@ -478,6 +480,7 @@
 				E2CD0E212A75115200BAFEA1 /* PostViewPostDetails.swift */,
 				E25FDB762A76D54E00F7494C /* PostCommentListView.swift */,
 				E214948E2A7D7F27009CF39E /* PostCommentView.swift */,
+				E249CF4F2A802F490063E95E /* MoreCommentsView.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -633,6 +636,7 @@
 				E212902B2A6057C9007D9068 /* VideoPlayerViewModel.swift in Sources */,
 				E2949FAC2A3DC8A3000669C2 /* KeychainManager.swift in Sources */,
 				E2D0989A2A586ADA00D05D13 /* Date+GaryDit.swift in Sources */,
+				E249CF502A802F490063E95E /* MoreCommentsView.swift in Sources */,
 				E2949FCA2A40C084000669C2 /* Double+GaryDit.swift in Sources */,
 				E2949FA12A3DBA1E000669C2 /* AuthManager.swift in Sources */,
 				E26988DD2A3DB53D004DE85B /* Codable+GaryDit.swift in Sources */,

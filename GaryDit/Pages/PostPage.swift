@@ -31,7 +31,7 @@ struct PostPage: View {
                         ProgressView()
                             .progressViewStyle(.circular)
                     }
-                    PostCommentListView(comments: self.viewModel.comments)
+                    PostCommentListView(viewModel: viewModel)
                     Spacer()
                 }
             }

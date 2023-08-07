@@ -11,11 +11,11 @@ import MarkdownView
 
 struct PostCommentListView: View {
     
-    var comments: [PostComment]
+    var viewModel: RedditPostViewModel
 
     var body: some View {
         VStack {
-            ForEach(comments, id: \.commentId) { comment in
+            ForEach(viewModel.comments, id: \.commentId) { comment in
                 PostCommentView(comment: comment)
             }
         }

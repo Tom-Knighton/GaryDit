@@ -25,42 +25,51 @@ struct PostCommentView: View {
                         .frame(width: 2)
                         .foregroundStyle(getNestLevelColor(nestLevel: Int(self.nestLevel)))
                 }
-                VStack {
-                    Divider()
-                    HStack {
-                        Text(comment.commentAuthour)
-                            .bold()
-                            .foregroundStyle(.primary)
-                        
-                        HStack(spacing: 1) {
-                            Image(systemName: "arrow.up")
-                            Text(String(describing: comment.commentScore))
-                        }
-                        Spacer()
-                        Button(action: {}) {
-                            Image(systemName: "ellipsis")
+                if let loadMoreLink = comment.loadMoreLink {
+                    VStack {
+                        Divider()
+                        MoreCommentsView(link: loadMoreLink)
+                        Spacer().frame(height: 4)
+                    }
+                } else {
+                    VStack {
+                        Divider()
+                        HStack {
+                            Text(comment.commentAuthour)
                                 .bold()
+                                .foregroundStyle(.primary)
+                            
+                            HStack(spacing: 1) {
+                                Image(systemName: "arrow.up")
+                                Text(String(describing: comment.commentScore))
+                            }
+                            Spacer()
+                            Button(action: {}) {
+                                Image(systemName: "ellipsis")
+                                    .bold()
+                            }
+                            if comment.commentEditedAt != nil {
+                                Image(systemName: "pencil")
+                            }
+                            Text((comment.commentEditedAt ?? comment.commentCreatedAt).friendlyAgo)
                         }
-                        if comment.commentEditedAt != nil {
-                            Image(systemName: "pencil")
+                        .foregroundStyle(.gray)
+                        .font(.subheadline)
+                        .tint(.gray)
+                        .padding(.bottom, 4)
+                        
+                        MarkdownView(text: .constant(comment.commentText))
+                            .imageProvider(CustomImageProvider(medias: self.comment.media), forURLScheme: "https")
+                            .font(.body, for: .blockQuote)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        ForEach(comment.media.filter { $0.isInline == false }, id: \.url) { media in
+                            LinkView(url: media.url, fetchMetadata: true, isCompact: true, overrideTitle: media.mediaText)
                         }
-                        Text((comment.commentEditedAt ?? comment.commentCreatedAt).friendlyAgo)
+                        Spacer().frame(height: 4)
                     }
-                    .foregroundStyle(.gray)
-                    .font(.subheadline)
-                    .tint(.gray)
-                    .padding(.bottom, 4)
-                    
-                    MarkdownView(text: .constant(comment.commentText))
-                        .imageProvider(CustomImageProvider(medias: self.comment.media), forURLScheme: "https")
-                        .font(.body, for: .blockQuote)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    ForEach(comment.media.filter { $0.isInline == false }, id: \.url) { media in
-                        LinkView(url: media.url, fetchMetadata: true, isCompact: true, overrideTitle: media.mediaText)
-                    }
-                    Spacer().frame(height: 4)
                 }
+                
             }
             
             ForEach(comment.replies, id: \.commentId) { reply in
