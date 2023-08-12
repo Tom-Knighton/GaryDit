@@ -11,8 +11,8 @@ import MarkdownView
 
 struct PostCommentListView: View {
     
-    var viewModel: RedditPostViewModel
-
+    @Environment(RedditPostViewModel.self) private var viewModel
+    
     var body: some View {
         VStack {
             ForEach(viewModel.comments, id: \.commentId) { comment in

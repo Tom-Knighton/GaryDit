@@ -28,7 +28,7 @@ struct PostCommentView: View {
                 if let loadMoreLink = comment.loadMoreLink {
                     VStack {
                         Divider()
-                        MoreCommentsView(link: loadMoreLink)
+                        MoreCommentsView(commentId: comment.commentId, link: loadMoreLink)
                         Spacer().frame(height: 4)
                     }
                 } else {

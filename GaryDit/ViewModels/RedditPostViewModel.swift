@@ -74,6 +74,43 @@ public class RedditPostViewModel {
             }
         }
     }
+    
+    public func loadMoreComments(replacingId: String, childIds: [String]) async {
+        Task.detached {
+            do {
+                print(replacingId)
+                let newComments = try await PostService.GetMoreComments(for: self.post.postId, replacingId: replacingId, childIds: childIds)
+                var updated = self.addMoreComments(in: self.comments, targetId: newComments.moreLinkId, newChildren: newComments.comments)
+                await MainActor.run { [updated] in
+                    self.comments = updated
+                }
+            } catch {
+                print("erorr adding more comments")
+            }
+        }
+    }
+    
+    func addMoreComments(in comments: [PostComment], targetId: String, newChildren: [PostComment]) -> [PostComment] {
+        return comments.compactMap { comment in
+            if comment.commentId == targetId {
+                return nil
+            }
+            
+            if let index = comment.replies.firstIndex(where: { $0.commentId == targetId }) {
+                var mutableComment = comment
+                var updatedReplies = comment.replies
+                updatedReplies.remove(at: index)
+                updatedReplies.append(contentsOf: newChildren)
+                mutableComment.replies = updatedReplies
+                return mutableComment
+            } else {
+                var newReplies = addMoreComments(in: comment.replies, targetId: targetId, newChildren: newChildren)
+                var mutableComment = comment
+                mutableComment.replies = newReplies
+                return mutableComment
+            }
+        }
+    }
 }
 
 extension RedditPostViewModel: Hashable {

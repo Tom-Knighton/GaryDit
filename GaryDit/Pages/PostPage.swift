@@ -31,11 +31,12 @@ struct PostPage: View {
                         ProgressView()
                             .progressViewStyle(.circular)
                     }
-                    PostCommentListView(viewModel: viewModel)
+                    PostCommentListView()
                     Spacer()
                 }
             }
         }
+        .environment(viewModel)
         .navigationTitle(Text("^[\(viewModel.post.postCommentCount) Comment](inflect: true)"))
         .navigationBarTitleDisplayMode(.inline)
         .task {

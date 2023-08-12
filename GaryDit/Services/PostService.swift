@@ -23,4 +23,11 @@ public struct PostService {
         let result: [PostComment] = try await apiClient.perform(request)
         return result
     }
+    
+    public static func GetMoreComments(for postId: String, replacingId: String, childIds: [String]) async throws -> MoreCommentsDto {
+        let childIdString = childIds.joined(separator: ",")
+        let request = APIRequest(path: "post/\(postId)/comments/\(replacingId)/more", queryItems: [URLQueryItem(name: "childIds", value: childIdString)], body: nil)
+        let result: MoreCommentsDto = try await apiClient.perform(request)
+        return result
+    }
 }
