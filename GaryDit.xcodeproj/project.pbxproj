@@ -83,6 +83,9 @@
 		E2D098982A58617000D05D13 /* PostContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D098972A58617000D05D13 /* PostContent.swift */; };
 		E2D0989A2A586ADA00D05D13 /* Date+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D098992A586ADA00D05D13 /* Date+GaryDit.swift */; };
 		E2D0989C2A59AF2300D05D13 /* PostMediaPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D0989B2A59AF2300D05D13 /* PostMediaPreviews.swift */; };
+		E2E6580A2A87B34F00E2F03E /* PostContinuedPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E658092A87B34F00E2F03E /* PostContinuedPage.swift */; };
+		E2E6580C2A87B55000E2F03E /* PostContinuedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E6580B2A87B55000E2F03E /* PostContinuedViewModel.swift */; };
+		E2E6580E2A87B8CB00E2F03E /* ShowWholePostRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E6580D2A87B8CB00E2F03E /* ShowWholePostRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,6 +182,9 @@
 		E2D098972A58617000D05D13 /* PostContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContent.swift; sourceTree = "<group>"; };
 		E2D098992A586ADA00D05D13 /* Date+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+GaryDit.swift"; sourceTree = "<group>"; };
 		E2D0989B2A59AF2300D05D13 /* PostMediaPreviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMediaPreviews.swift; sourceTree = "<group>"; };
+		E2E658092A87B34F00E2F03E /* PostContinuedPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContinuedPage.swift; sourceTree = "<group>"; };
+		E2E6580B2A87B55000E2F03E /* PostContinuedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContinuedViewModel.swift; sourceTree = "<group>"; };
+		E2E6580D2A87B8CB00E2F03E /* ShowWholePostRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowWholePostRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -296,6 +302,7 @@
 				E2949FB62A3F11F6000669C2 /* NavigationRoot.swift */,
 				E2949FB82A3F1AFF000669C2 /* PostListPage.swift */,
 				E21D05182A73FD6A00CEF29C /* PostPage.swift */,
+				E2E658092A87B34F00E2F03E /* PostContinuedPage.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -457,6 +464,7 @@
 				E212902A2A6057C8007D9068 /* VideoPlayerViewModel.swift */,
 				E240D17C2A6BF8B700B5EED5 /* MediaGalleryViewModel.swift */,
 				E21D05162A73F89A00CEF29C /* GlobalStoreViewModel.swift */,
+				E2E6580B2A87B55000E2F03E /* PostContinuedViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -481,6 +489,7 @@
 				E25FDB762A76D54E00F7494C /* PostCommentListView.swift */,
 				E214948E2A7D7F27009CF39E /* PostCommentView.swift */,
 				E249CF4F2A802F490063E95E /* MoreCommentsView.swift */,
+				E2E6580D2A87B8CB00E2F03E /* ShowWholePostRow.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -644,6 +653,7 @@
 				E27AC27A2A5B231E000B8737 /* DistinguishmentType.swift in Sources */,
 				E240D17F2A6C929900B5EED5 /* MediaOverlayBar.swift in Sources */,
 				E240D17B2A65C6DC00B5EED5 /* GlobalCaches.swift in Sources */,
+				E2E6580E2A87B8CB00E2F03E /* ShowWholePostRow.swift in Sources */,
 				E2949FCF2A40CDD5000669C2 /* URL+GaryDit.swift in Sources */,
 				E221C3AE2A63E3A900EBFC51 /* HapticService.swift in Sources */,
 				E214948F2A7D7F27009CF39E /* PostCommentView.swift in Sources */,
@@ -651,10 +661,12 @@
 				E26745912A6153DD009D3F82 /* Binding+GaryDit.swift in Sources */,
 				E2A293E32A5EBF77009052C3 /* ZoomableScrollView.swift in Sources */,
 				E23EE10E2A43B3D900E03A45 /* VideoView.swift in Sources */,
+				E2E6580C2A87B55000E2F03E /* PostContinuedViewModel.swift in Sources */,
 				E26988922A3D0A9F004DE85B /* GaryDitApp.swift in Sources */,
 				E23C853B2A5087A20070F81D /* SubredditViewModel.swift in Sources */,
 				E23C85412A5188E50070F81D /* CacheService.swift in Sources */,
 				E27479E72A6454A3002A0483 /* NotificationCenter+GaryDit.swift in Sources */,
+				E2E6580A2A87B34F00E2F03E /* PostContinuedPage.swift in Sources */,
 				E2949FBD2A3F1D15000669C2 /* SubredditResponse.swift in Sources */,
 				E2949FA42A3DBAEF000669C2 /* AuthError.swift in Sources */,
 				E2949FC32A3F2C70000669C2 /* ListPostView.swift in Sources */,

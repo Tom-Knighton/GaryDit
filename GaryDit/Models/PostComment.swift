@@ -72,6 +72,9 @@ public struct LoadMoreLink: Codable {
     
     /// Whether or not the link is a 'Continue Thread' link, which should be dealth with accordingly
     public let isContinueThreadLink: Bool
+    
+    /// The id of  the parent comment, useful when loading a 'continue thread' link
+    public let parentId: String
 }
 
 public struct MoreCommentsDto: Codable {

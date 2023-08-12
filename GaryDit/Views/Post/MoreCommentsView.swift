@@ -14,6 +14,7 @@ struct MoreCommentsView: View {
     var link: LoadMoreLink
     
     @Environment(RedditPostViewModel.self) private var postVM
+    @EnvironmentObject private var globalVM: GlobalStoreViewModel
     @State private var isLoading: Bool = false
     
     var body: some View {
@@ -33,8 +34,13 @@ struct MoreCommentsView: View {
     
     func loadTheseComments() {
         self.isLoading = true
-        Task.detached {
-            await self.postVM.loadMoreComments(replacingId: commentId, childIds: link.moreChildren)
+        if link.isContinueThreadLink {
+            let vm = PostContinuedViewModel(post: postVM.post, rootId: link.parentId)
+            globalVM.postListPath.append(vm)
+        } else {
+            Task.detached {
+                await self.postVM.loadMoreComments(replacingId: commentId, childIds: link.moreChildren)
+            }
         }
     }
 }

@@ -18,8 +18,12 @@ public struct PostService {
         return result
     }
     
-    public static func GetPostComments(for postId: String) async throws -> [PostComment] {
-        let request = APIRequest(path: "post/\(postId)/comments", queryItems: [], body: nil)
+    public static func GetPostComments(for postId: String, rootId: String? = nil) async throws -> [PostComment] {
+        var queryItems: [URLQueryItem] = []
+        if let rootId {
+            queryItems.append(URLQueryItem(name: "startFrom", value: rootId))
+        }
+        let request = APIRequest(path: "post/\(postId)/comments", queryItems: queryItems, body: nil)
         let result: [PostComment] = try await apiClient.perform(request)
         return result
     }

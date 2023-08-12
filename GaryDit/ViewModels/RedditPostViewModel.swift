@@ -62,12 +62,12 @@ public class RedditPostViewModel {
         return nil
     }
     
-    public func loadComments() async {
+    public func loadComments(fromRoot: String? = nil) async {
         Task.detached {
             self.isLoadingComments = true
             defer { self.isLoadingComments = false }
             do {
-                let comments = try await PostService.GetPostComments(for: self.post.postId)
+                let comments = try await PostService.GetPostComments(for: self.post.postId, rootId: fromRoot)
                 self.comments = comments
             } catch {
                 print("error getting comments")
@@ -85,6 +85,7 @@ public class RedditPostViewModel {
                     self.comments = updated
                 }
             } catch {
+                print(error.localizedDescription)
                 print("erorr adding more comments")
             }
         }
