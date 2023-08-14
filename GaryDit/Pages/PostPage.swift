@@ -40,7 +40,7 @@ struct PostPage: View {
         .navigationTitle(Text("^[\(viewModel.post.postCommentCount) Comment](inflect: true)"))
         .navigationBarTitleDisplayMode(.inline)
         .task {
-            if self.viewModel.comments.isEmpty {
+            if !self.viewModel.hasLoadedCommentsBefore {
                 await self.viewModel.loadComments()
             }
         }

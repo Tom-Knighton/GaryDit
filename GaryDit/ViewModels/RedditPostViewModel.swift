@@ -24,6 +24,8 @@ public class RedditPostViewModel {
     public var overrideVideosDontStopWhenDisappear: Bool = false
     public var isLoadingComments: Bool = false
     
+    public var hasLoadedCommentsBefore: Bool = false
+    
     public var displayMediaBelowTitle: Bool {
         if post.postContent.contentType == .linkOnly {
             return true
@@ -69,18 +71,18 @@ public class RedditPostViewModel {
             do {
                 let comments = try await PostService.GetPostComments(for: self.post.postId, rootId: fromRoot)
                 self.comments = comments
+                self.hasLoadedCommentsBefore = fromRoot == nil
             } catch {
                 print("error getting comments")
             }
         }
     }
     
-    public func loadMoreComments(replacingId: String, childIds: [String]) async {
+    public func loadMoreComments(replacingId: String, parent: String, childIds: [String]) async {
         Task.detached {
             do {
-                print(replacingId)
                 let newComments = try await PostService.GetMoreComments(for: self.post.postId, replacingId: replacingId, childIds: childIds)
-                var updated = self.addMoreComments(in: self.comments, targetId: newComments.moreLinkId, newChildren: newComments.comments)
+                let updated = self.addMoreComments(in: self.comments, parent: parent, targetId: newComments.moreLinkId, newChildren: newComments.comments)
                 await MainActor.run { [updated] in
                     self.comments = updated
                 }
@@ -91,7 +93,16 @@ public class RedditPostViewModel {
         }
     }
     
-    func addMoreComments(in comments: [PostComment], targetId: String, newChildren: [PostComment]) -> [PostComment] {
+    func addMoreComments(in comments: [PostComment], parent: String, targetId: String, newChildren: [PostComment]) -> [PostComment] {
+        
+        if parent.starts(with: "t3_") {
+            var mutableReplies = comments
+            if let index = comments.firstIndex(where: { $0.commentId == targetId }) {
+                mutableReplies.remove(at: index)
+            }
+            return mutableReplies + newChildren
+        }
+        
         return comments.compactMap { comment in
             if comment.commentId == targetId {
                 return nil
@@ -105,7 +116,7 @@ public class RedditPostViewModel {
                 mutableComment.replies = updatedReplies
                 return mutableComment
             } else {
-                var newReplies = addMoreComments(in: comment.replies, targetId: targetId, newChildren: newChildren)
+                let newReplies = addMoreComments(in: comment.replies, parent: parent, targetId: targetId, newChildren: newChildren)
                 var mutableComment = comment
                 mutableComment.replies = newReplies
                 return mutableComment

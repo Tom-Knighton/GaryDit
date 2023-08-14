@@ -33,16 +33,16 @@ struct MoreCommentsView: View {
     }
     
     func loadTheseComments() {
-        
-        defer { isLoading = false  }
-        
         if link.isContinueThreadLink {
             let vm = PostContinuedViewModel(post: postVM.post, rootId: link.parentId)
             globalVM.postListPath.append(vm)
         } else {
             self.isLoading = true
             Task.detached {
-                await self.postVM.loadMoreComments(replacingId: commentId, childIds: link.moreChildren)
+                await self.postVM.loadMoreComments(replacingId: commentId, parent: link.parentId, childIds: link.moreChildren)
+                await MainActor.run {
+                    self.isLoading = false
+                }
             }
         }
     }

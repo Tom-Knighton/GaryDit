@@ -17,7 +17,7 @@ enum HttpMethod: String {
 }
 
 public struct APIRequest {
-    let method: HttpMethod = .get
+    var method: HttpMethod = .get
     let path: String
     let queryItems: [URLQueryItem]?
     let body: Data?
@@ -39,6 +39,11 @@ public actor APIClient {
         let url = baseUrl.appending(path: request.path).appending(queryItems: request.queryItems ?? [])
         var apiRequest = try await authorisedRequest(from: url)
         apiRequest.httpMethod = request.method.rawValue
+        apiRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        if let body = request.body {
+            apiRequest.httpBody = body
+        }
         
         let (data, urlResponse) = try await session.data(for: apiRequest)
         
@@ -55,8 +60,16 @@ public actor APIClient {
             return String(data: data, encoding: .utf8) as! T
         }
         
-        let response = try data.decode(to: T.self)
-        return response
+        
+        print(url.absoluteString)
+        do {
+            let response = try data.decode(to: T.self)
+            return response
+        } catch {
+            print(String(data: data, encoding: .utf8))
+            print("Error ^")
+            throw error
+        }
     }
     
     private func authorisedRequest(from url: URL) async throws -> URLRequest {

@@ -29,8 +29,9 @@ public struct PostService {
     }
     
     public static func GetMoreComments(for postId: String, replacingId: String, childIds: [String]) async throws -> MoreCommentsDto {
-        let childIdString = childIds.joined(separator: ",")
-        let request = APIRequest(path: "post/\(postId)/comments/\(replacingId)/more", queryItems: [URLQueryItem(name: "childIds", value: childIdString)], body: nil)
+        let dto = RequestCommentsDto(childCommentIds: childIds)
+        
+        let request = APIRequest(method: .post, path: "post/\(postId)/comments/\(replacingId)/more", queryItems: [], body: dto.toJson())
         let result: MoreCommentsDto = try await apiClient.perform(request)
         return result
     }
