@@ -50,12 +50,15 @@ public struct PostComment: Codable {
 
 extension PostComment: Hashable, Equatable {
     public static func == (lhs: PostComment, rhs: PostComment) -> Bool {
-        return lhs.commentId == rhs.commentId
+        return lhs.commentId == rhs.commentId && lhs.replies == rhs.replies && lhs.replies.count == rhs.replies.count && lhs.commentText == rhs.commentText
     }
     
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(commentId)
+        hasher.combine(replies.count)
+        hasher.combine(replies)
+        hasher.combine(commentText)
     }
 }
 
@@ -66,4 +69,18 @@ public struct LoadMoreLink: Codable {
     
     /// The root or depth 0 ids to load
     public let moreChildren: [String]
+    
+    /// Whether or not the link is a 'Continue Thread' link, which should be dealth with accordingly
+    public let isContinueThreadLink: Bool
+    
+    /// The id of  the parent comment, useful when loading a 'continue thread' link
+    public let parentId: String
+}
+
+public struct MoreCommentsDto: Codable {
+    /// The comment id to replace
+    let moreLinkId: String
+    
+    /// The comments to add to the tree
+    let comments: [PostComment]
 }

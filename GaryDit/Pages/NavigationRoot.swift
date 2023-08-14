@@ -25,6 +25,9 @@ public struct NavigationRootPage: View {
                     .navigationDestination(for: RedditPostViewModel.self) { postVM in
                         PostPage(postViewModel: postVM)
                     }
+                    .navigationDestination(for: PostContinuedViewModel.self) { vm in
+                        PostContinuedPage(viewModel: vm)
+                    }
             }
             .tag(0)
             .tabItem{ Label("Posts", systemImage: "lightswitch.on.fill") }
