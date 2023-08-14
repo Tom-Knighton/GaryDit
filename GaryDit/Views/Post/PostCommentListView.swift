@@ -14,9 +14,9 @@ struct PostCommentListView: View {
     @Environment(RedditPostViewModel.self) private var viewModel
     
     var body: some View {
-        VStack {
+        LazyVStack {
             ForEach(viewModel.comments, id: \.commentId) { comment in
-                PostCommentView(comment: comment)
+                PostCommentView(comment: comment, postId: viewModel.post.postId)
             }
         }
         .padding(.horizontal, 12)

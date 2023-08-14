@@ -51,6 +51,7 @@
 		E27479E72A6454A3002A0483 /* NotificationCenter+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27479E62A6454A3002A0483 /* NotificationCenter+GaryDit.swift */; };
 		E27AC27A2A5B231E000B8737 /* DistinguishmentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27AC2792A5B231E000B8737 /* DistinguishmentType.swift */; };
 		E27AC27C2A5B4D8C000B8737 /* MediaGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27AC27B2A5B4D8B000B8737 /* MediaGalleryView.swift */; };
+		E28D483F2A89176B00EB1E99 /* RequestCommentsDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28D483E2A89176B00EB1E99 /* RequestCommentsDto.swift */; };
 		E2949FA12A3DBA1E000669C2 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FA02A3DBA1E000669C2 /* AuthManager.swift */; };
 		E2949FA42A3DBAEF000669C2 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FA32A3DBAEF000669C2 /* AuthError.swift */; };
 		E2949FA62A3DBB1F000669C2 /* AuthToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2949FA52A3DBB1F000669C2 /* AuthToken.swift */; };
@@ -152,6 +153,7 @@
 		E27479E62A6454A3002A0483 /* NotificationCenter+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+GaryDit.swift"; sourceTree = "<group>"; };
 		E27AC2792A5B231E000B8737 /* DistinguishmentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistinguishmentType.swift; sourceTree = "<group>"; };
 		E27AC27B2A5B4D8B000B8737 /* MediaGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaGalleryView.swift; sourceTree = "<group>"; };
+		E28D483E2A89176B00EB1E99 /* RequestCommentsDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCommentsDto.swift; sourceTree = "<group>"; };
 		E2949FA02A3DBA1E000669C2 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		E2949FA32A3DBAEF000669C2 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		E2949FA52A3DBB1F000669C2 /* AuthToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthToken.swift; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 		E26988D42A3DA7D9004DE85B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E28D483D2A89175C00EB1E99 /* RequestDtos */,
 				E26988D52A3DA7DE004DE85B /* Auth */,
 				E2949FB22A3DE3F7000669C2 /* User.swift */,
 				E2949FBC2A3F1D15000669C2 /* SubredditResponse.swift */,
@@ -401,6 +404,14 @@
 				E27479E62A6454A3002A0483 /* NotificationCenter+GaryDit.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E28D483D2A89175C00EB1E99 /* RequestDtos */ = {
+			isa = PBXGroup;
+			children = (
+				E28D483E2A89176B00EB1E99 /* RequestCommentsDto.swift */,
+			);
+			path = RequestDtos;
 			sourceTree = "<group>";
 		};
 		E2949F9F2A3DBA13000669C2 /* Auth */ = {
@@ -705,6 +716,7 @@
 				E21D05192A73FD6A00CEF29C /* PostPage.swift in Sources */,
 				E221C3B02A63F2FD00EBFC51 /* String+GaryDit.swift in Sources */,
 				E23C85432A51B8E70070F81D /* NoMorePostsView.swift in Sources */,
+				E28D483F2A89176B00EB1E99 /* RequestCommentsDto.swift in Sources */,
 				E26988CC2A3D169E004DE85B /* LottieView.swift in Sources */,
 				E258D8122A59DA1A001D493D /* CachedImage.swift in Sources */,
 			);

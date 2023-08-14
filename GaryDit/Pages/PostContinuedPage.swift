@@ -12,6 +12,7 @@ public struct PostContinuedPage: View {
     
     var viewModel: PostContinuedViewModel
     @State private var postModel: RedditPostViewModel
+    @EnvironmentObject private var globalVM: GlobalStoreViewModel
     
     init(viewModel: PostContinuedViewModel) {
         self.viewModel = viewModel
@@ -23,8 +24,12 @@ public struct PostContinuedPage: View {
             Color.layer1.ignoresSafeArea(.all)
             ScrollView {
                 VStack {
-                    ShowWholePostRow()
-                        .padding(.horizontal, 12)
+                    Button(action: { self.globalVM.postListPath.append(postModel)} ) {
+                        ShowWholePostRow()
+                            .padding(.horizontal, 12)
+                    }
+                    .tint(.primary)
+                    
                     Divider()
                     PostCommentListView()
                         .environment(postModel)
