@@ -13,11 +13,12 @@ struct PostViewPostDetails: View {
     
     @Bindable var viewModel: RedditPostViewModel
     @State private var showMediaUrl: String? = nil
+    @State private var isCollapsed: Bool = false
     
     var body: some View {
         VStack(alignment: .leading) {
-                        
-            if viewModel.displayMediaBelowTitle == false {
+            
+            if !isCollapsed && viewModel.displayMediaBelowTitle == false {
                 mediaView()
             }
             Text(viewModel.post.postTitle)
@@ -26,15 +27,18 @@ struct PostViewPostDetails: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 8)
                 .fixedSize(horizontal: false, vertical: true)
-            if viewModel.displayMediaBelowTitle {
-                mediaView()
-            }
             
-            if let text = viewModel.post.postContent.textContent {
-                Spacer().frame(height: 16)
-                MarkdownView(text: .constant(text))
+            if !isCollapsed {
+                if viewModel.displayMediaBelowTitle {
+                    mediaView()
+                }
+                
+                if let text = viewModel.post.postContent.textContent {
+                    Spacer().frame(height: 16)
+                    MarkdownView(text: .constant(text))
+                }
+                
             }
-            
             self.bottomBar()
         }
         .padding(.horizontal, 12)
@@ -50,6 +54,11 @@ struct PostViewPostDetails: View {
                 NotificationCenter.default.post(name: .MediaGalleryFullscreenPresented, object: nil, userInfo: ["except": self.showMediaUrl ?? ""])
             } else {
                 NotificationCenter.default.post(name: .MediaGalleryFullscreenDismissed, object: nil, userInfo: [:])
+            }
+        }
+        .onTapGesture {
+            withAnimation(.snappy) {
+                self.isCollapsed.toggle()
             }
         }
     }
