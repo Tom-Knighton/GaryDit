@@ -11,6 +11,8 @@ import MarkdownView
 
 struct PostCommentView: View {
     
+    @State private var isCollapsed: Bool = false
+    
     public var comment: PostComment
     public var postId: String
     
@@ -53,32 +55,58 @@ struct PostCommentView: View {
                                 Image(systemName: "pencil")
                             }
                             Text((comment.commentEditedAt ?? comment.commentCreatedAt).friendlyAgo)
+                            
+                            if self.isCollapsed {
+                                HStack {
+                                    Text(String(describing: self.comment.getTotalCommentCount() + 1))
+                                    Image(systemName: "chevron.down")
+                                }
+                                .padding(.all, 4)
+                                .background(Material.ultraThick)
+                                .clipShape(.rect(cornerRadius: 10))
+                                
+                                Spacer().frame(width: 8)
+                            }
                         }
                         .foregroundStyle(.gray)
                         .font(.subheadline)
                         .tint(.gray)
                         .padding(.bottom, 4)
                         
-                        MarkdownView(text: .constant(comment.commentText))
-                            .imageProvider(CustomImageProvider(medias: self.comment.media), forURLScheme: "https")
-                            .font(.body, for: .blockQuote)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        ForEach(comment.media.filter { $0.isInline == false }, id: \.url) { media in
-                            LinkView(url: media.url, fetchMetadata: true, isCompact: true, overrideTitle: media.mediaText)
+                        if !self.isCollapsed {
+                            MarkdownView(text: .constant(comment.commentText))
+                                .imageProvider(CustomImageProvider(medias: self.comment.media), forURLScheme: "https")
+                                .font(.body, for: .blockQuote)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            ForEach(comment.media.filter { $0.isInline == false }, id: \.url) { media in
+                                LinkView(url: media.url, fetchMetadata: true, isCompact: true, overrideTitle: media.mediaText)
+                            }
                         }
+
                         Spacer().frame(height: 4)
                     }
                 }
                 
             }
             
-            ForEach(comment.replies, id: \.commentId) { reply in
-                PostCommentView(comment: reply, postId: postId, nestLevel: self.nestLevel + 1)
+            if !self.isCollapsed {
+                ForEach(comment.replies, id: \.commentId) { reply in
+                    PostCommentView(comment: reply, postId: postId, nestLevel: self.nestLevel + 1)
+                }
             }
         }
         .padding(.leading, nestLevel * 2.5)
         .background(Color.layer1)
+        .onTapGesture {
+            guard self.comment.loadMoreLink == nil else {
+                return
+            }
+            
+            withAnimation(.snappy) {
+                self.isCollapsed.toggle()
+            }
+        }
     }
     
     func getNestLevelColor(nestLevel: Int) -> Color {

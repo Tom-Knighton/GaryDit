@@ -43,8 +43,17 @@ public struct PostComment: Codable {
     // Inline media, if any, of the post
     public var media: [PostMedia]
     
-    func getMarkdownText() -> LocalizedStringKey {
+    public func getMarkdownText() -> LocalizedStringKey {
         return LocalizedStringKey(self.commentText)
+    }
+    
+    public func getTotalCommentCount() -> Int {
+        var count = 0
+        for comment in replies {
+            count += 1
+            count += comment.getTotalCommentCount()
+        }
+        return count
     }
 }
 
