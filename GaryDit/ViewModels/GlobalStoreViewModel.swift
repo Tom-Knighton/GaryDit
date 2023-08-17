@@ -12,6 +12,7 @@ import SwiftUI
 class GlobalStoreViewModel: ObservableObject {
     
     @Published public var postListPath = NavigationPath()
+    @Published public var searchPath = NavigationPath()
         
 }
 
