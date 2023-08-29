@@ -20,7 +20,7 @@ public class SearchPageViewModel {
     public func searchForSubreddits() async {
         do {
             let results = try await SearchService.searchSubreddits(query: searchQueryText.trimmingCharacters(in: .whitespacesAndNewlines), includeNsfw: true)
-            self.subredditResults = subredditResults
+            self.subredditResults = results
         } catch {
             self.errorDidOccur = true
         }
