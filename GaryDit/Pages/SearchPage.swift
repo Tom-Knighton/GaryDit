@@ -19,5 +19,8 @@ public struct SearchPage: View {
         .navigationTitle("Search")
         .searchable(text: $viewModel.searchQueryText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search subreddits, users, posts...")
         .autocorrectionDisabled()
+        .onReceive(of: self.viewModel.searchQueryText, debounceTime: 0.3) { newValue in
+            print("changed!")
+        }
     }
 }
