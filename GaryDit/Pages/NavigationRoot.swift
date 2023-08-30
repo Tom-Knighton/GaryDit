@@ -19,6 +19,9 @@ public struct NavigationRootPage: View {
             
             NavigationStack(path: $globalVM.postListPath) {
                 PostListPage()
+                    .navigationDestination(for: SubredditNavModel.self) { nav in
+                        PostListPage(subreddit: nav.subredditName)
+                    }
                     .navigationDestination(for: Post.self) { post in
                         PostPage(post: post)
                     }
@@ -36,6 +39,15 @@ public struct NavigationRootPage: View {
                 SearchPage()
                     .navigationDestination(for: SubredditNavModel.self) { nav in
                         PostListPage(subreddit: nav.subredditName)
+                    }
+                    .navigationDestination(for: Post.self) { post in
+                        PostPage(post: post)
+                    }
+                    .navigationDestination(for: RedditPostViewModel.self) { postVM in
+                        PostPage(postViewModel: postVM)
+                    }
+                    .navigationDestination(for: PostContinuedViewModel.self) { vm in
+                        PostContinuedPage(viewModel: vm)
                     }
             }
             .tag(1)

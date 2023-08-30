@@ -23,6 +23,9 @@ public struct SearchPage: View {
                                 .tint(.primary)
                         }
                     }
+                    ForEach(viewModel.userSearchResults, id: \.username) { user in
+                        Text(user.username)
+                    }
                     Spacer()
                 }
             }
@@ -32,9 +35,21 @@ public struct SearchPage: View {
         .navigationTitle("Search")
         .searchable(text: $viewModel.searchQueryText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search subreddits, users, posts...")
         .autocorrectionDisabled()
+        .onChange(of: self.viewModel.searchQueryText, { oldValue, newValue in
+            // On immediate change of query text
+            
+            self.viewModel.clearUserResults()
+        })
         .onReceive(of: self.viewModel.searchQueryText, debounceTime: 0.3) { newValue in
+            // After 0.3s of no changes
             Task {
                 await self.viewModel.searchForSubreddits()
+            }
+        }
+        .onReceive(of: self.viewModel.searchQueryText, debounceTime: 1) { newValue in
+            // After 1s of no changes
+            Task {
+                await self.viewModel.searchForUser()
             }
         }
     }

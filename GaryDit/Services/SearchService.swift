@@ -30,13 +30,13 @@ public struct SearchService {
     ///   - query: The text the subreddit's name starts with
     ///   - includeNsfw: Whether or not to include nsfw results
     ///   - limit: The maximum number of results to display
-    public static func searchUsers(query: String, includeNsfw: Bool, limit: Int = 25) async throws -> [SubredditSearchResult] {
+    public static func searchUsers(query: String, includeNsfw: Bool, limit: Int = 25) async throws -> [UserSearchResult] {
         var queryItems: [URLQueryItem] = []
         queryItems.append(URLQueryItem(name: "searchQuery", value: query))
         queryItems.append(URLQueryItem(name: "includeNsfw", value: "\(includeNsfw)"))
         queryItems.append(URLQueryItem(name: "limit", value: "\(limit)"))
         let request = APIRequest(path: "search/users", queryItems: queryItems, body: nil)
-        let result: [SubredditSearchResult] = try await apiClient.perform(request)
+        let result: [UserSearchResult] = try await apiClient.perform(request)
         return result
     }
 }
