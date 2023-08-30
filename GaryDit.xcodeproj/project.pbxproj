@@ -88,6 +88,7 @@
 		E2AD29FC2A9FE5B800193CDA /* CachedSubredditResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AD29FB2A9FE5B800193CDA /* CachedSubredditResult.swift */; };
 		E2AD29FE2AA0022B00193CDA /* SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AD29FD2AA0022B00193CDA /* SearchHistory.swift */; };
 		E2AD2A002AA0063E00193CDA /* SearchHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AD29FF2AA0063E00193CDA /* SearchHistoryView.swift */; };
+		E2AD2A032AA008F900193CDA /* SwipeActions in Frameworks */ = {isa = PBXBuildFile; productRef = E2AD2A022AA008F900193CDA /* SwipeActions */; };
 		E2C1F7572A5B6D3300384A64 /* BackgroundCleanerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C1F7562A5B6D3300384A64 /* BackgroundCleanerView.swift */; };
 		E2C330E82A7577EE00D5D9C5 /* MarkdownView in Frameworks */ = {isa = PBXBuildFile; productRef = E2C330E72A7577EE00D5D9C5 /* MarkdownView */; };
 		E2CD0E222A75115200BAFEA1 /* PostViewPostDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CD0E212A75115200BAFEA1 /* PostViewPostDetails.swift */; };
@@ -219,6 +220,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2A189A12A425F1900BE1E59 /* FLAnimatedImage in Frameworks */,
+				E2AD2A032AA008F900193CDA /* SwipeActions in Frameworks */,
 				E26988C22A3D0BED004DE85B /* OAuthSwift in Frameworks */,
 				E26988C82A3D1604004DE85B /* Lottie in Frameworks */,
 				E260D5852A485BF600A60839 /* VideoPlayer in Frameworks */,
@@ -595,6 +597,7 @@
 				E2A189A02A425F1900BE1E59 /* FLAnimatedImage */,
 				E260D5842A485BF600A60839 /* VideoPlayer */,
 				E2C330E72A7577EE00D5D9C5 /* MarkdownView */,
+				E2AD2A022AA008F900193CDA /* SwipeActions */,
 			);
 			productName = GaryDit;
 			productReference = E269888E2A3D0A9F004DE85B /* GaryDit.app */;
@@ -674,6 +677,7 @@
 				E2A1899F2A425F1900BE1E59 /* XCRemoteSwiftPackageReference "FLAnimatedImage" */,
 				E260D5832A485BF600A60839 /* XCRemoteSwiftPackageReference "VideoPlayer" */,
 				E2C330E62A7577EE00D5D9C5 /* XCRemoteSwiftPackageReference "GaryDitMarkdownView" */,
+				E2AD2A012AA008F900193CDA /* XCRemoteSwiftPackageReference "SwipeActions" */,
 			);
 			productRefGroup = E269888F2A3D0A9F004DE85B /* Products */;
 			projectDirPath = "";
@@ -1364,6 +1368,14 @@
 				minimumVersion = 1.0.17;
 			};
 		};
+		E2AD2A012AA008F900193CDA /* XCRemoteSwiftPackageReference "SwipeActions" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aheze/SwipeActions";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
 		E2C330E62A7577EE00D5D9C5 /* XCRemoteSwiftPackageReference "GaryDitMarkdownView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Tom-Knighton/GaryDitMarkdownView";
@@ -1394,6 +1406,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E2A1899F2A425F1900BE1E59 /* XCRemoteSwiftPackageReference "FLAnimatedImage" */;
 			productName = FLAnimatedImage;
+		};
+		E2AD2A022AA008F900193CDA /* SwipeActions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E2AD2A012AA008F900193CDA /* XCRemoteSwiftPackageReference "SwipeActions" */;
+			productName = SwipeActions;
 		};
 		E2C330E72A7577EE00D5D9C5 /* MarkdownView */ = {
 			isa = XCSwiftPackageProductDependency;

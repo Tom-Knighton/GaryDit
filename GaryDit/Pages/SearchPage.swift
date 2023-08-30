@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import SwiftData
+import SwipeActions
 
 public struct SearchPage: View {
     
@@ -44,9 +45,13 @@ public struct SearchPage: View {
                             .font(.title2)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         ForEach(searchHistory.prefix(3), id: \.name) { history in
-                            Button(action: { self.cacheRouteAndNavigate(to: history) }) {
-                                SearchHistoryView(history: history)
-                                    .tint(.primary)
+                            SwipeView {
+                                Button(action: { self.cacheRouteAndNavigate(to: history) }) {
+                                    SearchHistoryView(history: history)
+                                        .tint(.primary)
+                                }
+                            } trailingActions: { _ in
+                                SwipeAction(systemImage: "trash.circle.fill", backgroundColor: .red, action: { self.removeFromHistory(history) })
                             }
                         }
                     }
@@ -107,5 +112,11 @@ extension SearchPage {
         } else {
             self.globalVM.addToCurrentNavStack(SubredditNavModel(subredditName: history.name))
         }
+    }
+    
+    private func removeFromHistory(_ history: SearchHistoryModel) {
+        let name = history.name
+        try? self.modelContext.delete(model: SearchHistoryModel.self, where: #Predicate { $0.name == name })
+        try? self.modelContext.save()
     }
 }
