@@ -27,6 +27,7 @@
 		E240D17F2A6C929900B5EED5 /* MediaOverlayBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E240D17E2A6C929900B5EED5 /* MediaOverlayBar.swift */; };
 		E249CF502A802F490063E95E /* MoreCommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E249CF4F2A802F490063E95E /* MoreCommentsView.swift */; };
 		E24EC2AB2A9F4B5B00385AFC /* SubredditNavModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24EC2AA2A9F4B5B00385AFC /* SubredditNavModel.swift */; };
+		E24EC2AD2A9F93DF00385AFC /* UserSearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24EC2AC2A9F93DF00385AFC /* UserSearchResultView.swift */; };
 		E258D8122A59DA1A001D493D /* CachedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E258D8112A59DA1A001D493D /* CachedImage.swift */; };
 		E258D8182A5AECC6001D493D /* Local.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D8172A5AECC6001D493D /* Local.xcconfig */; };
 		E258D81B2A5AEE8B001D493D /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D81A2A5AEE8B001D493D /* Release.xcconfig */; };
@@ -135,6 +136,7 @@
 		E240D17E2A6C929900B5EED5 /* MediaOverlayBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaOverlayBar.swift; sourceTree = "<group>"; };
 		E249CF4F2A802F490063E95E /* MoreCommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreCommentsView.swift; sourceTree = "<group>"; };
 		E24EC2AA2A9F4B5B00385AFC /* SubredditNavModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubredditNavModel.swift; sourceTree = "<group>"; };
+		E24EC2AC2A9F93DF00385AFC /* UserSearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchResultView.swift; sourceTree = "<group>"; };
 		E258D8112A59DA1A001D493D /* CachedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImage.swift; sourceTree = "<group>"; };
 		E258D8172A5AECC6001D493D /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
 		E258D8192A5AEE81001D493D /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
@@ -449,6 +451,7 @@
 			isa = PBXGroup;
 			children = (
 				E28D484D2A9DF01C00EB1E99 /* SubredditSearchResultView.swift */,
+				E24EC2AC2A9F93DF00385AFC /* UserSearchResultView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -740,6 +743,7 @@
 				E26988962A3D0A9F004DE85B /* ContentView.swift in Sources */,
 				E2949FC02A3F2951000669C2 /* OnTypeMismatchWrappers.swift in Sources */,
 				E2D098942A58602700D05D13 /* Post.swift in Sources */,
+				E24EC2AD2A9F93DF00385AFC /* UserSearchResultView.swift in Sources */,
 				E2949FB92A3F1AFF000669C2 /* PostListPage.swift in Sources */,
 				E26988D72A3DA7E9004DE85B /* OAuthResponse.swift in Sources */,
 				E2D098962A5860DB00D05D13 /* PostFlags.swift in Sources */,
