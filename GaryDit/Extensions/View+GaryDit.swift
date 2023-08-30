@@ -8,11 +8,16 @@
 import Foundation
 import SwiftUI
 import Combine
+import SwiftData
 
 extension View {
     
     public func onReceive<Value>(of value: Value, debounceTime: TimeInterval, perform action: @escaping (_ newValue: Value) -> Void) -> some View where Value: Equatable {
         self.modifier(DebouncedChangeViewModifier(trigger: value, debounceTime: debounceTime, action: action))
+    }
+    
+    public func optionalModelContainer(_ container: ModelContainer?) -> some View {
+        self.modifier(OptionalModelContainerViewModifier(container: container))
     }
 }
 
@@ -29,6 +34,20 @@ private struct DebouncedChangeViewModifier<Value>: ViewModifier where Value: Equ
             debouncedTask = Task.delayed(seconds: debounceTime) { @MainActor in
                 action(value)
             }
+        }
+    }
+}
+
+private struct OptionalModelContainerViewModifier: ViewModifier {
+    
+    let container: ModelContainer?
+    
+    func body(content: Content) -> some View {
+        if let container {
+            content
+                .modelContainer(container)
+        } else {
+            content
         }
     }
 }

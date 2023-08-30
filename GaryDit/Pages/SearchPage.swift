@@ -42,6 +42,7 @@ public struct SearchPage: View {
                 return
             }
             
+            self.viewModel.searchCachedSubreddits()
             self.viewModel.clearUserResults()
 
         })

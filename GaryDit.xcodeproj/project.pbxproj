@@ -85,6 +85,7 @@
 		E2A189A12A425F1900BE1E59 /* FLAnimatedImage in Frameworks */ = {isa = PBXBuildFile; productRef = E2A189A02A425F1900BE1E59 /* FLAnimatedImage */; };
 		E2A189A42A425F3800BE1E59 /* GIFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A189A32A425F3800BE1E59 /* GIFView.swift */; };
 		E2A293E32A5EBF77009052C3 /* ZoomableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A293E22A5EBF77009052C3 /* ZoomableScrollView.swift */; };
+		E2AD29FC2A9FE5B800193CDA /* CachedSubredditResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AD29FB2A9FE5B800193CDA /* CachedSubredditResult.swift */; };
 		E2C1F7572A5B6D3300384A64 /* BackgroundCleanerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C1F7562A5B6D3300384A64 /* BackgroundCleanerView.swift */; };
 		E2C330E82A7577EE00D5D9C5 /* MarkdownView in Frameworks */ = {isa = PBXBuildFile; productRef = E2C330E72A7577EE00D5D9C5 /* MarkdownView */; };
 		E2CD0E222A75115200BAFEA1 /* PostViewPostDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CD0E212A75115200BAFEA1 /* PostViewPostDetails.swift */; };
@@ -195,6 +196,7 @@
 		E2A1899D2A423C1000BE1E59 /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
 		E2A189A32A425F3800BE1E59 /* GIFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFView.swift; sourceTree = "<group>"; };
 		E2A293E22A5EBF77009052C3 /* ZoomableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableScrollView.swift; sourceTree = "<group>"; };
+		E2AD29FB2A9FE5B800193CDA /* CachedSubredditResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedSubredditResult.swift; sourceTree = "<group>"; };
 		E2C1F7562A5B6D3300384A64 /* BackgroundCleanerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundCleanerView.swift; sourceTree = "<group>"; };
 		E2CD0E212A75115200BAFEA1 /* PostViewPostDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewPostDetails.swift; sourceTree = "<group>"; };
 		E2D098932A58602700D05D13 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 			children = (
 				E26988BF2A3D0AEB004DE85B /* App */,
 				E26988D42A3DA7D9004DE85B /* Models */,
+				E2AD29F92A9FE59600193CDA /* SwiftData */,
 				E26988D12A3D188C004DE85B /* Services */,
 				E26988C92A3D1689004DE85B /* Views */,
 				E2949FD02A40CF69000669C2 /* ViewModels */,
@@ -536,6 +539,22 @@
 			path = Media;
 			sourceTree = "<group>";
 		};
+		E2AD29F92A9FE59600193CDA /* SwiftData */ = {
+			isa = PBXGroup;
+			children = (
+				E2AD29FA2A9FE5A600193CDA /* Models */,
+			);
+			path = SwiftData;
+			sourceTree = "<group>";
+		};
+		E2AD29FA2A9FE5A600193CDA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E2AD29FB2A9FE5B800193CDA /* CachedSubredditResult.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		E2CD0E202A75114400BAFEA1 /* Post */ = {
 			isa = PBXGroup;
 			children = (
@@ -767,6 +786,7 @@
 				E21D05172A73F89A00CEF29C /* GlobalStoreViewModel.swift in Sources */,
 				E21D05192A73FD6A00CEF29C /* PostPage.swift in Sources */,
 				E221C3B02A63F2FD00EBFC51 /* String+GaryDit.swift in Sources */,
+				E2AD29FC2A9FE5B800193CDA /* CachedSubredditResult.swift in Sources */,
 				E23C85432A51B8E70070F81D /* NoMorePostsView.swift in Sources */,
 				E28D483F2A89176B00EB1E99 /* RequestCommentsDto.swift in Sources */,
 				E26988CC2A3D169E004DE85B /* LottieView.swift in Sources */,

@@ -22,3 +22,11 @@ public struct UserSearchResult: Codable {
     public let isNsfw: Bool
     public let isFriend: Bool
 }
+
+
+extension SubredditSearchResult {
+    
+    init(from cached: CachedSubredditResult) {
+        self.init(subredditImageUrl: cached.subredditIconImage, subredditName: cached.subredditName, subredditSubscriberCount: cached.subscribedCount, subredditActiveCount: cached.onlineCount)
+    }
+}

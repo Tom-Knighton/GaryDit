@@ -7,7 +7,7 @@
 
 import Foundation
 import Observation
-import Combine
+import SwiftData
 
 @Observable
 public class SearchPageViewModel {
@@ -26,7 +26,23 @@ public class SearchPageViewModel {
         
         do {
             let results = try await SearchService.searchSubreddits(query: searchQueryText.trimmingCharacters(in: .whitespacesAndNewlines), includeNsfw: true)
-            self.subredditResults = results
+            await MainActor.run {
+                if let context = GlobalStoreViewModel.shared.modelContainer?.mainContext {
+                    let newCached = results.compactMap { CachedSubredditResult(from: $0) }
+                    for toCache in newCached {
+                        context.insert(toCache)
+                    }
+                    do {
+                        try context.save()
+                        self.searchCachedSubreddits()
+                    } catch {
+                        self.subredditResults = results
+                    }
+                } else {
+                    self.subredditResults = results
+                }
+            }
+            
         } catch {
             self.errorDidOccur = true
         }
@@ -57,4 +73,26 @@ public class SearchPageViewModel {
     public func clearUserResults() {
         self.userSearchResults.removeAll()
     }
+    
+    @MainActor
+    public func searchCachedSubreddits() {
+        guard let context = GlobalStoreViewModel.shared.modelContainer?.mainContext else {
+            return
+        }
+        
+        let query = self.searchQueryText.lowercased()
+        var cachedResults = FetchDescriptor<CachedSubredditResult>(predicate: #Predicate { $0.subredditName.localizedStandardContains(query) }, sortBy: [SortDescriptor(\CachedSubredditResult.subscribedCount, order: .reverse)])
+        cachedResults.fetchLimit = 5
+        cachedResults.includePendingChanges = true
+        
+        do {
+            let results = try context.fetch(cachedResults).compactMap({ SubredditSearchResult(from: $0) })
+            self.subredditResults = results
+            
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+    }
+    
 }

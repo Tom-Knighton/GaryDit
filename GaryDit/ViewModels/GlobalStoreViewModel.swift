@@ -8,14 +8,31 @@
 import Foundation
 import Observation
 import SwiftUI
+import SwiftData
 
 @Observable
 class GlobalStoreViewModel {
+    
+    @ObservationIgnored
+    public static let shared = GlobalStoreViewModel()
     
     public var postListPath = NavigationPath()
     public var searchPath = NavigationPath()
     
     public var rootTabIndex: Int = 0
+    
+    @ObservationIgnored
+    public var modelContainer: ModelContainer? = nil
+    
+    init() {
+        do {
+            self.modelContainer = try ModelContainer(for: CachedSubredditResult.self)
+        }
+        catch {
+            print("Error: Setting up modelContainer: " + error.localizedDescription)
+        }
+    }
+    
     
     func addToCurrentNavStack(_ value: any Hashable) {
         switch rootTabIndex {
