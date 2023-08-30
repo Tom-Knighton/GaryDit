@@ -18,6 +18,10 @@ public class SearchPageViewModel {
     
     
     public func searchForSubreddits() async {
+        guard self.searchQueryText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false else {
+            return
+        }
+        
         do {
             let results = try await SearchService.searchSubreddits(query: searchQueryText.trimmingCharacters(in: .whitespacesAndNewlines), includeNsfw: true)
             self.subredditResults = results
