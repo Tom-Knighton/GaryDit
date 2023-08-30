@@ -12,8 +12,8 @@ public struct PostContinuedPage: View {
     
     var viewModel: PostContinuedViewModel
     @State private var postModel: RedditPostViewModel
-    @EnvironmentObject private var globalVM: GlobalStoreViewModel
-    
+    @Environment(GlobalStoreViewModel.self) private var globalVM
+
     init(viewModel: PostContinuedViewModel) {
         self.viewModel = viewModel
         self._postModel = State(wrappedValue: RedditPostViewModel(post: viewModel.post))

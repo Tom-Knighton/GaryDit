@@ -9,10 +9,24 @@ import Foundation
 import Observation
 import SwiftUI
 
-class GlobalStoreViewModel: ObservableObject {
+@Observable
+class GlobalStoreViewModel {
     
-    @Published public var postListPath = NavigationPath()
-    @Published public var searchPath = NavigationPath()
+    public var postListPath = NavigationPath()
+    public var searchPath = NavigationPath()
+    
+    public var rootTabIndex: Int = 0
+    
+    func addToCurrentNavStack(_ value: any Hashable) {
+        switch rootTabIndex {
+        case 0:
+            self.postListPath.append(value)
+        case 1:
+            self.searchPath.append(value)
+        default:
+            print("WARN: adding value to unknown tab index \(rootTabIndex)")
+        }
+    }
         
 }
 

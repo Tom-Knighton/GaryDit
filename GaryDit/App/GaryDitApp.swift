@@ -12,7 +12,7 @@ import OAuthSwift
 @main
 struct GaryDitApp: App {
     
-    @StateObject private var globalViewModel = GlobalStoreViewModel()
+    @State private var globalViewModel = GlobalStoreViewModel()
     
     init() {
         //iOS changes the tab bar when there's nothing under it...
@@ -30,7 +30,7 @@ struct GaryDitApp: App {
                         OAuthSwift.handle(url: url)
                     }
                 })
-                .environmentObject(globalViewModel)
+                .environment(globalViewModel)
         }
     }
 }

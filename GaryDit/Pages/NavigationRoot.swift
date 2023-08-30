@@ -10,12 +10,11 @@ import SwiftUI
 
 public struct NavigationRootPage: View {
     
-    @EnvironmentObject private var globalVM: GlobalStoreViewModel
-    @State private var tabSelection: Int = 0
+    @Environment(GlobalStoreViewModel.self) private var globalVM
     
     public var body: some View {
-        
-        TabView(selection: $tabSelection, content: {
+        @Bindable var globalVM = globalVM
+        TabView(selection: $globalVM.rootTabIndex, content: {
             
             NavigationStack(path: $globalVM.postListPath) {
                 PostListPage()

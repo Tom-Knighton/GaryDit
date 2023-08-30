@@ -14,7 +14,7 @@ struct MoreCommentsView: View {
     var link: LoadMoreLink
     
     @Environment(RedditPostViewModel.self) private var postVM
-    @EnvironmentObject private var globalVM: GlobalStoreViewModel
+    @Environment(GlobalStoreViewModel.self) private var globalVM
     @State private var isLoading: Bool = false
     
     var body: some View {

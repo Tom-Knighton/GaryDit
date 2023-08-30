@@ -11,7 +11,7 @@ import VideoPlayer
 
 struct ListPostView: View {
     
-    @EnvironmentObject private var globalVM: GlobalStoreViewModel
+    @Environment(GlobalStoreViewModel.self) private var globalVM
     @Environment(SubredditViewModel.self) private var subreddit
     @State private var viewModel: RedditPostViewModel
     @State private var togglePreview: Bool = false
@@ -96,7 +96,7 @@ struct ListPostView: View {
             .accessibilityRespondsToUserInteraction()
             .contentShape(Rectangle())
             .onTapGesture {
-                self.globalVM.postListPath.append(viewModel)
+                self.globalVM.addToCurrentNavStack(viewModel)
             }
         }
         .padding(.bottom, 16)
@@ -176,7 +176,7 @@ struct PostActionsView: View {
 
 #Preview {
     ListPostView(post: Post(postId: "1", postAuthour: "Banging_Bananas", postSubreddit: "UkPolitics", postTitle: "What a dissapointment", postScore: 6800, postScorePercentage: 100, postCreatedAt: Date(), postEditedAt: nil, postCommentCount: 67, subredditIcon: nil, postFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, isSpoiler: false, distinguishmentType: .none), postContent: PostContent(contentType: .image, textContent: nil, media: [PostMedia(url: "https://i.redd.it/xc6x8tf9jegb1.jpg", thumbnailUrl: nil, height: 0, width: 0, type: .image, hlsDashUrl: nil, mediaText: nil, isInline: false)]), postVoteStatus: .noVote))
-        .environmentObject(GlobalStoreViewModel())
+        .environment(GlobalStoreViewModel())
         .environment(SubredditViewModel(subredditName: "UkPolitics"))
         .padding(.horizontal, 12)
 }
