@@ -14,11 +14,13 @@ public class SearchPageViewModel {
     
     public var errorDidOccur: Bool = false
     public var subredditResults: [SubredditSearchResult] = []
+    public var userSearchResults: [UserSearchResult] = []
     public var searchQueryText: String = ""
     
     
     public func searchForSubreddits() async {
-        guard self.searchQueryText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false else {
+        let query = self.searchQueryText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard query.isEmpty == false, query.lowercased().starts(with: "u/") == false, query.lowercased().starts(with: "/u/") == false else {
             return
         }
         
@@ -28,5 +30,31 @@ public class SearchPageViewModel {
         } catch {
             self.errorDidOccur = true
         }
+    }
+    
+    public func searchForUser() async {
+        var query = self.searchQueryText.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        
+        let limit = query.lowercased().starts(with: "u/") || query.lowercased().starts(with: "/u/") ? 5 : 1
+        if limit > 1 {
+            self.subredditResults.removeAll()
+        }
+        
+        query = query.replacingOccurrences(of: "/u/", with: "", options: .caseInsensitive).replacingOccurrences(of: "u/", with: "", options: .caseInsensitive)
+        guard query.isEmpty == false else {
+            return
+        }
+        
+        do {
+            let results = try await SearchService.searchUsers(query: query, includeNsfw: true, limit: limit)
+            self.userSearchResults = results
+        } catch {
+            self.errorDidOccur = true
+        }
+    }
+    
+    public func clearUserResults() {
+        self.userSearchResults.removeAll()
     }
 }
