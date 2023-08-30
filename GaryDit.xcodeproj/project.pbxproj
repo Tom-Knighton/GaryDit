@@ -26,6 +26,7 @@
 		E240D17D2A6BF8B700B5EED5 /* MediaGalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E240D17C2A6BF8B700B5EED5 /* MediaGalleryViewModel.swift */; };
 		E240D17F2A6C929900B5EED5 /* MediaOverlayBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E240D17E2A6C929900B5EED5 /* MediaOverlayBar.swift */; };
 		E249CF502A802F490063E95E /* MoreCommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E249CF4F2A802F490063E95E /* MoreCommentsView.swift */; };
+		E24EC2AB2A9F4B5B00385AFC /* SubredditNavModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24EC2AA2A9F4B5B00385AFC /* SubredditNavModel.swift */; };
 		E258D8122A59DA1A001D493D /* CachedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E258D8112A59DA1A001D493D /* CachedImage.swift */; };
 		E258D8182A5AECC6001D493D /* Local.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D8172A5AECC6001D493D /* Local.xcconfig */; };
 		E258D81B2A5AEE8B001D493D /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D81A2A5AEE8B001D493D /* Release.xcconfig */; };
@@ -133,6 +134,7 @@
 		E240D17C2A6BF8B700B5EED5 /* MediaGalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaGalleryViewModel.swift; sourceTree = "<group>"; };
 		E240D17E2A6C929900B5EED5 /* MediaOverlayBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaOverlayBar.swift; sourceTree = "<group>"; };
 		E249CF4F2A802F490063E95E /* MoreCommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreCommentsView.swift; sourceTree = "<group>"; };
+		E24EC2AA2A9F4B5B00385AFC /* SubredditNavModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubredditNavModel.swift; sourceTree = "<group>"; };
 		E258D8112A59DA1A001D493D /* CachedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImage.swift; sourceTree = "<group>"; };
 		E258D8172A5AECC6001D493D /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
 		E258D8192A5AEE81001D493D /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
@@ -233,6 +235,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E24EC2A92A9F4B4900385AFC /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				E24EC2AA2A9F4B5B00385AFC /* SubredditNavModel.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
 		E26988852A3D0A9F004DE85B = {
 			isa = PBXGroup;
 			children = (
@@ -381,6 +391,7 @@
 		E26988D42A3DA7D9004DE85B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E24EC2A92A9F4B4900385AFC /* Navigation */,
 				E28D483D2A89175C00EB1E99 /* RequestDtos */,
 				E26988D52A3DA7DE004DE85B /* Auth */,
 				E2949FB22A3DE3F7000669C2 /* User.swift */,
@@ -722,6 +733,7 @@
 				E2949FAE2A3DDA4A000669C2 /* HomePage.swift in Sources */,
 				E25FDB772A76D54E00F7494C /* PostCommentListView.swift in Sources */,
 				E214948B2A7D6190009CF39E /* PostComment.swift in Sources */,
+				E24EC2AB2A9F4B5B00385AFC /* SubredditNavModel.swift in Sources */,
 				E2949FB32A3DE3F7000669C2 /* User.swift in Sources */,
 				E2949FB12A3DE06C000669C2 /* UserService.swift in Sources */,
 				E2949FC82A40C054000669C2 /* Int+GaryDit.swift in Sources */,

@@ -34,8 +34,8 @@ public struct NavigationRootPage: View {
             
             NavigationStack(path: $globalVM.searchPath) {
                 SearchPage()
-                    .navigationDestination(for: SubredditViewModel.self) { vm in
-                        PostListPage()
+                    .navigationDestination(for: SubredditNavModel.self) { nav in
+                        PostListPage(subreddit: nav.subredditName)
                     }
             }
             .tag(1)
