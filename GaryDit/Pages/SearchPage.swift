@@ -18,7 +18,10 @@ public struct SearchPage: View {
             ScrollView {
                 VStack {
                     ForEach(viewModel.subredditResults.prefix(5), id: \.subredditName) { subreddit in
-                        SubredditSearchResultView(subreddit: subreddit)
+                        NavigationLink(value: SubredditNavModel(subredditName: subreddit.subredditName)) {
+                            SubredditSearchResultView(subreddit: subreddit)
+                                .tint(.primary)
+                        }
                     }
                     Spacer()
                 }

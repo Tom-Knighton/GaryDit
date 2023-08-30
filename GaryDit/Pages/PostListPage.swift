@@ -11,6 +11,12 @@ import SwiftUI
 public struct PostListPage: View {
     
     @State private var viewModel = SubredditViewModel(subredditName: "")
+
+    private var passedSubredditName: String
+    
+    init(subreddit: String? = nil) {
+        passedSubredditName = subreddit ?? "All" //TODO: replace with default from settings
+    }
     
     public var body: some View {
         ZStack {
@@ -54,7 +60,7 @@ public struct PostListPage: View {
             .background(Color.layer1)
             .navigationTitle(self.viewModel.subredditName.isEmpty ? "Loading..." : self.viewModel.subredditName)
             .task {
-                self.viewModel.setSubredditName(to: "All", fetchPostsAutomatically: true)
+                self.viewModel.setSubredditName(to: passedSubredditName, fetchPostsAutomatically: true)
             }
             .refreshable {
                 await self.viewModel.resetAndFetchPosts()
