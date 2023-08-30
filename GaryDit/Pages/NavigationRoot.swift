@@ -34,6 +34,9 @@ public struct NavigationRootPage: View {
             
             NavigationStack(path: $globalVM.searchPath) {
                 SearchPage()
+                    .navigationDestination(for: SubredditViewModel.self) { vm in
+                        PostListPage()
+                    }
             }
             .tag(1)
             .tabItem { Label("Search", systemImage: "magnifyingglass.circle.fill")}

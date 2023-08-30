@@ -93,3 +93,13 @@ class SubredditViewModel {
     }
     
 }
+
+extension SubredditViewModel: Hashable {
+    public static func == (lhs: SubredditViewModel, rhs: SubredditViewModel) -> Bool {
+        return lhs.subredditName == rhs.subredditName
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(subredditName)
+    }
+}
