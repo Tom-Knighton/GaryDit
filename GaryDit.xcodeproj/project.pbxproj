@@ -86,6 +86,8 @@
 		E2A189A42A425F3800BE1E59 /* GIFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A189A32A425F3800BE1E59 /* GIFView.swift */; };
 		E2A293E32A5EBF77009052C3 /* ZoomableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A293E22A5EBF77009052C3 /* ZoomableScrollView.swift */; };
 		E2AD29FC2A9FE5B800193CDA /* CachedSubredditResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AD29FB2A9FE5B800193CDA /* CachedSubredditResult.swift */; };
+		E2AD29FE2AA0022B00193CDA /* SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AD29FD2AA0022B00193CDA /* SearchHistory.swift */; };
+		E2AD2A002AA0063E00193CDA /* SearchHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AD29FF2AA0063E00193CDA /* SearchHistoryView.swift */; };
 		E2C1F7572A5B6D3300384A64 /* BackgroundCleanerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C1F7562A5B6D3300384A64 /* BackgroundCleanerView.swift */; };
 		E2C330E82A7577EE00D5D9C5 /* MarkdownView in Frameworks */ = {isa = PBXBuildFile; productRef = E2C330E72A7577EE00D5D9C5 /* MarkdownView */; };
 		E2CD0E222A75115200BAFEA1 /* PostViewPostDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CD0E212A75115200BAFEA1 /* PostViewPostDetails.swift */; };
@@ -197,6 +199,8 @@
 		E2A189A32A425F3800BE1E59 /* GIFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFView.swift; sourceTree = "<group>"; };
 		E2A293E22A5EBF77009052C3 /* ZoomableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableScrollView.swift; sourceTree = "<group>"; };
 		E2AD29FB2A9FE5B800193CDA /* CachedSubredditResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedSubredditResult.swift; sourceTree = "<group>"; };
+		E2AD29FD2AA0022B00193CDA /* SearchHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistory.swift; sourceTree = "<group>"; };
+		E2AD29FF2AA0063E00193CDA /* SearchHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryView.swift; sourceTree = "<group>"; };
 		E2C1F7562A5B6D3300384A64 /* BackgroundCleanerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundCleanerView.swift; sourceTree = "<group>"; };
 		E2CD0E212A75115200BAFEA1 /* PostViewPostDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewPostDetails.swift; sourceTree = "<group>"; };
 		E2D098932A58602700D05D13 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -455,6 +459,7 @@
 			children = (
 				E28D484D2A9DF01C00EB1E99 /* SubredditSearchResultView.swift */,
 				E24EC2AC2A9F93DF00385AFC /* UserSearchResultView.swift */,
+				E2AD29FF2AA0063E00193CDA /* SearchHistoryView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -551,6 +556,7 @@
 			isa = PBXGroup;
 			children = (
 				E2AD29FB2A9FE5B800193CDA /* CachedSubredditResult.swift */,
+				E2AD29FD2AA0022B00193CDA /* SearchHistory.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -720,6 +726,7 @@
 				E2D0989A2A586ADA00D05D13 /* Date+GaryDit.swift in Sources */,
 				E249CF502A802F490063E95E /* MoreCommentsView.swift in Sources */,
 				E2949FCA2A40C084000669C2 /* Double+GaryDit.swift in Sources */,
+				E2AD2A002AA0063E00193CDA /* SearchHistoryView.swift in Sources */,
 				E2949FA12A3DBA1E000669C2 /* AuthManager.swift in Sources */,
 				E26988DD2A3DB53D004DE85B /* Codable+GaryDit.swift in Sources */,
 				E240D17D2A6BF8B700B5EED5 /* MediaGalleryViewModel.swift in Sources */,
@@ -781,6 +788,7 @@
 				E28D48412A8BFF3400EB1E99 /* SearchPage.swift in Sources */,
 				E23C853D2A508EE10070F81D /* LogService.swift in Sources */,
 				E2D098982A58617000D05D13 /* PostContent.swift in Sources */,
+				E2AD29FE2AA0022B00193CDA /* SearchHistory.swift in Sources */,
 				E214948D2A7D630E009CF39E /* PostService.swift in Sources */,
 				E267458F2A614E06009D3F82 /* Collection+GaryDit.swift in Sources */,
 				E21D05172A73F89A00CEF29C /* GlobalStoreViewModel.swift in Sources */,

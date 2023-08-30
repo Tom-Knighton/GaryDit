@@ -17,7 +17,6 @@ public class SearchPageViewModel {
     public var userSearchResults: [UserSearchResult] = []
     public var searchQueryText: String = ""
     
-    
     public func searchForSubreddits() async {
         let query = self.searchQueryText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard query.isEmpty == false, query.lowercased().starts(with: "u/") == false, query.lowercased().starts(with: "/u/") == false else {

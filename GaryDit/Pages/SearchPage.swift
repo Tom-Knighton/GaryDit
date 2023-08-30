@@ -7,10 +7,16 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
 public struct SearchPage: View {
     
+    @Environment(GlobalStoreViewModel.self) private var globalVM
+    @Environment(\.modelContext) private var modelContext
     @State private var viewModel = SearchPageViewModel()
+    
+    @Query(sort: \SearchHistoryModel.accessedAt, order: .reverse) var searchHistory: [SearchHistoryModel]
+    
     
     public var body: some View {
         ZStack {
@@ -18,18 +24,37 @@ public struct SearchPage: View {
             ScrollView {
                 VStack {
                     ForEach(viewModel.subredditResults.prefix(5), id: \.subredditName) { subreddit in
-                        NavigationLink(value: SubredditNavModel(subredditName: subreddit.subredditName)) {
+                        Button(action: { self.cacheRouteAndNavigate(to: subreddit) }) {
                             SubredditSearchResultView(subreddit: subreddit)
                                 .tint(.primary)
                         }
+                        .accessibilityHint("Navigates to the \(subreddit.subredditName) subreddit")
                     }
                     ForEach(viewModel.userSearchResults, id: \.username) { user in
-                        UserSearchResultView(user: user)
+                        Button(action: { self.cacheRouteAndNavigate(to: user) }) {
+                            UserSearchResultView(user: user)
+                                .tint(.primary)
+                        }
+                        .accessibilityHint("Navigates to \(user.username)'s user profile")
                     }
+                    
+                    if self.viewModel.searchQueryText.isEmpty, searchHistory.isEmpty == false {
+                        Text("Search History")
+                            .bold()
+                            .font(.title2)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        ForEach(searchHistory.prefix(3), id: \.name) { history in
+                            Button(action: { self.cacheRouteAndNavigate(to: history) }) {
+                                SearchHistoryView(history: history)
+                                    .tint(.primary)
+                            }
+                        }
+                    }
+                    
                     Spacer()
                 }
             }
-            .padding(.horizontal, 12)
+            .padding(.horizontal, 16)
 
         }
         .navigationTitle("Search")
@@ -57,6 +82,30 @@ public struct SearchPage: View {
             Task {
                 await self.viewModel.searchForUser()
             }
+        }
+    }
+}
+
+extension SearchPage {
+    
+    private func cacheRouteAndNavigate(to subreddit: SubredditSearchResult) {
+        self.globalVM.addToCurrentNavStack(SubredditNavModel(subredditName: subreddit.subredditName))
+        self.modelContext.insert(SearchHistoryModel(from: subreddit))
+    }
+    
+    private func cacheRouteAndNavigate(to user: UserSearchResult) {
+        self.modelContext.insert(SearchHistoryModel(from: user))
+    }
+    
+    private func cacheRouteAndNavigate(to history: SearchHistoryModel) {
+        let newHistory = history
+        history.accessedAt = Date()
+        self.modelContext.insert(newHistory)
+        
+        if newHistory.isUser {
+            
+        } else {
+            self.globalVM.addToCurrentNavStack(SubredditNavModel(subredditName: history.name))
         }
     }
 }
