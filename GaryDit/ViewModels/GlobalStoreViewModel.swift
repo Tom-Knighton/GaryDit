@@ -26,7 +26,7 @@ class GlobalStoreViewModel {
     
     init() {
         do {
-            self.modelContainer = try ModelContainer(for: CachedSubredditResult.self, SearchHistoryModel.self)
+            self.modelContainer = try ModelContainer(for: CachedSubredditResult.self, SearchHistoryModel.self, CachedDailyTrendingModel.self)
         }
         catch {
             print("Error: Setting up modelContainer: " + error.localizedDescription)

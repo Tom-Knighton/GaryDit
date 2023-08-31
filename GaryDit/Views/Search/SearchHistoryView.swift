@@ -24,15 +24,15 @@ public struct SearchHistoryView: View {
                     .shadow(radius: 3)
                     .clipShape(.circle)
             } else {
-                if history.isUser {
+                switch history.type {
+                case .user:
                     Image(defaultAvatar)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 30, height: 30)
                         .shadow(radius: 3)
                         .clipShape(.circle)
-                   
-                } else {
+                case .subreddit:
                     Circle()
                         .fill(Color.gray)
                         .frame(width: 30, height: 30)
@@ -42,8 +42,11 @@ public struct SearchHistoryView: View {
                                 .bold()
                                 .shadow(radius: 3)
                         }
+                case .trendSubreddit:
+                    Image(systemName: "chart.line.uptrend.xyaxis")
+                        .frame(width: 30, height: 30)
+                        .shadow(radius: 3)
                 }
-               
             }
             
             Text(history.name)

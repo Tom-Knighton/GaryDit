@@ -21,4 +21,11 @@ public struct SubredditService {
         let result: [Post] = try await apiClient.perform(request)
         return result
     }
+    
+    public static func GetTrendingSubreddits() async throws -> [String] {
+        
+        let request = APIRequest(path: "subreddit/DailyTrending", queryItems: [], body: nil)
+        let result: [String] = try await apiClient.perform(request)
+        return result
+    }
 }
