@@ -109,7 +109,11 @@ public class SearchPageViewModel {
             return
         }
         
-        var cachedResults = FetchDescriptor<CachedDailyTrendingModel>(predicate: #Predicate { $0.cacheKey == cachedDailyKey })
+        let yesterday = Calendar.current.date(
+          byAdding: .day,
+          value: -1,
+          to: Date()) ?? Date()
+        var cachedResults = FetchDescriptor<CachedDailyTrendingModel>(predicate: #Predicate { $0.cacheKey == cachedDailyKey && $0.cachedAt >= yesterday })
         cachedResults.fetchLimit = 1
         
         do {
