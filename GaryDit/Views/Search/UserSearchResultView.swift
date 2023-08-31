@@ -25,6 +25,7 @@ public struct UserSearchResultView: View {
                         .clipShape(.circle)
                 } else {
                     Image(defaultAvatar)
+                        .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 30, height: 30)
                         .shadow(radius: 3)

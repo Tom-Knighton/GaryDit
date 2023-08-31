@@ -25,6 +25,14 @@ public struct SearchHistoryView: View {
                     .clipShape(.circle)
             } else {
                 if history.isUser {
+                    Image(defaultAvatar)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                        .shadow(radius: 3)
+                        .clipShape(.circle)
+                   
+                } else {
                     Circle()
                         .fill(Color.gray)
                         .frame(width: 30, height: 30)
@@ -34,12 +42,6 @@ public struct SearchHistoryView: View {
                                 .bold()
                                 .shadow(radius: 3)
                         }
-                } else {
-                    Image(defaultAvatar)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 30)
-                        .shadow(radius: 3)
-                        .clipShape(.circle)
                 }
                
             }
