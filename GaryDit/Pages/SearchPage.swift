@@ -56,6 +56,18 @@ public struct SearchPage: View {
                         }
                     }
                     
+                    if self.viewModel.trendingSubreddits.isEmpty == false {
+                        Text("Trending Subreddits:")
+                            .bold()
+                            .font(.title2)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        ForEach(self.viewModel.trendingSubreddits.prefix(5), id: \.self) { trend in
+                            Button(action: { self.cacheRouteAndNavigate(to: trend)}) {
+                                TrendingSubredditView(subredditName: trend)
+                            }
+                        }
+                    }
+                    
                     Spacer()
                 }
             }
@@ -107,11 +119,16 @@ extension SearchPage {
         history.accessedAt = Date()
         self.modelContext.insert(newHistory)
         
-        if newHistory.isUser {
-            
-        } else {
+        if newHistory.type == .subreddit {
             self.globalVM.addToCurrentNavStack(SubredditNavModel(subredditName: history.name))
+        } else {
+            
         }
+    }
+    
+    private func cacheRouteAndNavigate(to subredditName: String) {
+        self.globalVM.addToCurrentNavStack(SubredditNavModel(subredditName: subredditName))
+        self.modelContext.insert(SearchHistoryModel(from: subredditName))
     }
     
     private func removeFromHistory(_ history: SearchHistoryModel) {

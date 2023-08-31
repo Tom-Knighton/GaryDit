@@ -89,6 +89,8 @@
 		E2AD29FE2AA0022B00193CDA /* SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AD29FD2AA0022B00193CDA /* SearchHistory.swift */; };
 		E2AD2A002AA0063E00193CDA /* SearchHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AD29FF2AA0063E00193CDA /* SearchHistoryView.swift */; };
 		E2AD2A032AA008F900193CDA /* SwipeActions in Frameworks */ = {isa = PBXBuildFile; productRef = E2AD2A022AA008F900193CDA /* SwipeActions */; };
+		E2AD2A072AA0A91C00193CDA /* CachedDailyTrending.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AD2A062AA0A91C00193CDA /* CachedDailyTrending.swift */; };
+		E2AD2A092AA0B46E00193CDA /* TrendingSubredditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AD2A082AA0B46E00193CDA /* TrendingSubredditView.swift */; };
 		E2C1F7572A5B6D3300384A64 /* BackgroundCleanerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C1F7562A5B6D3300384A64 /* BackgroundCleanerView.swift */; };
 		E2C330E82A7577EE00D5D9C5 /* MarkdownView in Frameworks */ = {isa = PBXBuildFile; productRef = E2C330E72A7577EE00D5D9C5 /* MarkdownView */; };
 		E2CD0E222A75115200BAFEA1 /* PostViewPostDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CD0E212A75115200BAFEA1 /* PostViewPostDetails.swift */; };
@@ -202,6 +204,8 @@
 		E2AD29FB2A9FE5B800193CDA /* CachedSubredditResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedSubredditResult.swift; sourceTree = "<group>"; };
 		E2AD29FD2AA0022B00193CDA /* SearchHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistory.swift; sourceTree = "<group>"; };
 		E2AD29FF2AA0063E00193CDA /* SearchHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryView.swift; sourceTree = "<group>"; };
+		E2AD2A062AA0A91C00193CDA /* CachedDailyTrending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedDailyTrending.swift; sourceTree = "<group>"; };
+		E2AD2A082AA0B46E00193CDA /* TrendingSubredditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingSubredditView.swift; sourceTree = "<group>"; };
 		E2C1F7562A5B6D3300384A64 /* BackgroundCleanerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundCleanerView.swift; sourceTree = "<group>"; };
 		E2CD0E212A75115200BAFEA1 /* PostViewPostDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewPostDetails.swift; sourceTree = "<group>"; };
 		E2D098932A58602700D05D13 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -462,6 +466,7 @@
 				E28D484D2A9DF01C00EB1E99 /* SubredditSearchResultView.swift */,
 				E24EC2AC2A9F93DF00385AFC /* UserSearchResultView.swift */,
 				E2AD29FF2AA0063E00193CDA /* SearchHistoryView.swift */,
+				E2AD2A082AA0B46E00193CDA /* TrendingSubredditView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -559,6 +564,7 @@
 			children = (
 				E2AD29FB2A9FE5B800193CDA /* CachedSubredditResult.swift */,
 				E2AD29FD2AA0022B00193CDA /* SearchHistory.swift */,
+				E2AD2A062AA0A91C00193CDA /* CachedDailyTrending.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -775,8 +781,10 @@
 				E2D098942A58602700D05D13 /* Post.swift in Sources */,
 				E24EC2AD2A9F93DF00385AFC /* UserSearchResultView.swift in Sources */,
 				E2949FB92A3F1AFF000669C2 /* PostListPage.swift in Sources */,
+				E2AD2A092AA0B46E00193CDA /* TrendingSubredditView.swift in Sources */,
 				E26988D72A3DA7E9004DE85B /* OAuthResponse.swift in Sources */,
 				E2D098962A5860DB00D05D13 /* PostFlags.swift in Sources */,
+				E2AD2A072AA0A91C00193CDA /* CachedDailyTrending.swift in Sources */,
 				E27AC27C2A5B4D8C000B8737 /* MediaGalleryView.swift in Sources */,
 				E2949FA62A3DBB1F000669C2 /* AuthToken.swift in Sources */,
 				E2949FAA2A3DBF97000669C2 /* APIClient.swift in Sources */,

@@ -16,6 +16,15 @@ public class SearchPageViewModel {
     public var subredditResults: [SubredditSearchResult] = []
     public var userSearchResults: [UserSearchResult] = []
     public var searchQueryText: String = ""
+    public var trendingSubreddits: [String] = []
+    
+    private let cachedDailyKey = "CachedDailyTrendingSubreddits"
+    
+    init() {
+        Task {
+            await self.getTrendingSubreddits()
+        }
+    }
     
     public func searchForSubreddits() async {
         let query = self.searchQueryText.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -92,6 +101,34 @@ public class SearchPageViewModel {
             print(error.localizedDescription)
         }
         
+    }
+    
+    @MainActor
+    public func getTrendingSubreddits() async {
+        guard let context = GlobalStoreViewModel.shared.modelContainer?.mainContext else {
+            return
+        }
+        
+        let yesterday = Calendar.current.date(
+          byAdding: .day,
+          value: -1,
+          to: Date()) ?? Date()
+        var cachedResults = FetchDescriptor<CachedDailyTrendingModel>(predicate: #Predicate { $0.cacheKey == cachedDailyKey && $0.cachedAt >= yesterday })
+        cachedResults.fetchLimit = 1
+        
+        do {
+            let results = try context.fetch(cachedResults).flatMap { $0.subreddits }
+            if results.isEmpty {
+                let trending = try? await SubredditService.GetTrendingSubreddits()
+                self.trendingSubreddits = trending ?? []
+                context.insert(CachedDailyTrendingModel(cacheKey: cachedDailyKey, subreddits: self.trendingSubreddits))
+                try? context.save()
+            }
+            self.trendingSubreddits = results
+            
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     
 }
