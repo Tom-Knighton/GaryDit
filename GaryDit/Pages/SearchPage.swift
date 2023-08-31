@@ -68,6 +68,26 @@ public struct SearchPage: View {
                         }
                     }
                     
+                    Group {
+                        Divider()
+                        Text("Random:")
+                            .bold()
+                            .font(.title2)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Button(action: { self.cacheRouteAndNavigateToRandom(nsfw: false) }) {
+                            RandomSubredditButton(isNsfw: false)
+                                .tint(.primary)
+                        }
+                        .accessibilityHint("Navigates to a random subreddit")
+                        
+                        Button(action: { self.cacheRouteAndNavigateToRandom(nsfw: true) }) {
+                            RandomSubredditButton(isNsfw: true)
+                                .tint(.primary)
+                        }
+                        .accessibilityHint("Navigates to a random not-safe-for-work subreddit")
+                    }
+                    
+                    
                     Spacer()
                 }
             }
@@ -81,6 +101,8 @@ public struct SearchPage: View {
             // On immediate change of query text
             
             guard self.viewModel.searchQueryText.isEmpty == false else {
+                self.viewModel.clearUserResults()
+                self.viewModel.subredditResults.removeAll()
                 return
             }
             
@@ -129,6 +151,19 @@ extension SearchPage {
     private func cacheRouteAndNavigate(to subredditName: String) {
         self.globalVM.addToCurrentNavStack(SubredditNavModel(subredditName: subredditName))
         self.modelContext.insert(SearchHistoryModel(from: subredditName))
+    }
+    
+    private func cacheRouteAndNavigateToRandom(nsfw: Bool) {
+        
+        Task.detached {
+            let subreddit = try? await SubredditService.GetRandomSubreddit(nsfw: nsfw)
+            if let subreddit {
+                await MainActor.run {
+                    self.globalVM.addToCurrentNavStack(SubredditNavModel(subredditName: subreddit))
+                    self.modelContext.insert(SearchHistoryModel(from: subreddit))
+                }
+            }
+        }
     }
     
     private func removeFromHistory(_ history: SearchHistoryModel) {
