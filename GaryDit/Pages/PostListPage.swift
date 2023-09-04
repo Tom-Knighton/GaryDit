@@ -21,9 +21,10 @@ public struct PostListPage: View {
     public var body: some View {
         ZStack {
             Color.layer1.ignoresSafeArea()
-            
+            let postsToShow = viewModel.filteredPosts.isEmpty ? viewModel.posts : viewModel.filteredPosts
+
             List {
-                ForEach(self.viewModel.posts, id: \.postId) { post in
+                ForEach(postsToShow, id: \.postId) { post in
                     ListPostView(post: post)
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
@@ -64,6 +65,25 @@ public struct PostListPage: View {
             }
             .refreshable {
                 await self.viewModel.resetAndFetchPosts()
+            }
+            .searchable(text: $viewModel.searchQuery, placement: .navigationBarDrawer(displayMode: .automatic), prompt: "Search \(viewModel.subredditName)...")
+            .onChange(of: viewModel.searchQuery, initial: true) { oldValue, newValue in
+                if newValue.count > 50 {
+                    viewModel.searchQuery = String(newValue.prefix(50))
+                }
+                
+                if newValue.isEmpty == false {
+                    Task {
+                        await viewModel.search(locally: true)
+                    }
+                } else {
+                    viewModel.filteredPosts.removeAll()
+                }
+            }
+            .onSubmit(of: .search) {
+                Task {
+                    await viewModel.search(locally: false)
+                }
             }
         }
     }

@@ -13,8 +13,11 @@ class SubredditViewModel {
     
     var subredditName: String = ""
     var posts: [Post] = []
+    var filteredPosts: [Post] = []
     var isLoading: Bool = false
     var noMorePosts: Bool = false
+    
+    var searchQuery: String = ""
     
     var bylineDisplayBehaviour: PostBylineDisplayBehaviour {
         let formattedName = self.subredditName.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
@@ -46,7 +49,8 @@ class SubredditViewModel {
 
     @MainActor
     func shouldFetchMore(from postId: String) -> Bool {
-        return !self.isLoading && !self.noMorePosts && self.posts.suffix(3).compactMap { $0.postId }.contains(postId)
+        let lastPosts = self.filteredPosts.isEmpty == true ? self.posts.suffix(3) : self.filteredPosts.suffix(3)
+        return !self.isLoading && !self.noMorePosts && lastPosts.compactMap { $0.postId }.contains(postId)
     }
     
     func fetchPosts(after: String? = nil) async {
@@ -60,14 +64,25 @@ class SubredditViewModel {
         defer { self.isLoading = false }
         
         do {
+            
+            if filteredPosts.isEmpty == false {
+                let last = self.filteredPosts.last?.postId
+                let results = try? await SearchService.searchPosts(query: self.searchQuery, subreddit: self.subredditName, limit: 25, afterPost: last)
+                let existingIds = self.filteredPosts.compactMap { $0.postId }
+                if let results {
+                    self.filteredPosts.append(contentsOf: results.filter { existingIds.contains($0.postId) == false })
+                }
+                return
+            }
+            
             let newPosts = try await SubredditService.GetPosts(for: subredditName, after: after)
             if newPosts.isEmpty {
                 self.noMorePosts = true
                 return
             }
-            
             let existingIds = self.posts.compactMap { $0.postId }
             self.posts.append(contentsOf: newPosts.filter { existingIds.contains($0.postId) == false })
+            
         } catch is CancellationError {
             //...
         } catch {
@@ -79,8 +94,38 @@ class SubredditViewModel {
         }
     }
     
+    func search(locally: Bool) async {
+        guard !self.isLoading else {
+            return
+        }
+        
+        guard self.searchQuery.isEmpty == false else {
+            self.filteredPosts.removeAll()
+            return
+        }
+        
+        
+        if locally {
+            await MainActor.run {
+                self.filteredPosts = self.posts.filter { $0.postTitle.contains(self.searchQuery) }
+            }
+            return
+        }
+        
+        self.isLoading = true
+        let results = try? await SearchService.searchPosts(query: self.searchQuery, subreddit: self.subredditName, limit: 25, afterPost: nil)
+        if let results {
+            await MainActor.run {
+                self.filteredPosts = results
+                self.isLoading = false
+            }
+        }
+    }
+    
     func fetchMorePosts() async {
-        await fetchPosts(after: self.posts.last?.postId)
+        let allPostNextId = self.posts.last?.postId
+        let nextPostId = self.filteredPosts.isEmpty ? self.filteredPosts.last?.postId ?? allPostNextId : allPostNextId
+        await fetchPosts(after: nextPostId)
     }
     
     func resetAndFetchPosts() async {
