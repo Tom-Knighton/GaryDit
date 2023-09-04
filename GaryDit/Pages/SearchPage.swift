@@ -160,7 +160,7 @@ extension SearchPage {
             if let subreddit {
                 await MainActor.run {
                     self.globalVM.addToCurrentNavStack(SubredditNavModel(subredditName: subreddit))
-                    self.modelContext.insert(SearchHistoryModel(from: subreddit))
+                    self.modelContext.insert(SearchHistoryModel(from: subreddit, isRandom: true))
                 }
             }
         }

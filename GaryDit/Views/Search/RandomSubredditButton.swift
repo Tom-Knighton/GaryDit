@@ -14,7 +14,7 @@ public struct RandomSubredditButton: View {
     
     public var body: some View {
         HStack {
-            Image(systemName: "party.popper")
+            Image(systemName: "arrow.triangle.2.circlepath.circle.fill")
                 .foregroundStyle(.blue)
                 .frame(width: 30, height: 30)
             Text(isNsfw ? "Random NSFW" : "Random Subreddit")

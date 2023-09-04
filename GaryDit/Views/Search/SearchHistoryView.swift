@@ -46,6 +46,10 @@ public struct SearchHistoryView: View {
                     Image(systemName: "chart.line.uptrend.xyaxis")
                         .frame(width: 30, height: 30)
                         .shadow(radius: 3)
+                case .randSubreddit:
+                    Image(systemName: "arrow.triangle.2.circlepath.circle")
+                        .frame(width: 30, height: 30)
+                        .shadow(radius: 3)
                 }
             }
             
