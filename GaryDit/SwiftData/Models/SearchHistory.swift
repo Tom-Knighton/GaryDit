@@ -25,10 +25,10 @@ public class SearchHistoryModel {
         self.accessedAt = Date()
     }
     
-    init (from trendName: String) {
-        self.name = trendName
+    init (from subredditName: String, isRandom: Bool = false) {
+        self.name = subredditName
         self.imageUrl = ""
-        self.type = .trendSubreddit
+        self.type = isRandom ? .randSubreddit : .trendSubreddit
         self.accessedAt = Date()
     }
     
@@ -45,4 +45,5 @@ public enum SearchHistoryType: Int, Codable {
     case user = 0
     case subreddit = 1
     case trendSubreddit = 2
+    case randSubreddit = 3
 }

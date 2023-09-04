@@ -28,4 +28,14 @@ public struct SubredditService {
         let result: [String] = try await apiClient.perform(request)
         return result
     }
+    
+    public static func GetRandomSubreddit(nsfw: Bool = false) async throws -> String {
+        var queryItems: [URLQueryItem] = []
+        queryItems += [URLQueryItem(name: "nsfw", value: "\(nsfw)")]
+
+        
+        let request = APIRequest(path: "subreddit/random", queryItems: queryItems, body: nil)
+        let result: String = try await apiClient.perform(request)
+        return result
+    }
 }
