@@ -40,7 +40,7 @@ public struct SearchPage: View {
                     }
                     
                     if self.viewModel.searchQueryText.isEmpty == false {
-                        Button(action: {}) {
+                        Button(action: { self.viewModel.searchAllOfReddit() }) {
                             Text("Search all of Reddit...")
                                 .padding(.all, 6)
                                 .frame(maxWidth: .infinity, idealHeight: 40)
@@ -154,12 +154,15 @@ extension SearchPage {
         history.accessedAt = Date()
         self.modelContext.insert(newHistory)
         
-        let subredditTypes: [SearchHistoryType] = [.subreddit, .randSubreddit, .trendSubreddit]
-        
-        if subredditTypes.contains(history.type) {
+        switch history.type {
+        case .subreddit, .randSubreddit, .trendSubreddit:
             self.globalVM.addToCurrentNavStack(SubredditNavModel(subredditName: history.name))
-        } else {
-            
+            break
+        case .searchQuery:
+            self.globalVM.addToCurrentNavStack(SubredditNavSearchQuery(subredditToSearch: "All", searchQuery: history.name))
+            break
+        case .user:
+            break
         }
     }
     

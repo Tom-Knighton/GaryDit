@@ -32,6 +32,13 @@ public class SearchHistoryModel {
         self.accessedAt = Date()
     }
     
+    init(searchQuery: String){
+        self.name = searchQuery
+        self.imageUrl = ""
+        self.accessedAt = Date()
+        self.type = .searchQuery
+    }
+    
     @Attribute(.unique)
     var name: String
     var imageUrl: String
@@ -46,4 +53,5 @@ public enum SearchHistoryType: Int, Codable {
     case subreddit = 1
     case trendSubreddit = 2
     case randSubreddit = 3
+    case searchQuery = 4
 }

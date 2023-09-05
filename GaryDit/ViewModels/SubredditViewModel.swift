@@ -18,6 +18,7 @@ class SubredditViewModel {
     var noMorePosts: Bool = false
     
     var searchQuery: String = ""
+    var wasFromSearch: Bool = false
     
     var bylineDisplayBehaviour: PostBylineDisplayBehaviour {
         let formattedName = self.subredditName.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
@@ -43,6 +44,16 @@ class SubredditViewModel {
     
     init(subredditName: String) {
         self.subredditName = subredditName
+    }
+    
+    init(subredditName: String, searchQuery: String) {
+        self.subredditName = subredditName
+        self.wasFromSearch = true
+        self.setSubredditName(to: subredditName, fetchPostsAutomatically: false)
+        Task.detached {
+            self.searchQuery = searchQuery
+            await self.search(locally: false)
+        }
     }
     
     func setSubredditName(to subredditName: String, fetchPostsAutomatically: Bool = true) {
@@ -73,7 +84,7 @@ class SubredditViewModel {
         
         do {
             
-            if let filteredPosts {
+            if let _ = filteredPosts {
                 let last = self.filteredPosts?.last?.postId
                 let results = try? await SearchService.searchPosts(query: self.searchQuery, subreddit: self.subredditName, limit: 25, afterPost: last)
                 let existingIds = self.filteredPosts?.compactMap { $0.postId }
