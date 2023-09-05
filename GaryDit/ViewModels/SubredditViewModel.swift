@@ -13,7 +13,7 @@ class SubredditViewModel {
     
     var subredditName: String = ""
     var posts: [Post] = []
-    var filteredPosts: [Post] = []
+    var filteredPosts: [Post]? = nil
     var isLoading: Bool = false
     var noMorePosts: Bool = false
     
@@ -28,6 +28,14 @@ class SubredditViewModel {
         let shouldShowUsernames = !subredditIsBlocked && !isMultireddit
         
         return shouldShowUsernames ? .showUsername : .showSubreddit
+    }
+    
+    var postsToDisplay: [Post] {
+        if let filtered = self.filteredPosts {
+            return filtered
+        }
+        
+        return posts
     }
 
     @ObservationIgnored
@@ -49,7 +57,7 @@ class SubredditViewModel {
 
     @MainActor
     func shouldFetchMore(from postId: String) -> Bool {
-        let lastPosts = self.filteredPosts.isEmpty == true ? self.posts.suffix(3) : self.filteredPosts.suffix(3)
+        let lastPosts = self.postsToDisplay.suffix(3)
         return !self.isLoading && !self.noMorePosts && lastPosts.compactMap { $0.postId }.contains(postId)
     }
     
@@ -65,12 +73,12 @@ class SubredditViewModel {
         
         do {
             
-            if filteredPosts.isEmpty == false {
-                let last = self.filteredPosts.last?.postId
+            if let filteredPosts {
+                let last = self.filteredPosts?.last?.postId
                 let results = try? await SearchService.searchPosts(query: self.searchQuery, subreddit: self.subredditName, limit: 25, afterPost: last)
-                let existingIds = self.filteredPosts.compactMap { $0.postId }
+                let existingIds = self.filteredPosts?.compactMap { $0.postId }
                 if let results {
-                    self.filteredPosts.append(contentsOf: results.filter { existingIds.contains($0.postId) == false })
+                    self.filteredPosts?.append(contentsOf: results.filter { existingIds?.contains($0.postId) == false })
                 }
                 return
             }
@@ -100,7 +108,7 @@ class SubredditViewModel {
         }
         
         guard self.searchQuery.isEmpty == false else {
-            self.filteredPosts.removeAll()
+            self.filteredPosts = nil
             return
         }
         
@@ -119,12 +127,13 @@ class SubredditViewModel {
                 self.filteredPosts = results
                 self.isLoading = false
             }
+        } else {
+            print("no results?")
         }
     }
     
     func fetchMorePosts() async {
-        let allPostNextId = self.posts.last?.postId
-        let nextPostId = self.filteredPosts.isEmpty ? self.filteredPosts.last?.postId ?? allPostNextId : allPostNextId
+        let nextPostId = self.postsToDisplay.last?.postId
         await fetchPosts(after: nextPostId)
     }
     
