@@ -110,14 +110,15 @@ public struct SearchPage: View {
         .autocorrectionDisabled()
         .onChange(of: self.viewModel.searchQueryText, { oldValue, newValue in
             // On immediate change of query text
-            Task.detached {
-                guard self.viewModel.searchQueryText.isEmpty == false else {
-                    self.viewModel.clearUserResults()
-                    self.viewModel.subredditResults.removeAll()
-                    return
-                }
-                
-                await self.viewModel.searchCachedSubreddits()
+            
+            guard self.viewModel.searchQueryText.isEmpty == false else {
+                self.viewModel.clearUserResults()
+                self.viewModel.subredditResults.removeAll()
+                return
+            }
+            
+            Task {
+                self.viewModel.searchCachedSubreddits()
                 self.viewModel.clearUserResults()
             }
            
