@@ -131,4 +131,19 @@ public class SearchPageViewModel {
         }
     }
     
+    @MainActor
+    public func searchAllOfReddit() {
+        
+        guard self.searchQueryText.isEmpty == false else {
+            return
+        }
+        
+        let searchNav = SubredditNavSearchQuery(subredditToSearch: "All", searchQuery: self.searchQueryText)
+        GlobalStoreViewModel.shared.addToCurrentNavStack(searchNav)
+        
+        guard let context = GlobalStoreViewModel.shared.modelContainer?.mainContext else {
+            return
+        }
+        context.insert(SearchHistoryModel(searchQuery: self.searchQueryText))
+    }
 }

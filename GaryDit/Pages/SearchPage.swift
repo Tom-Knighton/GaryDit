@@ -39,6 +39,17 @@ public struct SearchPage: View {
                         .accessibilityHint("Navigates to \(user.username)'s user profile")
                     }
                     
+                    if self.viewModel.searchQueryText.isEmpty == false {
+                        Button(action: { self.viewModel.searchAllOfReddit() }) {
+                            Text("Search all of Reddit...")
+                                .padding(.all, 6)
+                                .frame(maxWidth: .infinity, idealHeight: 40)
+                                .background(Color.layer2)
+                                .clipShape(.rect(cornerRadius: 10))
+                                .shadow(radius: 3)
+                        }
+                    }
+                    
                     if self.viewModel.searchQueryText.isEmpty, searchHistory.isEmpty == false {
                         Text("Search History")
                             .bold()
@@ -99,26 +110,28 @@ public struct SearchPage: View {
         .autocorrectionDisabled()
         .onChange(of: self.viewModel.searchQueryText, { oldValue, newValue in
             // On immediate change of query text
-            
-            guard self.viewModel.searchQueryText.isEmpty == false else {
+            Task.detached {
+                guard self.viewModel.searchQueryText.isEmpty == false else {
+                    self.viewModel.clearUserResults()
+                    self.viewModel.subredditResults.removeAll()
+                    return
+                }
+                
+                await self.viewModel.searchCachedSubreddits()
                 self.viewModel.clearUserResults()
-                self.viewModel.subredditResults.removeAll()
-                return
             }
-            
-            self.viewModel.searchCachedSubreddits()
-            self.viewModel.clearUserResults()
+           
 
         })
         .onReceive(of: self.viewModel.searchQueryText, debounceTime: 0.3) { newValue in
             // After 0.3s of no changes
-            Task {
+            Task.detached {
                 await self.viewModel.searchForSubreddits()
             }
         }
         .onReceive(of: self.viewModel.searchQueryText, debounceTime: 1) { newValue in
             // After 1s of no changes
-            Task {
+            Task.detached {
                 await self.viewModel.searchForUser()
             }
         }
@@ -141,10 +154,15 @@ extension SearchPage {
         history.accessedAt = Date()
         self.modelContext.insert(newHistory)
         
-        if newHistory.type == .subreddit {
+        switch history.type {
+        case .subreddit, .randSubreddit, .trendSubreddit:
             self.globalVM.addToCurrentNavStack(SubredditNavModel(subredditName: history.name))
-        } else {
-            
+            break
+        case .searchQuery:
+            self.globalVM.addToCurrentNavStack(SubredditNavSearchQuery(subredditToSearch: "All", searchQuery: history.name))
+            break
+        case .user:
+            break
         }
     }
     

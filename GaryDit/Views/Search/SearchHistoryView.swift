@@ -50,6 +50,10 @@ public struct SearchHistoryView: View {
                     Image(systemName: "arrow.triangle.2.circlepath.circle")
                         .frame(width: 30, height: 30)
                         .shadow(radius: 3)
+                case .searchQuery:
+                    Image(systemName: "magnifyingglass.circle")
+                        .frame(width: 30, height: 30)
+                        .shadow(radius: 3)
                 }
             }
             
