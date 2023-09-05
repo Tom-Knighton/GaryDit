@@ -18,36 +18,14 @@ public struct NavigationRootPage: View {
             
             NavigationStack(path: $globalVM.postListPath) {
                 PostListPage()
-                    .navigationDestination(for: SubredditNavModel.self) { nav in
-                        PostListPage(subreddit: nav.subredditName)
-                    }
-                    .navigationDestination(for: Post.self) { post in
-                        PostPage(post: post)
-                    }
-                    .navigationDestination(for: RedditPostViewModel.self) { postVM in
-                        PostPage(postViewModel: postVM)
-                    }
-                    .navigationDestination(for: PostContinuedViewModel.self) { vm in
-                        PostContinuedPage(viewModel: vm)
-                    }
+                    .addGaryDitNavDestinations()
             }
             .tag(0)
             .tabItem{ Label("Posts", systemImage: "lightswitch.on.fill") }
             
             NavigationStack(path: $globalVM.searchPath) {
                 SearchPage()
-                    .navigationDestination(for: SubredditNavModel.self) { nav in
-                        PostListPage(subreddit: nav.subredditName)
-                    }
-                    .navigationDestination(for: Post.self) { post in
-                        PostPage(post: post)
-                    }
-                    .navigationDestination(for: RedditPostViewModel.self) { postVM in
-                        PostPage(postViewModel: postVM)
-                    }
-                    .navigationDestination(for: PostContinuedViewModel.self) { vm in
-                        PostContinuedPage(viewModel: vm)
-                    }
+                    .addGaryDitNavDestinations()
             }
             .tag(1)
             .tabItem { Label("Search", systemImage: "magnifyingglass.circle.fill")}
