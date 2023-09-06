@@ -1,0 +1,22 @@
+:root {
+    color-scheme: light dark;
+}
+
+body {
+    padding: 10px;
+    
+    font-family: system-ui;
+    text-align: center;
+}
+
+description {
+    padding: 0 16px;
+    font: -apple-system-subheadline;
+    opacity: 0.6;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #1c1c1e;
+    }
+}
