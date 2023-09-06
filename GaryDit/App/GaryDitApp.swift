@@ -29,8 +29,20 @@ struct GaryDitApp: App {
                         OAuthSwift.handle(url: url)
                     }
                 })
+                .environment(\.openURL, OpenURLAction(handler: { url in
+                    if UIApplication.shared.canOpenURL(url) {
+                        self.globalViewModel.presentingUrl = url // TODO: Open in safari if user wants (settings)
+                        return .handled
+                    }
+                    
+                    return .discarded
+                }))
                 .environment(globalViewModel)
                 .optionalModelContainer(globalViewModel.modelContainer)
+                .fullScreenCover(item: $globalViewModel.presentingUrl) { url in
+                    SafariView(url: url)
+                        .ignoresSafeArea()
+                }
         }
     }
 }
