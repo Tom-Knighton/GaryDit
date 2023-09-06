@@ -31,6 +31,17 @@ struct GaryDitApp: App {
                 })
                 .environment(\.openURL, OpenURLAction(handler: { url in
                     if UIApplication.shared.canOpenURL(url) {
+                        print(url.absoluteString)
+                        let regex = /^(?:https?:\/\/)?(?:(?:www|amp|m|i)\.)?(?:(?:reddit\.com))\/+r\/(\w+)(?:\/comments\/(\w+)(?:\/\w+\/(\w+)(?:\/?.*?[?&]context=(\d+))?)?)?/
+                        let matches = url.absoluteString.matches(of: regex)
+                        if matches.isEmpty == false {
+                            let output = matches.first?.output
+                            let subreddit = output?.1.toString()
+                            let post = output?.2?.toString()
+                            let comment = output?.3?.toString()
+                            self.globalViewModel.handleRedditUrl(subreddit: subreddit, postId: post, commentId: comment)
+                            return .handled
+                        }
                         self.globalViewModel.presentingUrl = url // TODO: Open in safari if user wants (settings)
                         return .handled
                     }
