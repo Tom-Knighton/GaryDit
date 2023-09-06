@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NukeUI
 
 struct PostTopMediaView: View {
     
@@ -70,7 +71,7 @@ struct InternalMediaViewSwitch: View {
                     }
                 }
         case .linkOnly:
-            PostLinkView(url: media.url, thumbnailUrl: media.thumbnailUrl)
+            PostLinkView(url: media.url, thumbnailUrl: media.thumbnailUrl, aspectRatio: media.width / media.height)
                 .overlay {
                     if isSpoiler {
                         SpoilerBlur()
@@ -222,9 +223,10 @@ struct PostLinkView: View {
     
     let url: String
     let thumbnailUrl: String?
+    let aspectRatio: CGFloat?
     
     var body: some View {
-        LinkView(url: url, overrideImage: thumbnailUrl ?? "", fetchMetadata: false)
+        LinkView(url: url, imageUrl: thumbnailUrl, aspectRatio: aspectRatio)
             .padding(.horizontal, 8)
             .padding(.top, 8)
     }
