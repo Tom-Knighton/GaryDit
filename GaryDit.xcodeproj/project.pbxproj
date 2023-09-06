@@ -32,6 +32,7 @@
 		E258D8182A5AECC6001D493D /* Local.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D8172A5AECC6001D493D /* Local.xcconfig */; };
 		E258D81B2A5AEE8B001D493D /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D81A2A5AEE8B001D493D /* Release.xcconfig */; };
 		E258D81C2A5AEE96001D493D /* Development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E258D8192A5AEE81001D493D /* Development.xcconfig */; };
+		E25B1AA32AA8DEEB00404E2A /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25B1AA22AA8DEEB00404E2A /* SafariView.swift */; };
 		E25FDB772A76D54E00F7494C /* PostCommentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25FDB762A76D54E00F7494C /* PostCommentListView.swift */; };
 		E260D5852A485BF600A60839 /* VideoPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = E260D5842A485BF600A60839 /* VideoPlayer */; };
 		E267458F2A614E06009D3F82 /* Collection+GaryDit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E267458E2A614E06009D3F82 /* Collection+GaryDit.swift */; };
@@ -152,6 +153,7 @@
 		E258D8172A5AECC6001D493D /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
 		E258D8192A5AEE81001D493D /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		E258D81A2A5AEE8B001D493D /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		E25B1AA22AA8DEEB00404E2A /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		E25FDB762A76D54E00F7494C /* PostCommentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentListView.swift; sourceTree = "<group>"; };
 		E267458E2A614E06009D3F82 /* Collection+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+GaryDit.swift"; sourceTree = "<group>"; };
 		E26745902A6153DD009D3F82 /* Binding+GaryDit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+GaryDit.swift"; sourceTree = "<group>"; };
@@ -531,6 +533,7 @@
 			isa = PBXGroup;
 			children = (
 				E2A1899D2A423C1000BE1E59 /* LinkView.swift */,
+				E25B1AA22AA8DEEB00404E2A /* SafariView.swift */,
 			);
 			path = Link;
 			sourceTree = "<group>";
@@ -789,6 +792,7 @@
 				E25FDB772A76D54E00F7494C /* PostCommentListView.swift in Sources */,
 				E214948B2A7D6190009CF39E /* PostComment.swift in Sources */,
 				E24EC2AB2A9F4B5B00385AFC /* SubredditNavModel.swift in Sources */,
+				E25B1AA32AA8DEEB00404E2A /* SafariView.swift in Sources */,
 				E2949FB32A3DE3F7000669C2 /* User.swift in Sources */,
 				E2949FB12A3DE06C000669C2 /* UserService.swift in Sources */,
 				E2949FC82A40C054000669C2 /* Int+GaryDit.swift in Sources */,

@@ -11,12 +11,14 @@ import LinkPresentation
 import UniformTypeIdentifiers
 
 struct LinkView: View {
-    
-    @State private var urlString: String
-    @State private var isCompact: Bool
-    @State private var overrideTitle: String?
+
+    private var urlString: String
+    private var isCompact: Bool
+    private var overrideTitle: String?
     private var overrideImage: String?
     private var aspectRatio: CGFloat? = nil
+    
+    @Environment(\.openURL) var openUrl
             
     init(url: String, imageUrl: String? = nil, aspectRatio: CGFloat? = nil, overrideTitle: String? = nil, isCompact: Bool = false) {
         self.urlString = url
@@ -24,8 +26,7 @@ struct LinkView: View {
         self.overrideTitle = overrideTitle
         self.overrideImage = imageUrl
         self.aspectRatio = aspectRatio
-    }
-    
+    }    
     
     var body: some View {
         ZStack {
@@ -69,6 +70,12 @@ struct LinkView: View {
             }
         }
         .clipShape(RoundedRectangle(cornerRadius: 10))
+        .onTapGesture {
+            if let url = URL(string: self.urlString) {
+                openUrl(url)
+            }
+        }
+        .accessibilityHint("Opens the url: \(self.urlString)")
     }
     
     @ViewBuilder

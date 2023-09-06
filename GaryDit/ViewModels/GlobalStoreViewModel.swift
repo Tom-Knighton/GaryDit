@@ -21,6 +21,8 @@ class GlobalStoreViewModel {
     
     public var rootTabIndex: Int = 0
     
+    public var presentingUrl: URL?
+    
     @ObservationIgnored
     public var modelContainer: ModelContainer? = nil
     
