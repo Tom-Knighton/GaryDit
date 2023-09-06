@@ -6,57 +6,30 @@
 //
 
 import SwiftUI
+import NukeUI
+import Nuke
 
 struct CachedImageView: View {
     
     var url: String
-    var thumbnailUrl: String?
-    var displayThumbnail: Binding<Bool>
-    @State private var uiImage: UIImage?
     
-    init(url: String, thumbnailUrl: String? = nil) {
-        self.url = url
-        self.thumbnailUrl = thumbnailUrl
-        self.displayThumbnail = .constant(false)
-    }
+    var processors: [ImageProcessing]? = nil
     
-    init(url: String, thumbnailUrl: String? = nil, displayThumbnail: Binding<Bool> = .constant(false)) {
+    init(url: String) {
         self.url = url
-        self.thumbnailUrl = thumbnailUrl
-        self.displayThumbnail = displayThumbnail
     }
     
     var body: some View {
-        ZStack {
-            if let image = self.uiImage {
-                Image(uiImage: image)
-                    .resizable()
-                    .allowedDynamicRange(.high)
+        LazyImage(url: URL(string: url), transaction: .init(animation: .default)) { state in
+            if let image = state.image {
+                image.resizable()
+            } else if state.error != nil {
+                Color.gray.opacity(0.1)
+                    .overlay(Image(systemName: "xmark.circle.fill").foregroundColor(.red))
             } else {
                 ProgressView()
             }
         }
-        .task {
-            await self.load()
-        }
-        
-    }
-    
-    @Sendable
-    private func load() async {
-        Task.detached {
-            if let imageData = GlobalCaches.imageUrlDataCache.get(url) {
-                self.uiImage = UIImage(data: imageData)
-            } else {
-                guard let url = URL(string: url) else { return }
-                if let (urlData, _) = try? await URLSession.shared.data(from: url) {
-                    await GlobalCaches.imageUrlDataCache.set(urlData, forKey: self.url)
-                    await MainActor.run {
-                        self.uiImage = UIImage(data: urlData)
-                    }
-                }
-            }
-        }
-        
+        .processors(processors)
     }
 }
