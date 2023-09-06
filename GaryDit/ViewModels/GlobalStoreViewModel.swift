@@ -49,6 +49,42 @@ class GlobalStoreViewModel {
         
 }
 
+extension GlobalStoreViewModel {
+    func handleRedditUrl(url: URL) {
+        var path = url.pathComponents
+        path.removeAll(where: { $0 == "/" })
+        let subreddit = path[safe: 0]
+        let postId = path[safe: 1]
+        let commentId = path[safe: 2]
+        
+        handleRedditUrl(subreddit: subreddit, postId: postId, commentId: commentId)
+    }
+    
+    func handleRedditUrl(subreddit: String?, postId: String?, commentId: String?) {
+        if let commentId, let postId {
+            Task {
+                let post = try? await PostService.GetPostDetails(for: postId)
+                if let post {
+                    GlobalStoreViewModel.shared.addToCurrentNavStack(PostContinuedViewModel(post: post, rootId: commentId))
+                } else {
+                    // error
+                }
+            }
+        } else if let postId {
+            Task {
+                let post = try? await PostService.GetPostDetails(for: postId)
+                if let post {
+                    GlobalStoreViewModel.shared.addToCurrentNavStack(RedditPostViewModel(post: post))
+                } else {
+                    // error
+                }
+            }
+        } else if let subreddit {
+            GlobalStoreViewModel.shared.addToCurrentNavStack(SubredditNavModel(subredditName: subreddit))
+        }
+    }
+}
+
 extension NavigationPath {
     
     /// Pops the last n views, where n is `levels`

@@ -28,6 +28,10 @@ struct GaryDitApp: App {
                     if url.host() == "garydit-oauth-cb" {
                         OAuthSwift.handle(url: url)
                     }
+                    
+                    if url.host() == "open-from-url" {
+                        globalViewModel.handleRedditUrl(url: url)
+                    }
                 })
                 .environment(\.openURL, OpenURLAction(handler: { url in
                     if UIApplication.shared.canOpenURL(url) {
