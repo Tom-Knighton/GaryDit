@@ -39,9 +39,13 @@ struct PostCommentView: View {
                     VStack {
                         Divider()
                         HStack {
-                            Text(comment.commentAuthour)
-                                .bold()
-                                .foregroundStyle(getUsernameColour())
+                            HStack(spacing: 2) {
+                                Text(comment.commentAuthour)
+                                    .bold()
+                                    .foregroundStyle(getUsernameColour())
+                                self.commentFlagViews()
+                            }
+                            
                             
                             HStack(spacing: 1) {
                                 Image(systemName: "arrow.up")
@@ -88,7 +92,6 @@ struct PostCommentView: View {
                         Spacer().frame(height: 4)
                     }
                 }
-                
             }
             
             if !self.isCollapsed {
@@ -150,6 +153,28 @@ extension PostCommentView {
         }
         
         return .primary
+    }
+    
+    @ViewBuilder
+    func commentFlagViews() -> some View {
+        let flags = self.comment.commentFlagDetails
+        
+        if flags.isStickied {
+            Text(Image(systemName: "pin.fill"))
+                .foregroundStyle(.green)
+        }
+        if flags.isLocked {
+            Text(Image(systemName: "lock.fill"))
+                .foregroundStyle(.yellow)
+        }
+        if flags.isArchived {
+            Text(Image(systemName: "archivebox.fill"))
+                .foregroundStyle(.yellow)
+        }
+        if flags.isSaved {
+            Text(Image(systemName: "bookmark.fill"))
+                .foregroundStyle(.green)
+        }
     }
 }
 
