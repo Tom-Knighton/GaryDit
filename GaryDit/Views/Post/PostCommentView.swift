@@ -15,6 +15,7 @@ struct PostCommentView: View {
     
     public var comment: PostComment
     public var postId: String
+    public var postAuthour: String
     
     var nestLevel: Double = 0
     
@@ -40,7 +41,7 @@ struct PostCommentView: View {
                         HStack {
                             Text(comment.commentAuthour)
                                 .bold()
-                                .foregroundStyle(.primary)
+                                .foregroundStyle(getUsernameColour())
                             
                             HStack(spacing: 1) {
                                 Image(systemName: "arrow.up")
@@ -92,7 +93,7 @@ struct PostCommentView: View {
             
             if !self.isCollapsed {
                 ForEach(comment.replies, id: \.commentId) { reply in
-                    PostCommentView(comment: reply, postId: postId, nestLevel: self.nestLevel + 1)
+                    PostCommentView(comment: reply, postId: postId, postAuthour: postAuthour, nestLevel: self.nestLevel + 1)
                 }
             }
         }
@@ -122,6 +123,34 @@ struct PostCommentView: View {
         
         return colours[(nestLevel - 1) % colours.count]
     }    
+}
+
+extension PostCommentView {
+    
+    /// Returns the colour that the username should be displayed in on a comment
+    public func getUsernameColour() -> Color {
+        let authour = self.postAuthour
+        if self.comment.commentAuthour == "Banging_Bananas" {
+            return .purple
+        }
+        
+        switch self.comment.commentFlagDetails.distinguishmentType {
+        case .moderator:
+            return .green
+        case .admin:
+            return .red
+        case .special:
+            return .red
+        case .none:
+            break
+        }
+        
+        if self.comment.commentAuthour == authour {
+            return .blue
+        }
+        
+        return .primary
+    }
 }
 
 struct CustomImageProvider: ImageDisplayable {
