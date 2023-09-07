@@ -15,6 +15,7 @@ struct PostCommentView: View {
     
     public var comment: PostComment
     public var postId: String
+    public var postAuthour: String
     
     var nestLevel: Double = 0
     
@@ -38,9 +39,13 @@ struct PostCommentView: View {
                     VStack {
                         Divider()
                         HStack {
-                            Text(comment.commentAuthour)
-                                .bold()
-                                .foregroundStyle(.primary)
+                            HStack(spacing: 2) {
+                                Text(comment.commentAuthour)
+                                    .bold()
+                                    .foregroundStyle(getUsernameColour())
+                                self.commentFlagViews()
+                            }
+                            
                             
                             HStack(spacing: 1) {
                                 Image(systemName: "arrow.up")
@@ -87,12 +92,11 @@ struct PostCommentView: View {
                         Spacer().frame(height: 4)
                     }
                 }
-                
             }
             
             if !self.isCollapsed {
                 ForEach(comment.replies, id: \.commentId) { reply in
-                    PostCommentView(comment: reply, postId: postId, nestLevel: self.nestLevel + 1)
+                    PostCommentView(comment: reply, postId: postId, postAuthour: postAuthour, nestLevel: self.nestLevel + 1)
                 }
             }
         }
@@ -122,6 +126,56 @@ struct PostCommentView: View {
         
         return colours[(nestLevel - 1) % colours.count]
     }    
+}
+
+extension PostCommentView {
+    
+    /// Returns the colour that the username should be displayed in on a comment
+    public func getUsernameColour() -> Color {
+        let authour = self.postAuthour
+        if self.comment.commentAuthour == "Banging_Bananas" {
+            return .purple
+        }
+        
+        switch self.comment.commentFlagDetails.distinguishmentType {
+        case .moderator:
+            return .green
+        case .admin:
+            return .red
+        case .special:
+            return .red
+        case .none:
+            break
+        }
+        
+        if self.comment.commentAuthour == authour {
+            return .blue
+        }
+        
+        return .primary
+    }
+    
+    @ViewBuilder
+    func commentFlagViews() -> some View {
+        let flags = self.comment.commentFlagDetails
+        
+        if flags.isStickied {
+            Text(Image(systemName: "pin.fill"))
+                .foregroundStyle(.green)
+        }
+        if flags.isLocked {
+            Text(Image(systemName: "lock.fill"))
+                .foregroundStyle(.yellow)
+        }
+        if flags.isArchived {
+            Text(Image(systemName: "archivebox.fill"))
+                .foregroundStyle(.yellow)
+        }
+        if flags.isSaved {
+            Text(Image(systemName: "bookmark.fill"))
+                .foregroundStyle(.green)
+        }
+    }
 }
 
 struct CustomImageProvider: ImageDisplayable {
