@@ -48,7 +48,7 @@
     {
       "identity" : "highlightr",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/raspu/Highlightr.git",
+      "location" : "https://github.com/raspu/Highlightr",
       "state" : {
         "revision" : "93199b9e434f04bda956a613af8f571933f9f037",
         "version" : "2.1.2"
@@ -93,10 +93,10 @@
     {
       "identity" : "redditmarkdownview",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Tom-Knighton/RedditMarkdownView.git",
+      "location" : "https://github.com/Tom-Knighton/RedditMarkdownView",
       "state" : {
-        "revision" : "4d29297a201cf31f369a1c4c78a3915370651279",
-        "version" : "0.1.2"
+        "revision" : "7a8d9d69f2af0b5007c803f85ba6873be26ce9aa",
+        "version" : "0.1.3"
       }
     },
     {

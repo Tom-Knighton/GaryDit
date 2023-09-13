@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import VideoPlayer
+import RedditMarkdownView
 
 struct ListPostView: View {
     
@@ -36,6 +37,10 @@ struct ListPostView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.top, viewModel.post.postContent.media.isEmpty ? 8 : 0)
                         .fixedSize(horizontal: false, vertical: true)
+                    
+                    if let flair = viewModel.post.postFlair {
+                        FlairView(flairText: flair)
+                    }
                     
                     HStack {
                         if viewModel.post.postFlagDetails.isNSFW {
@@ -172,11 +177,4 @@ struct PostActionsView: View {
         .font(.subheadline)
         .bold()
     }
-}
-
-#Preview {
-    ListPostView(post: Post(postId: "1", postAuthour: "Banging_Bananas", postSubreddit: "UkPolitics", postTitle: "What a dissapointment", postScore: 6800, postScorePercentage: 100, postCreatedAt: Date(), postEditedAt: nil, postCommentCount: 67, subredditIcon: nil, postFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, isSpoiler: false, distinguishmentType: .none), postContent: PostContent(contentType: .image, textContent: nil, media: [PostMedia(url: "https://i.redd.it/xc6x8tf9jegb1.jpg", thumbnailUrl: nil, height: 0, width: 0, type: .image, hlsDashUrl: nil, mediaText: nil, isInline: false)]), postVoteStatus: .noVote))
-        .environment(GlobalStoreViewModel())
-        .environment(SubredditViewModel(subredditName: "UkPolitics"))
-        .padding(.horizontal, 12)
 }

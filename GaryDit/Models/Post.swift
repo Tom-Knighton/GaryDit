@@ -48,6 +48,9 @@ public struct Post: Codable {
     
     /// How the user has voted, if at all, on this post
     let postVoteStatus: VoteStatus
+    
+    /// The post's flair, if any, as markdown text
+    let postFlair: String?
 }
 
 extension Post: Hashable {

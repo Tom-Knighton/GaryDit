@@ -28,18 +28,24 @@ struct PostViewPostDetails: View {
                 .padding(.top, 8)
                 .fixedSize(horizontal: false, vertical: true)
             
-            if !isCollapsed {
-                if viewModel.displayMediaBelowTitle {
-                    mediaView()
+            VStack(alignment: .leading, spacing: 2) {
+                if !isCollapsed {
+                    if viewModel.displayMediaBelowTitle {
+                        mediaView()
+                    }
+                    
+                    if let flair = self.viewModel.post.postFlair {
+                        FlairView(flairText: flair)
+                    }
+                    
+                    if let text = viewModel.post.postContent.textContent, text.isEmpty == false {
+                        Spacer().frame(height: 16)
+                        SnudownView(text: text)
+                    }
+                    
                 }
-                
-                if let text = viewModel.post.postContent.textContent {
-                    Spacer().frame(height: 16)
-                    SnudownView(text: text)
-                }
-                
+                self.bottomBar()
             }
-            self.bottomBar()
         }
         .padding(.horizontal, 12)
         .background(Color.layer1)
