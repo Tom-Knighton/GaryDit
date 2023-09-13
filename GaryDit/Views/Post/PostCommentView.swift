@@ -40,7 +40,7 @@ struct PostCommentView: View {
                         Divider()
                         HStack {
                             HStack(spacing: 2) {
-                                Text(comment.commentAuthour)
+                                Text(comment.commentAuthor)
                                     .bold()
                                     .foregroundStyle(getUsernameColour())
                                 self.commentFlagViews()
@@ -131,7 +131,7 @@ extension PostCommentView {
     /// Returns the colour that the username should be displayed in on a comment
     public func getUsernameColour() -> Color {
         let authour = self.postAuthour
-        if self.comment.commentAuthour == "Banging_Bananas" {
+        if self.comment.commentAuthor == "Banging_Bananas" {
             return .purple
         }
         
@@ -146,7 +146,7 @@ extension PostCommentView {
             break
         }
         
-        if self.comment.commentAuthour == authour {
+        if self.comment.commentAuthor == authour {
             return .blue
         }
         
@@ -156,6 +156,10 @@ extension PostCommentView {
     @ViewBuilder
     func commentFlagViews() -> some View {
         let flags = self.comment.commentFlagDetails
+        
+        if let flair = self.comment.commentAuthorFlair {
+            FlairView(flairText: flair)
+        }
         
         if flags.isStickied {
             Text(Image(systemName: "pin.fill"))

@@ -36,6 +36,8 @@ struct PostViewPostDetails: View {
                     
                     if let flair = self.viewModel.post.postFlair {
                         FlairView(flairText: flair)
+                            .lineLimit(1)
+                            .fixedSize(horizontal: true, vertical: false)
                     }
                     
                     if let text = viewModel.post.postContent.textContent, text.isEmpty == false {
