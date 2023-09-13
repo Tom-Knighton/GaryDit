@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-import MarkdownView
+import RedditMarkdownView
 
 struct PostCommentView: View {
     
@@ -40,7 +40,7 @@ struct PostCommentView: View {
                         Divider()
                         HStack {
                             HStack(spacing: 2) {
-                                Text(comment.commentAuthour)
+                                Text(comment.commentAuthor)
                                     .bold()
                                     .foregroundStyle(getUsernameColour())
                                 self.commentFlagViews()
@@ -79,9 +79,7 @@ struct PostCommentView: View {
                         .padding(.bottom, 4)
                         
                         if !self.isCollapsed {
-                            MarkdownView(text: .constant(comment.commentText))
-                                .imageProvider(CustomImageProvider(medias: self.comment.media), forURLScheme: "https")
-                                .font(.body, for: .blockQuote)
+                            SnudownView(text: comment.commentText)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             
                             ForEach(comment.media.filter { $0.isInline == false }, id: \.url) { media in
@@ -133,7 +131,7 @@ extension PostCommentView {
     /// Returns the colour that the username should be displayed in on a comment
     public func getUsernameColour() -> Color {
         let authour = self.postAuthour
-        if self.comment.commentAuthour == "Banging_Bananas" {
+        if self.comment.commentAuthor == "Banging_Bananas" {
             return .purple
         }
         
@@ -148,7 +146,7 @@ extension PostCommentView {
             break
         }
         
-        if self.comment.commentAuthour == authour {
+        if self.comment.commentAuthor == authour {
             return .blue
         }
         
@@ -158,6 +156,10 @@ extension PostCommentView {
     @ViewBuilder
     func commentFlagViews() -> some View {
         let flags = self.comment.commentFlagDetails
+        
+        if let flair = self.comment.commentAuthorFlair {
+            FlairView(flairText: flair)
+        }
         
         if flags.isStickied {
             Text(Image(systemName: "pin.fill"))
@@ -178,48 +180,48 @@ extension PostCommentView {
     }
 }
 
-struct CustomImageProvider: ImageDisplayable {
-    
-    private var inlineMedias: [PostMedia]
-    init(medias: [PostMedia]) {
-        self.inlineMedias = medias
-    }
-    
-    func getInlineMedia(for url: String) -> PostMedia? {
-        return inlineMedias.first(where: { $0.url == url && $0.isInline == true })
-    }
-    
-    func getAspectRatio(url: String) -> Double {
-        
-        if let cached = GlobalCaches.gifAspectRatioCAche.get(url) {
-            return cached
-        }
-        
-        let media = getInlineMedia(for: url)
-        if let media {
-            let ratio = media.width / media.height
-            Task {
-                await GlobalCaches.gifAspectRatioCAche.set(ratio, forKey: url)
-            }
-            return ratio
-        }
-        
-        return 1.75
-    }
-    
-    func makeImage(url: URL, alt: String?) -> some View {
-        let ratio = getAspectRatio(url: url.absoluteString)
-        ZStack {
-            Rectangle()
-                .fill(.clear)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .aspectRatio(ratio, contentMode: .fit)
-            GIFView(url: url.absoluteString, isPlaying: .constant(true))
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .aspectRatio(ratio, contentMode: .fit)
-                .clipShape(.rect(cornerRadius: 10))
-                .shadow(radius: 3)
-        }
-        
-    }
-}
+//struct CustomImageProvider: ImageDisplayable {
+//    
+//    private var inlineMedias: [PostMedia]
+//    init(medias: [PostMedia]) {
+//        self.inlineMedias = medias
+//    }
+//    
+//    func getInlineMedia(for url: String) -> PostMedia? {
+//        return inlineMedias.first(where: { $0.url == url && $0.isInline == true })
+//    }
+//    
+//    func getAspectRatio(url: String) -> Double {
+//        
+//        if let cached = GlobalCaches.gifAspectRatioCAche.get(url) {
+//            return cached
+//        }
+//        
+//        let media = getInlineMedia(for: url)
+//        if let media {
+//            let ratio = media.width / media.height
+//            Task {
+//                await GlobalCaches.gifAspectRatioCAche.set(ratio, forKey: url)
+//            }
+//            return ratio
+//        }
+//        
+//        return 1.75
+//    }
+//    
+//    func makeImage(url: URL, alt: String?) -> some View {
+//        let ratio = getAspectRatio(url: url.absoluteString)
+//        ZStack {
+//            Rectangle()
+//                .fill(.clear)
+//                .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                .aspectRatio(ratio, contentMode: .fit)
+//            GIFView(url: url.absoluteString, isPlaying: .constant(true))
+//                .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                .aspectRatio(ratio, contentMode: .fit)
+//                .clipShape(.rect(cornerRadius: 10))
+//                .shadow(radius: 3)
+//        }
+//        
+//    }
+//}

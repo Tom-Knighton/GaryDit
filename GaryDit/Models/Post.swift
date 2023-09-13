@@ -14,7 +14,10 @@ public struct Post: Codable {
     let postId: String
     
     /// The authour of the post's name
-    let postAuthour: String
+    let postAuthor: String
+    
+    /// The OP's flair text, if any
+    let postAuthorFlair: String?
     
     /// The name of the subreddit this was posted to
     let postSubreddit: String
@@ -48,6 +51,9 @@ public struct Post: Codable {
     
     /// How the user has voted, if at all, on this post
     let postVoteStatus: VoteStatus
+    
+    /// The post's flair, if any, as markdown text
+    let postFlair: String?
 }
 
 extension Post: Hashable {

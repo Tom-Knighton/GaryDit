@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-import MarkdownView
+import RedditMarkdownView
 
 struct PostViewPostDetails: View {
     
@@ -28,18 +28,26 @@ struct PostViewPostDetails: View {
                 .padding(.top, 8)
                 .fixedSize(horizontal: false, vertical: true)
             
-            if !isCollapsed {
-                if viewModel.displayMediaBelowTitle {
-                    mediaView()
+            VStack(alignment: .leading, spacing: 2) {
+                if !isCollapsed {
+                    if viewModel.displayMediaBelowTitle {
+                        mediaView()
+                    }
+                    
+                    if let flair = self.viewModel.post.postFlair {
+                        FlairView(flairText: flair)
+                            .lineLimit(1)
+                            .fixedSize(horizontal: true, vertical: false)
+                    }
+                    
+                    if let text = viewModel.post.postContent.textContent, text.isEmpty == false {
+                        Spacer().frame(height: 16)
+                        SnudownView(text: text)
+                    }
+                    
                 }
-                
-                if let text = viewModel.post.postContent.textContent {
-                    Spacer().frame(height: 16)
-                    MarkdownView(text: .constant(text))
-                }
-                
+                self.bottomBar()
             }
-            self.bottomBar()
         }
         .padding(.horizontal, 12)
         .background(Color.layer1)
@@ -82,7 +90,13 @@ struct PostViewPostDetails: View {
     func bottomBar() -> some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("In **\(viewModel.post.postSubreddit)** by **\(viewModel.post.postAuthour)**")
+                Text("In **\(viewModel.post.postSubreddit)** by **\(viewModel.post.postAuthor)**")
+                if let flair = viewModel.post.postAuthorFlair, flair.isEmpty == false {
+                    FlairView(flairText: flair)
+                        .lineLimit(1)
+                        .frame(maxWidth: 100)
+                        .fixedSize(horizontal: true, vertical: false)
+                }
                 if viewModel.post.postFlagDetails.isStickied {
                     Text(Image(systemName: "pin.fill"))
                         .foregroundStyle(.green)

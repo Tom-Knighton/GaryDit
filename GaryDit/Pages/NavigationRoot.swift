@@ -34,5 +34,8 @@ public struct NavigationRootPage: View {
                 .tag(2)
                 .tabItem { Label("Account", systemImage: "person.fill") }
         })
+        .sheet(item: $globalVM.presentingFlair) { flair in
+            BottomSheetFlair(flairText: flair)
+        }
     }
 }

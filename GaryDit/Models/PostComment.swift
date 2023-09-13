@@ -14,7 +14,10 @@ public struct PostComment: Codable {
     public let commentId: String
     
     /// The user who posted this comment
-    public let commentAuthour: String
+    public let commentAuthor: String
+    
+    /// The flair, if any, of the posts' commenter in this subreddit
+    public let commentAuthorFlair: String?
     
     /// The score for this comment, upvotes - downvotes
     public let commentScore: Int
