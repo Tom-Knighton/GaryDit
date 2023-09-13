@@ -9,7 +9,7 @@ import SwiftUI
 import RedditMarkdownView
 
 struct FlairView: View {
-    
+        
     let flairText: String
     
     var body: some View {
@@ -22,5 +22,8 @@ struct FlairView: View {
             .snudownInlineImageWidth(7)
             .snudownFont(for: .body, .caption)
             .snudownTextAlignment(.leading)
+            .onTapGesture {
+                GlobalStoreViewModel.shared.presentingFlair = flairText
+            }
     }
 }
