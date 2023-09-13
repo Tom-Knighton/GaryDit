@@ -88,7 +88,13 @@ struct PostViewPostDetails: View {
     func bottomBar() -> some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("In **\(viewModel.post.postSubreddit)** by **\(viewModel.post.postAuthour)**")
+                Text("In **\(viewModel.post.postSubreddit)** by **\(viewModel.post.postAuthor)**")
+                if let flair = viewModel.post.postAuthorFlair, flair.isEmpty == false {
+                    FlairView(flairText: flair)
+                        .lineLimit(1)
+                        .frame(maxWidth: 100)
+                        .fixedSize(horizontal: true, vertical: false)
+                }
                 if viewModel.post.postFlagDetails.isStickied {
                     Text(Image(systemName: "pin.fill"))
                         .foregroundStyle(.green)

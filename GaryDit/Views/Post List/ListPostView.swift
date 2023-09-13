@@ -139,7 +139,15 @@ struct ListPostView: View {
 
             }
         case .showUsername:
-            Text("By \(viewModel.post.postAuthour)")
+            HStack(spacing: 2) {
+                Text("By \(viewModel.post.postAuthor)")
+                if let flair = viewModel.post.postAuthorFlair, flair.isEmpty == false {
+                    FlairView(flairText: flair)
+                        .lineLimit(1)
+                        .frame(maxWidth: 200)
+                        .fixedSize(horizontal: true, vertical: false)
+                }
+            }
         }
     }
     

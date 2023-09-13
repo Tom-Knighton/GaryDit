@@ -15,7 +15,7 @@ struct PostCommentListView: View {
     var body: some View {
         LazyVStack {
             ForEach(viewModel.comments, id: \.commentId) { comment in
-                PostCommentView(comment: comment, postId: viewModel.post.postId, postAuthour: viewModel.post.postAuthour)
+                PostCommentView(comment: comment, postId: viewModel.post.postId, postAuthour: viewModel.post.postAuthor)
             }
         }
         .padding(.horizontal, 12)
