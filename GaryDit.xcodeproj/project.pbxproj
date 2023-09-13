@@ -107,8 +107,8 @@
 		E2AD2A072AA0A91C00193CDA /* CachedDailyTrending.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AD2A062AA0A91C00193CDA /* CachedDailyTrending.swift */; };
 		E2AD2A092AA0B46E00193CDA /* TrendingSubredditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AD2A082AA0B46E00193CDA /* TrendingSubredditView.swift */; };
 		E2AD2A0B2AA0BD1C00193CDA /* RandomSubredditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AD2A0A2AA0BD1C00193CDA /* RandomSubredditButton.swift */; };
+		E2B396292AAF5C530044AC8F /* RedditMarkdownView in Frameworks */ = {isa = PBXBuildFile; productRef = E2B396282AAF5C530044AC8F /* RedditMarkdownView */; };
 		E2C1F7572A5B6D3300384A64 /* BackgroundCleanerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C1F7562A5B6D3300384A64 /* BackgroundCleanerView.swift */; };
-		E2C330E82A7577EE00D5D9C5 /* MarkdownView in Frameworks */ = {isa = PBXBuildFile; productRef = E2C330E72A7577EE00D5D9C5 /* MarkdownView */; };
 		E2CD0E222A75115200BAFEA1 /* PostViewPostDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CD0E212A75115200BAFEA1 /* PostViewPostDetails.swift */; };
 		E2D098942A58602700D05D13 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D098932A58602700D05D13 /* Post.swift */; };
 		E2D098962A5860DB00D05D13 /* PostFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D098952A5860DB00D05D13 /* PostFlags.swift */; };
@@ -288,8 +288,8 @@
 				E26988C82A3D1604004DE85B /* Lottie in Frameworks */,
 				E2A3E8A82AA7DBAD00CEE679 /* NukeUI in Frameworks */,
 				E2A3E8AA2AA7DBAD00CEE679 /* NukeVideo in Frameworks */,
+				E2B396292AAF5C530044AC8F /* RedditMarkdownView in Frameworks */,
 				E260D5852A485BF600A60839 /* VideoPlayer in Frameworks */,
-				E2C330E82A7577EE00D5D9C5 /* MarkdownView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,12 +711,12 @@
 				E26988C72A3D1604004DE85B /* Lottie */,
 				E2A189A02A425F1900BE1E59 /* FLAnimatedImage */,
 				E260D5842A485BF600A60839 /* VideoPlayer */,
-				E2C330E72A7577EE00D5D9C5 /* MarkdownView */,
 				E2AD2A022AA008F900193CDA /* SwipeActions */,
 				E2A3E8A32AA7DBAD00CEE679 /* Nuke */,
 				E2A3E8A52AA7DBAD00CEE679 /* NukeExtensions */,
 				E2A3E8A72AA7DBAD00CEE679 /* NukeUI */,
 				E2A3E8A92AA7DBAD00CEE679 /* NukeVideo */,
+				E2B396282AAF5C530044AC8F /* RedditMarkdownView */,
 			);
 			productName = GaryDit;
 			productReference = E269888E2A3D0A9F004DE85B /* GaryDit.app */;
@@ -798,9 +798,9 @@
 				E26988C62A3D1604004DE85B /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				E2A1899F2A425F1900BE1E59 /* XCRemoteSwiftPackageReference "FLAnimatedImage" */,
 				E260D5832A485BF600A60839 /* XCRemoteSwiftPackageReference "VideoPlayer" */,
-				E2C330E62A7577EE00D5D9C5 /* XCRemoteSwiftPackageReference "GaryDitMarkdownView" */,
 				E2AD2A012AA008F900193CDA /* XCRemoteSwiftPackageReference "SwipeActions" */,
 				E2A3E8A22AA7DBAD00CEE679 /* XCRemoteSwiftPackageReference "Nuke" */,
+				E2B396272AAF5C530044AC8F /* XCRemoteSwiftPackageReference "RedditMarkdownView" */,
 			);
 			productRefGroup = E269888F2A3D0A9F004DE85B /* Products */;
 			projectDirPath = "";
@@ -1651,12 +1651,12 @@
 				minimumVersion = 1.1.0;
 			};
 		};
-		E2C330E62A7577EE00D5D9C5 /* XCRemoteSwiftPackageReference "GaryDitMarkdownView" */ = {
+		E2B396272AAF5C530044AC8F /* XCRemoteSwiftPackageReference "RedditMarkdownView" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Tom-Knighton/GaryDitMarkdownView";
+			repositoryURL = "https://github.com/Tom-Knighton/RedditMarkdownView.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1707,10 +1707,10 @@
 			package = E2AD2A012AA008F900193CDA /* XCRemoteSwiftPackageReference "SwipeActions" */;
 			productName = SwipeActions;
 		};
-		E2C330E72A7577EE00D5D9C5 /* MarkdownView */ = {
+		E2B396282AAF5C530044AC8F /* RedditMarkdownView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E2C330E62A7577EE00D5D9C5 /* XCRemoteSwiftPackageReference "GaryDitMarkdownView" */;
-			productName = MarkdownView;
+			package = E2B396272AAF5C530044AC8F /* XCRemoteSwiftPackageReference "RedditMarkdownView" */;
+			productName = RedditMarkdownView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

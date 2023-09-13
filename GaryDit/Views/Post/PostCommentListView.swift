@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import MarkdownView
 
 struct PostCommentListView: View {
     

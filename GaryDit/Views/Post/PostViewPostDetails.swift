@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-import MarkdownView
+import RedditMarkdownView
 
 struct PostViewPostDetails: View {
     
@@ -35,7 +35,7 @@ struct PostViewPostDetails: View {
                 
                 if let text = viewModel.post.postContent.textContent {
                     Spacer().frame(height: 16)
-                    MarkdownView(text: .constant(text))
+                    SnudownView(text: text)
                 }
                 
             }

@@ -37,15 +37,6 @@
       }
     },
     {
-      "identity" : "garyditmarkdownview",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Tom-Knighton/GaryDitMarkdownView",
-      "state" : {
-        "branch" : "main",
-        "revision" : "b98f240653974709b7021ce7852ccc6b23b0fb60"
-      }
-    },
-    {
       "identity" : "gsplayer",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/wxxsw/GSPlayer.git",
@@ -100,21 +91,12 @@
       }
     },
     {
-      "identity" : "swift-cmark",
+      "identity" : "redditmarkdownview",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tom-knighton/swift-cmark.git",
+      "location" : "https://github.com/Tom-Knighton/RedditMarkdownView.git",
       "state" : {
-        "branch" : "gfm",
-        "revision" : "a2b1be501f2c49bd5795866fafff15c00c75eea8"
-      }
-    },
-    {
-      "identity" : "swift-markdown",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Tom-Knighton/swift-markdown.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "26b1d5f081ae32f1bc3631e31e0fb83305686c91"
+        "revision" : "4d29297a201cf31f369a1c4c78a3915370651279",
+        "version" : "0.1.2"
       }
     },
     {
@@ -124,6 +106,15 @@
       "state" : {
         "revision" : "9483a5d459b45c3ffd059f7b55f9638e268632fd",
         "version" : "1.5.0"
+      }
+    },
+    {
+      "identity" : "swiftsoup",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/scinfu/SwiftSoup",
+      "state" : {
+        "revision" : "8b6cf29eead8841a1fa7822481cb3af4ddaadba6",
+        "version" : "2.6.1"
       }
     },
     {
