@@ -35,11 +35,6 @@ public struct PostListPage: View {
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
-                        .task {
-                            if self.viewModel.shouldFetchMore(from: post.postId) {
-                                await self.viewModel.fetchMorePosts()
-                            }
-                        }
                         .environment(viewModel)
                 }
                 
@@ -51,6 +46,12 @@ public struct PostListPage: View {
                     .frame(maxWidth: .infinity)
                     .listRowBackground(Color.clear)
                     
+                } else {
+                    Rectangle()
+                        .accessibilityHidden(true)
+                        .onAppear {
+                            self.viewModel.fetchPosts(nextPage: true)
+                        }
                 }
                 
                 if self.viewModel.noMorePosts {

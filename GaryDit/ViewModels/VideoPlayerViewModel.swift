@@ -65,21 +65,21 @@ public class VideoPlayerViewModel {
         self.notificationCancellable?.cancel()
         self.pauseCancellable?.cancel()
         self._mutedCancellable?.cancel()
-        self.avPlayer?.removeTimeObserver(timeObserver)
+        if let avPlayer, let timeObserver {
+            avPlayer.removeTimeObserver(timeObserver)
+            self.timeObserver = nil
+        }
     }
     
     public func setAvPlayer(_ to: AVPlayer) {
         self.avPlayer = to
         
-        do {
-            if let existingObserver = timeObserver {
-                self.avPlayer?.removeTimeObserver(existingObserver)
-            }
-            
-            self.pauseCancellable?.cancel()
-            self._mutedCancellable?.cancel()
-            
-        } catch {}
+        if let _ = timeObserver {
+            self.timeObserver = nil
+        }
+        
+        self.pauseCancellable?.cancel()
+        self._mutedCancellable?.cancel()
         
         self.timeObserver = self.avPlayer?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.01, preferredTimescale: 1000), queue: .main, using: { [weak self] time in
             guard self?.avPlayer?.currentItem?.status == .readyToPlay else {

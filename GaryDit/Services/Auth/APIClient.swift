@@ -60,14 +60,10 @@ public actor APIClient {
             return String(data: data, encoding: .utf8) as! T
         }
         
-        
-        print(url.absoluteString)
         do {
             let response = try data.decode(to: T.self)
             return response
         } catch {
-            print(String(data: data, encoding: .utf8))
-            print("Error ^")
             throw error
         }
     }
