@@ -123,6 +123,32 @@ public class RedditPostViewModel {
             }
         }
     }
+    
+    public func vote(_ status: VoteStatus) {
+        Task {
+            let currentStatus = post.postVoteStatus
+            let newStatus: VoteStatus = currentStatus == status ? .noVote : status
+            withAnimation(.spring) {
+                post.postVoteStatus = newStatus
+            }
+            try? await PostService.Vote(on: post.postId, newStatus)
+            await MainActor.run {
+                NotificationCenter.default.post(name: .ObjectVotedOn, object: nil, userInfo: ["objectId": post.postId, "voteStatus": newStatus])
+                HapticService.start(.light)
+            }
+        }
+    }
+    
+    func opposite(_ voteStatus: VoteStatus) -> VoteStatus {
+        switch voteStatus {
+        case .upvoted:
+            return .downvoted
+        case .downvoted:
+            return .upvoted
+        case .noVote:
+            return .noVote
+        }
+    }
 }
 
 extension RedditPostViewModel: Hashable {

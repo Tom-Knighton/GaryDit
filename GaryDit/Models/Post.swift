@@ -72,4 +72,15 @@ public enum VoteStatus: String, Codable {
     case upvoted = "upvoted"
     case downvoted = "downvoted"
     case noVote = "noVote"
+    
+    func opposite() -> VoteStatus {
+        switch self {
+        case .upvoted:
+            return .downvoted
+        case .downvoted:
+            return .upvoted
+        case .noVote:
+            return .noVote
+        }
+    }
 }

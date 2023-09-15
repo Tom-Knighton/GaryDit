@@ -178,40 +178,41 @@ struct PostActionsView: View {
     
     var post: Post
     
+    // There's a little bit of duplication of self.vote here as in *some* cases, a .onTapGesture wraps this view, and only the onTapGesture here can override that (button is not hit)
     var body: some View {
         HStack {
             let upVoteLabel = post.postVoteStatus == .downvoted ? nil : post.postScore.friendlyFormat()
-            PostActionButton(systemIcon: "arrow.up", label: upVoteLabel, tintColor: Color.orange, isActive: post.postVoteStatus == .upvoted)
+            PostActionButton(systemIcon: "arrow.up", label: upVoteLabel, tintColor: Color.orange, isActive: post.postVoteStatus == .upvoted, action: { self.vote(.upvoted) })
                 .onTapGesture {
-                    Task {
-                        let currentStatus = post.postVoteStatus
-                        let newStatus: VoteStatus = currentStatus == .noVote ? .upvoted : currentStatus == .downvoted ? .upvoted : .noVote
-                        try? await PostService.Vote(on: post.postId, newStatus)
-                        NotificationCenter.default.post(name: .ObjectVotedOn, object: nil, userInfo: ["objectId": post.postId, "voteStatus": newStatus])
-                        HapticService.start(.light)
-                    }
+                    self.vote(.upvoted)
                 }
             
             let downVoteLabel = post.postVoteStatus == .downvoted ? post.postScore.friendlyFormat() : nil
-            PostActionButton(systemIcon: "arrow.down", label: downVoteLabel, tintColor: Color.purple, isActive: post.postVoteStatus == .downvoted)
+            PostActionButton(systemIcon: "arrow.down", label: downVoteLabel, tintColor: Color.purple, isActive: post.postVoteStatus == .downvoted, action: { vote(.downvoted) })
                 .onTapGesture {
-                    Task {
-                        let currentStatus = post.postVoteStatus
-                        let newStatus: VoteStatus = currentStatus == .noVote ? .downvoted : currentStatus == .upvoted ? .downvoted : .noVote
-                        try? await PostService.Vote(on: post.postId, newStatus)
-                        NotificationCenter.default.post(name: .ObjectVotedOn, object: nil, userInfo: ["objectId": post.postId, "voteStatus": newStatus])
-                        HapticService.start(.light)
-                    }
+                    self.vote(.downvoted)
                 }
             
             Spacer()
             
-            PostActionButton(systemIcon: "message", label: post.postCommentCount.friendlyFormat(), tintColor: .blue, isActive: false)
+            PostActionButton(systemIcon: "message", label: post.postCommentCount.friendlyFormat(), tintColor: .blue, isActive: false, action: {})
 
-            PostActionButton(systemIcon: "bookmark", tintColor: .blue, isActive: false)
+            PostActionButton(systemIcon: "bookmark", tintColor: .blue, isActive: false, action: {})
         }
         .padding(.horizontal, 8)
         .font(.subheadline)
         .bold()
+    }
+    
+    private func vote(_ status: VoteStatus) {
+        Task {
+            let currentStatus = post.postVoteStatus
+            let newStatus: VoteStatus = currentStatus == status ? .noVote : currentStatus == .noVote ? status : currentStatus.opposite()
+            try? await PostService.Vote(on: post.postId, newStatus)
+            await MainActor.run {
+                NotificationCenter.default.post(name: .ObjectVotedOn, object: nil, userInfo: ["objectId": post.postId, "voteStatus": newStatus])
+                HapticService.start(.light)
+            }
+        }
     }
 }
