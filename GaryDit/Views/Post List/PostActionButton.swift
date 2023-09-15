@@ -30,6 +30,7 @@ struct PostActionButton: View {
                     Text(label)
                 }
             }
+            .foregroundStyle(isActive ? tintColor : .gray)
             .tint(isActive ? tintColor : .gray)
             .padding(.vertical, 8)
             .padding(.horizontal, 12)
@@ -43,6 +44,7 @@ struct PostActionButton: View {
                 Capsule()
                     .stroke(isActive ? tintColor : .gray, lineWidth: 1)
             }
+            .transition(.opacity)
         }
     }
 }

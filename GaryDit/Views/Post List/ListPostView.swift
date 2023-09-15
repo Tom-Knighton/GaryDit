@@ -121,6 +121,15 @@ struct ListPostView: View {
                 NotificationCenter.default.post(name: .MediaGalleryFullscreenDismissed, object: nil, userInfo: [:])
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: .ObjectVotedOn)) { data in
+            if let id = data.userInfo?["objectId"] as? String, let voteStatus = data.userInfo?["voteStatus"] as? VoteStatus {
+                if viewModel.post.postId == id {
+                    withAnimation(.spring) {
+                        viewModel.post.postVoteStatus = voteStatus
+                    }
+                }
+            }
+        }
     }
     
     @ViewBuilder
@@ -171,9 +180,29 @@ struct PostActionsView: View {
     
     var body: some View {
         HStack {
-            PostActionButton(systemIcon: "arrow.up", label: post.postScore.friendlyFormat(), tintColor: .blue, isActive: false)
+            let upVoteLabel = post.postVoteStatus == .downvoted ? nil : post.postScore.friendlyFormat()
+            PostActionButton(systemIcon: "arrow.up", label: upVoteLabel, tintColor: Color.orange, isActive: post.postVoteStatus == .upvoted)
+                .onTapGesture {
+                    Task {
+                        let currentStatus = post.postVoteStatus
+                        let newStatus: VoteStatus = currentStatus == .noVote ? .upvoted : currentStatus == .downvoted ? .upvoted : .noVote
+                        try? await PostService.Vote(on: post.postId, newStatus)
+                        NotificationCenter.default.post(name: .ObjectVotedOn, object: nil, userInfo: ["objectId": post.postId, "voteStatus": newStatus])
+                        HapticService.start(.light)
+                    }
+                }
             
-            PostActionButton(systemIcon: "arrow.down", tintColor: .blue, isActive: false)
+            let downVoteLabel = post.postVoteStatus == .downvoted ? post.postScore.friendlyFormat() : nil
+            PostActionButton(systemIcon: "arrow.down", label: downVoteLabel, tintColor: Color.purple, isActive: post.postVoteStatus == .downvoted)
+                .onTapGesture {
+                    Task {
+                        let currentStatus = post.postVoteStatus
+                        let newStatus: VoteStatus = currentStatus == .noVote ? .downvoted : currentStatus == .upvoted ? .downvoted : .noVote
+                        try? await PostService.Vote(on: post.postId, newStatus)
+                        NotificationCenter.default.post(name: .ObjectVotedOn, object: nil, userInfo: ["objectId": post.postId, "voteStatus": newStatus])
+                        HapticService.start(.light)
+                    }
+                }
             
             Spacer()
             

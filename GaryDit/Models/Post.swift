@@ -50,7 +50,7 @@ public struct Post: Codable {
     let postContent: PostContent
     
     /// How the user has voted, if at all, on this post
-    let postVoteStatus: VoteStatus
+    var postVoteStatus: VoteStatus
     
     /// The post's flair, if any, as markdown text
     let postFlair: String?
@@ -58,12 +58,13 @@ public struct Post: Codable {
 
 extension Post: Hashable {
     public static func == (lhs: Post, rhs: Post) -> Bool {
-        return lhs.postId == rhs.postId
+        return lhs.postId == rhs.postId && lhs.postVoteStatus == rhs.postVoteStatus
     }
     
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(postId)
+        hasher.combine(postVoteStatus)
     }
 }
 

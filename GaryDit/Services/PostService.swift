@@ -35,4 +35,10 @@ public struct PostService {
         let result: MoreCommentsDto = try await apiClient.perform(request)
         return result
     }
+    
+    public static func Vote(on postId: String, _ voteStatus: VoteStatus) async throws {
+        
+        let request = APIRequest(method: .post, path: "post/\(postId)/vote", queryItems: [], body: VoteRequestDto(objectId: postId, voteStatus: voteStatus).toJson())
+        let _: String = try await apiClient.perform(request)
+    }
 }
