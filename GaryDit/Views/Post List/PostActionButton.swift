@@ -15,21 +15,25 @@ struct PostActionButton: View {
     let tintColor: Color
     let isActive: Bool
     
-    init(systemIcon: String, label: String? = nil, tintColor: Color = .accentColor, isActive: Bool = false) {
+    let action: () -> Void
+    
+    init(systemIcon: String, label: String? = nil, tintColor: Color = .accentColor, isActive: Bool = false, action: @escaping () -> Void) {
         self.systemIcon = systemIcon
         self.label = label
         self.tintColor = tintColor
         self.isActive = isActive
+        self.action = action
     }
     
     var body: some View {
-        Button(action: {}) {
+        Button(action: { self.action() }) {
             HStack(spacing: 4) {
                 Image(systemName: systemIcon)
                 if let label {
                     Text(label)
                 }
             }
+            .foregroundStyle(isActive ? tintColor : .gray)
             .tint(isActive ? tintColor : .gray)
             .padding(.vertical, 8)
             .padding(.horizontal, 12)
@@ -43,6 +47,7 @@ struct PostActionButton: View {
                 Capsule()
                     .stroke(isActive ? tintColor : .gray, lineWidth: 1)
             }
+            .transition(.opacity)
         }
     }
 }

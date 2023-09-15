@@ -167,8 +167,7 @@ class SubredditViewModel {
         
         self.posts.removeAll()
         self.fetchPosts()
-    }
-    
+    }    
 }
 
 extension SubredditViewModel: Hashable {
