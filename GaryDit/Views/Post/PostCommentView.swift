@@ -45,6 +45,7 @@ struct PostCommentView: View {
                                 Text(comment.commentAuthor)
                                     .bold()
                                     .foregroundStyle(getUsernameColour())
+                                    .fixedSize(horizontal: true, vertical: false)
                                 self.commentFlagViews()
                             }
                             
@@ -171,8 +172,9 @@ extension PostCommentView {
     func commentFlagViews() -> some View {
         let flags = self.comment.commentFlagDetails
         
-        if let flair = self.comment.commentAuthorFlair {
+        if let flair = self.comment.commentAuthorFlair, flair.isEmpty == false {
             FlairView(flairText: flair)
+                .lineLimit(1)
         }
         
         if flags.isStickied {
