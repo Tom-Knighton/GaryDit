@@ -25,10 +25,13 @@ struct MoreCommentsView: View {
             } else {
                 Button(action: { self.loadTheseComments() }) {
                     Label(link.isContinueThreadLink ? "Continue Thread" : "Load ^[\(link.moreCount) More Comment](inflect: true)", systemImage: link.isContinueThreadLink ? "" : "chevron.down")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.all, 4)
                 }
+                .padding(8)
+                .background(Color.layer2)
+                .clipShape(.rect(cornerRadius: 20))
+                .shadow(radius: 3)
             }
+            Spacer()
         }
     }
     

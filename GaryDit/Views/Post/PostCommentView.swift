@@ -12,8 +12,9 @@ import RedditMarkdownView
 struct PostCommentView: View {
     
     @State private var isCollapsed: Bool = false
+    @State private var likeState: VoteStatus = .noVote
     
-    @State public var comment: PostComment
+    public var comment: PostComment
     public var postId: String
     public var postAuthour: String
     
@@ -53,7 +54,7 @@ struct PostCommentView: View {
                             
                             Spacer()
                             
-                            let tint: Color = comment.voteStatus == .upvoted ? .orange : comment.voteStatus == .downvoted ? .purple : .gray
+                            let tint: Color = likeState == .upvoted ? .orange : likeState == .downvoted ? .purple : .gray
                             HStack(spacing: 1) {
                                 Image(systemName: comment.voteStatus == .downvoted ? "arrow.down" : "arrow.up")
                                 Text(comment.commentScore.friendlyFormat())
@@ -68,7 +69,7 @@ struct PostCommentView: View {
                             .onTapGesture {
                                 let currentStatus = comment.voteStatus
                                 let newStatus: VoteStatus = currentStatus == .noVote ? .upvoted : currentStatus == .upvoted ? .downvoted : .noVote
-                                comment.voteStatus = newStatus
+                                self.likeState = newStatus
                                 if let onCommentLiked {
                                     onCommentLiked(comment.commentId, newStatus)
                                 } else {
@@ -138,6 +139,9 @@ struct PostCommentView: View {
             withAnimation(.smooth) {
                 self.isCollapsed.toggle()
             }
+        }
+        .onAppear {
+            self.likeState = comment.voteStatus
         }
     }
     
