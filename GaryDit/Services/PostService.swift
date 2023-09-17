@@ -41,4 +41,10 @@ public struct PostService {
         let request = APIRequest(method: .post, path: "post/\(postId)/vote", queryItems: [], body: VoteRequestDto(objectId: postId, voteStatus: voteStatus).toJson())
         let _: String = try await apiClient.perform(request)
     }
+    
+    public static func Vote(on postId: String, commentId: String, _ voteStatus: VoteStatus) async throws {
+        
+        let request = APIRequest(method: .post, path: "post/\(postId)/comment/\(commentId)/vote", queryItems: [], body: VoteRequestDto(objectId: commentId, voteStatus: voteStatus).toJson())
+        let _: String = try await apiClient.perform(request)
+    }
 }

@@ -13,11 +13,13 @@ struct PostCommentView: View {
     
     @State private var isCollapsed: Bool = false
     
-    public var comment: PostComment
+    @State public var comment: PostComment
     public var postId: String
     public var postAuthour: String
     
     var nestLevel: Double = 0
+    
+    var onCommentLiked: ((_: String, _: VoteStatus) -> Void)? = nil
     
     var body: some View {
         VStack {
@@ -62,6 +64,19 @@ struct PostCommentView: View {
                             .background(Color.layer3)
                             .clipShape(.rect(cornerRadius: 15))
                             .font(.caption)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                let currentStatus = comment.voteStatus
+                                let newStatus: VoteStatus = currentStatus == .noVote ? .upvoted : currentStatus == .upvoted ? .downvoted : .noVote
+                                comment.voteStatus = newStatus
+                                if let onCommentLiked {
+                                    onCommentLiked(comment.commentId, newStatus)
+                                } else {
+                                    Task {
+                                        try? await PostService.Vote(on: postId, commentId: comment.commentId, newStatus)
+                                    }
+                                }
+                            }
 
                             HStack(spacing: 2) {
                                 Image(systemName: comment.commentEditedAt == nil ? "clock" : "pencil")

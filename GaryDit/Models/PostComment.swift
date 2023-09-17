@@ -32,7 +32,7 @@ public struct PostComment: Codable {
     public let commentEditedAt: Date?
     
     /// How the user has voted, if at all, on this comment
-    public let voteStatus: VoteStatus
+    public var voteStatus: VoteStatus
     
     /// Flags about this comment, including sticky status, distinguishment etc.
     public let commentFlagDetails: PostFlags
@@ -62,7 +62,11 @@ public struct PostComment: Codable {
 
 extension PostComment: Hashable, Equatable {
     public static func == (lhs: PostComment, rhs: PostComment) -> Bool {
-        return lhs.commentId == rhs.commentId && lhs.replies == rhs.replies && lhs.replies.count == rhs.replies.count && lhs.commentText == rhs.commentText
+        return lhs.commentId == rhs.commentId &&
+            lhs.replies == rhs.replies &&
+            lhs.replies.count == rhs.replies.count &&
+            lhs.commentText == rhs.commentText &&
+            lhs.voteStatus == rhs.voteStatus
     }
     
     
@@ -71,6 +75,7 @@ extension PostComment: Hashable, Equatable {
         hasher.combine(replies.count)
         hasher.combine(replies)
         hasher.combine(commentText)
+        hasher.combine(voteStatus)
     }
 }
 
