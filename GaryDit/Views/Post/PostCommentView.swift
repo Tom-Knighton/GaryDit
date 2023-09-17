@@ -12,6 +12,7 @@ import RedditMarkdownView
 struct PostCommentView: View {
     
     @State private var isCollapsed: Bool = false
+    @State private var likeState: VoteStatus = .noVote
     
     public var comment: PostComment
     public var postId: String
@@ -19,13 +20,18 @@ struct PostCommentView: View {
     
     var nestLevel: Double = 0
     
+    var onCommentLiked: ((_: String, _: VoteStatus) -> Void)? = nil
+    
     var body: some View {
         VStack {
+            if self.isCollapsed == false && self.comment.loadMoreLink == nil && nestLevel != 0 {
+                Divider()
+            }
             Spacer().frame(height: 4)
             HStack {
                 if nestLevel > 0 {
                     RoundedRectangle(cornerRadius: 1.5)
-                        .padding(.vertical, 6)
+                        .padding(.vertical, 2)
                         .frame(width: 2)
                         .foregroundStyle(getNestLevelColor(nestLevel: Int(self.nestLevel)))
                 }
@@ -37,29 +43,51 @@ struct PostCommentView: View {
                     }
                 } else {
                     VStack {
-                        Divider()
                         HStack {
                             HStack(spacing: 2) {
                                 Text(comment.commentAuthor)
                                     .bold()
                                     .foregroundStyle(getUsernameColour())
+                                    .fixedSize(horizontal: true, vertical: false)
                                 self.commentFlagViews()
                             }
                             
-                            
-                            HStack(spacing: 1) {
-                                Image(systemName: "arrow.up")
-                                Text(String(describing: comment.commentScore))
-                            }
                             Spacer()
-                            Button(action: {}) {
-                                Image(systemName: "ellipsis")
-                                    .bold()
+                            
+                            let tint: Color = likeState == .upvoted ? .orange : likeState == .downvoted ? .purple : .gray
+                            HStack(spacing: 1) {
+                                Image(systemName: comment.voteStatus == .downvoted ? "arrow.down" : "arrow.up")
+                                Text(comment.commentScore.friendlyFormat())
                             }
-                            if comment.commentEditedAt != nil {
-                                Image(systemName: "pencil")
+                            .foregroundStyle(tint)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(Color.layer3)
+                            .clipShape(.rect(cornerRadius: 15))
+                            .font(.caption)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                let currentStatus = comment.voteStatus
+                                let newStatus: VoteStatus = currentStatus == .noVote ? .upvoted : currentStatus == .upvoted ? .downvoted : .noVote
+                                self.likeState = newStatus
+                                if let onCommentLiked {
+                                    onCommentLiked(comment.commentId, newStatus)
+                                } else {
+                                    Task {
+                                        try? await PostService.Vote(on: postId, commentId: comment.commentId, newStatus)
+                                    }
+                                }
                             }
-                            Text((comment.commentEditedAt ?? comment.commentCreatedAt).friendlyAgo)
+
+                            HStack(spacing: 2) {
+                                Image(systemName: comment.commentEditedAt == nil ? "clock" : "pencil")
+                                Text((comment.commentEditedAt ?? comment.commentCreatedAt).friendlyAgo)
+                            }
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(Color.layer3)
+                            .clipShape(.rect(cornerRadius: 15))
+                            .font(.caption)
                             
                             if self.isCollapsed {
                                 HStack {
@@ -69,6 +97,7 @@ struct PostCommentView: View {
                                 .padding(.all, 4)
                                 .background(Material.ultraThick)
                                 .clipShape(.rect(cornerRadius: 10))
+                                .font(.caption)
                                 
                                 Spacer().frame(width: 8)
                             }
@@ -98,16 +127,21 @@ struct PostCommentView: View {
                 }
             }
         }
+        .padding(.all, nestLevel == 0 ? 8 : 0)
         .padding(.leading, nestLevel * 2.5)
-        .background(Color.layer1)
+        .background(Color.layer2)
+        .clipShape(.rect(cornerRadius: 10))
         .onTapGesture {
             guard self.comment.loadMoreLink == nil else {
                 return
             }
             
-            withAnimation(.snappy) {
+            withAnimation(.smooth) {
                 self.isCollapsed.toggle()
             }
+        }
+        .onAppear {
+            self.likeState = comment.voteStatus
         }
     }
     
@@ -157,8 +191,9 @@ extension PostCommentView {
     func commentFlagViews() -> some View {
         let flags = self.comment.commentFlagDetails
         
-        if let flair = self.comment.commentAuthorFlair {
+        if let flair = self.comment.commentAuthorFlair, flair.isEmpty == false {
             FlairView(flairText: flair)
+                .lineLimit(1)
         }
         
         if flags.isStickied {
@@ -169,7 +204,7 @@ extension PostCommentView {
             Text(Image(systemName: "lock.fill"))
                 .foregroundStyle(.yellow)
         }
-        if flags.isArchived {
+        if flags.isArchived { 
             Text(Image(systemName: "archivebox.fill"))
                 .foregroundStyle(.yellow)
         }
@@ -180,48 +215,14 @@ extension PostCommentView {
     }
 }
 
-//struct CustomImageProvider: ImageDisplayable {
-//    
-//    private var inlineMedias: [PostMedia]
-//    init(medias: [PostMedia]) {
-//        self.inlineMedias = medias
-//    }
-//    
-//    func getInlineMedia(for url: String) -> PostMedia? {
-//        return inlineMedias.first(where: { $0.url == url && $0.isInline == true })
-//    }
-//    
-//    func getAspectRatio(url: String) -> Double {
-//        
-//        if let cached = GlobalCaches.gifAspectRatioCAche.get(url) {
-//            return cached
-//        }
-//        
-//        let media = getInlineMedia(for: url)
-//        if let media {
-//            let ratio = media.width / media.height
-//            Task {
-//                await GlobalCaches.gifAspectRatioCAche.set(ratio, forKey: url)
-//            }
-//            return ratio
-//        }
-//        
-//        return 1.75
-//    }
-//    
-//    func makeImage(url: URL, alt: String?) -> some View {
-//        let ratio = getAspectRatio(url: url.absoluteString)
-//        ZStack {
-//            Rectangle()
-//                .fill(.clear)
-//                .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                .aspectRatio(ratio, contentMode: .fit)
-//            GIFView(url: url.absoluteString, isPlaying: .constant(true))
-//                .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                .aspectRatio(ratio, contentMode: .fit)
-//                .clipShape(.rect(cornerRadius: 10))
-//                .shadow(radius: 3)
-//        }
-//        
-//    }
-//}
+#Preview {
+    ZStack {
+        Color.layer1.ignoresSafeArea()
+        LazyVStack {
+            PostCommentView(comment: PostComment(commentId: "1", commentAuthor: "Banging_Bananas", commentAuthorFlair: nil, commentScore: 1, commentText: "Testing", commentCreatedAt: Date(), commentEditedAt: nil, voteStatus: .downvoted, commentFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, isSpoiler: false, distinguishmentType: .none), replies: [PostComment(commentId: "1", commentAuthor: "Banging_Bananas", commentAuthorFlair: nil, commentScore: 1, commentText: "Testing", commentCreatedAt: Date(), commentEditedAt: nil, voteStatus: .noVote, commentFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, isSpoiler: false, distinguishmentType: .none), replies: [PostComment(commentId: "1", commentAuthor: "Banging_Bananas", commentAuthorFlair: nil, commentScore: 1, commentText: "Testing", commentCreatedAt: Date(), commentEditedAt: Date(), voteStatus: .upvoted, commentFlagDetails: PostFlags(isNSFW: false, isSaved: false, isLocked: false, isStickied: false, isArchived: false, isSpoiler: false, distinguishmentType: .none), replies: [], loadMoreLink: nil, media: [])], loadMoreLink: nil, media: [])], loadMoreLink: nil, media: []), postId: "1", postAuthour: "Banging_Bananas", nestLevel: 0)
+        }
+        .contentMargins([.horizontal], 16)
+    }
+    
+    
+}
