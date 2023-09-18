@@ -44,7 +44,7 @@ public struct Post: Codable {
     let subredditIcon: String?
     
     /// Flags regarding this post, i.e. isNSFW etc...
-    let postFlagDetails: PostFlags
+    var postFlagDetails: PostFlags
     
     /// The actual content of this post
     let postContent: PostContent
@@ -58,13 +58,14 @@ public struct Post: Codable {
 
 extension Post: Hashable {
     public static func == (lhs: Post, rhs: Post) -> Bool {
-        return lhs.postId == rhs.postId && lhs.postVoteStatus == rhs.postVoteStatus
+        return lhs.postId == rhs.postId && lhs.postVoteStatus == rhs.postVoteStatus && lhs.postFlagDetails.isSaved == rhs.postFlagDetails.isSaved
     }
     
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(postId)
         hasher.combine(postVoteStatus)
+        hasher.combine(postFlagDetails)
     }
 }
 

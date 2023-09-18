@@ -47,4 +47,14 @@ public struct PostService {
         let request = APIRequest(method: .post, path: "post/\(postId)/comment/\(commentId)/vote", queryItems: [], body: VoteRequestDto(objectId: commentId, voteStatus: voteStatus).toJson())
         let _: String = try await apiClient.perform(request)
     }
+    
+    public static func ToggleSave(postId: String, _ save: Bool) async throws {
+        let request = APIRequest(method: .put, path: "post/\(postId)/\(save ? "save" : "unsave")", queryItems: [], body: nil)
+        let _: String = try await apiClient.perform(request)
+    }
+    
+    public static func ToggleSave(postId: String, commentId: String, _ save: Bool) async throws {
+        let request = APIRequest(method: .put, path: "post/\(postId)/comment/\(commentId)/\(save ? "save" : "unsave")", queryItems: [], body: nil)
+        let _: String = try await apiClient.perform(request)
+    }
 }

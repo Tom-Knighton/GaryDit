@@ -148,6 +148,18 @@ public class RedditPostViewModel {
         }
     }
     
+    public func toggleSave() {
+        let isSaved = post.postFlagDetails.isSaved
+        
+        withAnimation(.smooth) {
+            post.postFlagDetails.isSaved.toggle()
+        }
+        
+        Task {
+            try? await PostService.ToggleSave(postId: post.postId, !isSaved)
+        }
+    }
+    
     func opposite(_ voteStatus: VoteStatus) -> VoteStatus {
         switch voteStatus {
         case .upvoted:

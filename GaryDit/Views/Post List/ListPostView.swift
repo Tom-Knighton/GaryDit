@@ -96,7 +96,7 @@ struct ListPostView: View {
                     }
                     .padding(.horizontal, 8)
                     
-                    PostActionsView(post: self.viewModel.post)
+                    PostActionsView(post: self.$viewModel.post)
 
                 }
                 .accessibilityRespondsToUserInteraction()
@@ -135,8 +135,7 @@ struct ListPostView: View {
             let isSecond = context.currentDragDistance > 250
             SwipeAction(systemImage: isSecond ? "bookmark.fill" : "arrow.down", backgroundColor: isSecond ? .green : .purple, action: {
                 if isSecond {
-                    // Bookmark
-                    
+                    viewModel.toggleSave()
                 } else {
                     viewModel.vote(.downvoted)
                 }
@@ -147,7 +146,7 @@ struct ListPostView: View {
             .allowSwipeToTrigger()
         } trailingActions: { context in
             let isSecond = context.currentDragDistance > 250
-            SwipeAction(systemImage: isSecond ? "arrowshape.turn.up.left.fill" : "arrow.up", backgroundColor: isSecond ? .green : .purple, action: {
+            SwipeAction(systemImage: isSecond ? "arrowshape.turn.up.left.fill" : "arrow.up", backgroundColor: isSecond ? .blue : .orange, action: {
                 if isSecond {
                     // Reply
                     
@@ -209,7 +208,7 @@ struct ListPostView: View {
 
 struct PostActionsView: View {
     
-    var post: Post
+    @Binding var post: Post
     
     // There's a little bit of duplication of self.vote here as in *some* cases, a .onTapGesture wraps this view, and only the onTapGesture here can override that (button is not hit)
     var body: some View {
@@ -230,7 +229,10 @@ struct PostActionsView: View {
             
             PostActionButton(systemIcon: "message", label: post.postCommentCount.friendlyFormat(), tintColor: .blue, isActive: false, action: {})
 
-            PostActionButton(systemIcon: "bookmark", tintColor: .blue, isActive: false, action: {})
+            PostActionButton(systemIcon: "bookmark", tintColor: .green, isActive: post.postFlagDetails.isSaved, action: { self.toggleSave() })
+                .onTapGesture {
+                    self.toggleSave()
+                }
         }
         .padding(.horizontal, 8)
         .font(.subheadline)
@@ -242,10 +244,26 @@ struct PostActionsView: View {
             let currentStatus = post.postVoteStatus
             let newStatus: VoteStatus = currentStatus == status ? .noVote : currentStatus == .noVote ? status : currentStatus.opposite()
             try? await PostService.Vote(on: post.postId, newStatus)
+            
+            withAnimation(.smooth) {
+                post.postVoteStatus = newStatus
+            }
+            
             await MainActor.run {
                 NotificationCenter.default.post(name: .ObjectVotedOn, object: nil, userInfo: ["objectId": post.postId, "voteStatus": newStatus])
                 HapticService.start(.light)
             }
+        }
+    }
+    
+    private func toggleSave() {
+        Task {
+            let isSaved = post.postFlagDetails.isSaved
+            withAnimation(.smooth) {
+                post.postFlagDetails.isSaved.toggle()
+            }
+            
+            try? await PostService.ToggleSave(postId: post.postId, !isSaved)
         }
     }
 }
