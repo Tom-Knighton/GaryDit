@@ -133,7 +133,7 @@ struct ListPostView: View {
             }
         } leadingActions: { context in
             let isSecond = context.currentDragDistance > 250
-            SwipeAction(systemImage: isSecond ? "bookmark.fill" : "arrow.down", backgroundColor: isSecond ? .green : .purple, action: {
+            SwipeAction(systemImage: isSecond ? (viewModel.post.postFlagDetails.isSaved ? "bookmark.slash.fill" : "bookmark.fill") : "arrow.down", backgroundColor: isSecond ? .green : .purple, action: {
                 if isSecond {
                     viewModel.toggleSave()
                 } else {
