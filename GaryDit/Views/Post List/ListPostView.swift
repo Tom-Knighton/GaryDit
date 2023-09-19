@@ -133,7 +133,7 @@ struct ListPostView: View {
             }
         } leadingActions: { context in
             let isSecond = context.currentDragDistance > 250
-            SwipeAction(systemImage: isSecond ? (viewModel.post.postFlagDetails.isSaved ? "bookmark.slash.fill" : "bookmark.fill") : "arrow.down", backgroundColor: isSecond ? .green : .purple, action: {
+            SwipeAction(systemImage: isSecond ? (viewModel.post.postFlagDetails.isSaved ? "bookmark.slash.fill" : "bookmark.fill") : "arrow.down", backgroundColor: isSecond ? .green : .purple, action: { [context] in
                 if isSecond {
                     viewModel.toggleSave()
                 } else {
@@ -162,6 +162,7 @@ struct ListPostView: View {
         .swipeActionsStyle(.cascade)
         .swipeMinimumDistance(30)
         .swipeActionCornerRadius(10)
+        .allowSwipeToTrigger()
     }
     
     @ViewBuilder

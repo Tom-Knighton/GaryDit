@@ -28,107 +28,65 @@ struct PostCommentView: View {
                 Divider()
             }
             Spacer().frame(height: 4)
-            HStack {
-                if nestLevel > 0 {
-                    RoundedRectangle(cornerRadius: 1.5)
-                        .padding(.vertical, 2)
-                        .frame(width: 2)
-                        .foregroundStyle(getNestLevelColor(nestLevel: Int(self.nestLevel)))
+            
+            SwipeView {
+                commentContent()
+                    .padding(.leading, nestLevel * 2.5)
+                    .contentShape(.rect())
+
+            } leadingActions: { context in
+                let isSecond = context.currentDragDistance > 250
+                SwipeAction(systemImage: isSecond ? (comment.commentFlagDetails.isSaved ? "bookmark.slash.fill" : "bookmark.slash") : "arrow.down", backgroundColor: isSecond ? .green : .purple, action: {
+                    if isSecond {
+                        withAnimation() {
+                            self.isCollapsed.toggle()
+                        }
+                    } else {
+                        self.vote(.downvoted)
+                    }
+                    
+                    withAnimation(.spring(response: 0.4, dampingFraction: 1, blendDuration: 1)) {
+                        context.state.wrappedValue = .closed
+                    }
+                })
+                .allowSwipeToTrigger()
+                .onChange(of: isSecond) { _, _ in
+                    HapticService.start(.soft)
                 }
-                if let loadMoreLink = comment.loadMoreLink {
-                    VStack {
-                        Divider()
-                        MoreCommentsView(commentId: comment.commentId, link: loadMoreLink)
-                        Spacer().frame(height: 4)
-                    }
-                } else {
-                    VStack {
-                        HStack {
-                            HStack(spacing: 2) {
-                                Text(comment.commentAuthor)
-                                    .bold()
-                                    .foregroundStyle(getUsernameColour())
-                                    .fixedSize(horizontal: true, vertical: false)
-                                self.commentFlagViews()
-                            }
-                            
-                            Spacer()
-                            
-                            let tint: Color = likeState == .upvoted ? .orange : likeState == .downvoted ? .purple : .gray
-                            HStack(spacing: 1) {
-                                Image(systemName: comment.voteStatus == .downvoted ? "arrow.down" : "arrow.up")
-                                Text(comment.commentScore.friendlyFormat())
-                            }
-                            .foregroundStyle(tint)
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 2)
-                            .background(Color.layer3)
-                            .clipShape(.rect(cornerRadius: 15))
-                            .font(.caption)
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                let currentStatus = comment.voteStatus
-                                let newStatus: VoteStatus = currentStatus == .noVote ? .upvoted : currentStatus == .upvoted ? .downvoted : .noVote
-                                self.likeState = newStatus
-                                if let onCommentLiked {
-                                    onCommentLiked(comment.commentId, newStatus)
-                                } else {
-                                    Task {
-                                        try? await PostService.Vote(on: postId, commentId: comment.commentId, newStatus)
-                                    }
-                                }
-                            }
-
-                            HStack(spacing: 2) {
-                                Image(systemName: comment.commentEditedAt == nil ? "clock" : "pencil")
-                                Text((comment.commentEditedAt ?? comment.commentCreatedAt).friendlyAgo)
-                            }
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 2)
-                            .background(Color.layer3)
-                            .clipShape(.rect(cornerRadius: 15))
-                            .font(.caption)
-                            
-                            if self.isCollapsed {
-                                HStack {
-                                    Text(String(describing: self.comment.getTotalCommentCount() + 1))
-                                    Image(systemName: "chevron.down")
-                                }
-                                .padding(.all, 4)
-                                .background(Material.ultraThick)
-                                .clipShape(.rect(cornerRadius: 10))
-                                .font(.caption)
-                                
-                                Spacer().frame(width: 8)
-                            }
+            } trailingActions: { context in
+                let isSecond = context.currentDragDistance > 250
+                SwipeAction(systemImage: isSecond ? "chevron.up.chevron.down" : "arrow.up", backgroundColor: isSecond ? .blue : .orange, action: {
+                    if isSecond {
+                        withAnimation(.smooth) {
+                            self.isCollapsed.toggle()
                         }
-                        .foregroundStyle(.gray)
-                        .font(.subheadline)
-                        .tint(.gray)
-                        .padding(.bottom, 4)
-                        
-                        if !self.isCollapsed {
-                            SnudownView(text: comment.commentText)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            
-                            ForEach(comment.media.filter { $0.isInline == false }, id: \.url) { media in
-                                LinkView(url: media.url, imageUrl: media.thumbnailUrl, overrideTitle: media.mediaText, isCompact: true)
-                            }
-                        }
-
-                        Spacer().frame(height: 4)
+                    } else {
+                        self.vote(.upvoted)
                     }
+                    
+                    withAnimation(.spring(response: 0.4, dampingFraction: 1, blendDuration: 1)) {
+                        context.state.wrappedValue = .closed
+                    }
+                })
+                .allowSwipeToTrigger()
+                .onChange(of: isSecond) { _, _ in
+                    HapticService.start(.soft)
                 }
             }
+            .swipeActionsStyle(.cascade)
+            .swipeMinimumDistance(30)
+            .swipeActionCornerRadius(25)
+            .allowSwipeToTrigger()
             
             if !self.isCollapsed {
-                ForEach(comment.replies, id: \.commentId) { reply in
-                    PostCommentView(comment: reply, postId: postId, postAuthour: postAuthour, nestLevel: self.nestLevel + 1)
+                LazyVStack {
+                    ForEach(comment.replies, id: \.commentId) { reply in
+                        PostCommentView(comment: reply, postId: postId, postAuthour: postAuthour, nestLevel: self.nestLevel + 1)
+                    }
                 }
             }
         }
         .padding(.all, nestLevel == 0 ? 8 : 0)
-        .padding(.leading, nestLevel * 2.5)
         .background(Color.layer2)
         .clipShape(.rect(cornerRadius: 10))
         .onTapGesture {
@@ -158,6 +116,120 @@ struct PostCommentView: View {
         
         return colours[(nestLevel - 1) % colours.count]
     }    
+    
+    @ViewBuilder
+    func commentContent() -> some View {
+        HStack {
+            if nestLevel > 0 {
+                RoundedRectangle(cornerRadius: 1.5)
+                    .padding(.vertical, 2)
+                    .frame(width: 2)
+                    .foregroundStyle(getNestLevelColor(nestLevel: Int(self.nestLevel)))
+            }
+            if let loadMoreLink = comment.loadMoreLink {
+                VStack {
+                    Divider()
+                    MoreCommentsView(commentId: comment.commentId, link: loadMoreLink)
+                    Spacer().frame(height: 4)
+                }
+            } else {
+                VStack {
+                    HStack {
+                        HStack(spacing: 2) {
+                            Text(comment.commentAuthor)
+                                .bold()
+                                .foregroundStyle(getUsernameColour())
+                                .fixedSize(horizontal: true, vertical: false)
+                            self.commentFlagViews()
+                        }
+                        
+                        Spacer()
+                        
+                        let tint: Color = likeState == .upvoted ? .orange : likeState == .downvoted ? .purple : .gray
+                        HStack(spacing: 1) {
+                            Image(systemName: comment.voteStatus == .downvoted ? "arrow.down" : "arrow.up")
+                            Text(comment.commentScore.friendlyFormat())
+                        }
+                        .foregroundStyle(tint)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(Color.layer3)
+                        .clipShape(.rect(cornerRadius: 15))
+                        .font(.caption)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            
+                        }
+
+                        HStack(spacing: 2) {
+                            Image(systemName: comment.commentEditedAt == nil ? "clock" : "pencil")
+                            Text((comment.commentEditedAt ?? comment.commentCreatedAt).friendlyAgo)
+                        }
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(Color.layer3)
+                        .clipShape(.rect(cornerRadius: 15))
+                        .font(.caption)
+                        
+                        if self.isCollapsed {
+                            HStack {
+                                Text(String(describing: self.comment.getTotalCommentCount() + 1))
+                                Image(systemName: "chevron.down")
+                            }
+                            .padding(.all, 4)
+                            .background(Material.ultraThick)
+                            .clipShape(.rect(cornerRadius: 10))
+                            .font(.caption)
+                            
+                            Spacer().frame(width: 8)
+                        }
+                    }
+                    .foregroundStyle(.gray)
+                    .font(.subheadline)
+                    .tint(.gray)
+                    .padding(.bottom, 4)
+                    
+                    if !self.isCollapsed {
+                        SnudownView(text: comment.commentText)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .snudownDisplayInlineImages(false)
+                        
+                        ForEach(comment.media.filter { $0.isInline == false }, id: \.url) { media in
+                            LinkView(url: media.url, imageUrl: media.thumbnailUrl, overrideTitle: media.mediaText, isCompact: true)
+                        }
+                    }
+
+                    Spacer().frame(height: 4)
+                }
+            }
+        }
+    }
+    
+    private func vote() {
+        let currentStatus = comment.voteStatus
+        let newStatus: VoteStatus = currentStatus == .noVote ? .upvoted : currentStatus == .upvoted ? .downvoted : .noVote
+        self.likeState = newStatus
+        if let onCommentLiked {
+            onCommentLiked(comment.commentId, newStatus)
+        } else {
+            Task {
+                try? await PostService.Vote(on: postId, commentId: comment.commentId, newStatus)
+            }
+        }
+    }
+    
+    private func vote(_ status: VoteStatus) {
+        let currentStatus = comment.voteStatus
+        let newStatus: VoteStatus = currentStatus == status ? .noVote : status
+        self.likeState = newStatus
+        if let onCommentLiked {
+            onCommentLiked(comment.commentId, newStatus)
+        } else {
+            Task {
+                try? await PostService.Vote(on: postId, commentId: comment.commentId, newStatus)
+            }
+        }
+    }
 }
 
 extension PostCommentView {

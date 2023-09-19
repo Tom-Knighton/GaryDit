@@ -30,6 +30,7 @@
  */
 
 import SwiftUI
+import RedditMarkdownView
 
 // MARK: - Structures
 
@@ -142,6 +143,8 @@ public struct SwipeOptions {
 
     /// The width for each action.
     var actionWidth = Double(100)
+    
+    var allowSwipeToTrigger: Bool = false
 
     /// Spacing between actions and the label view.
     var spacing = Double(8)
@@ -311,7 +314,10 @@ public struct SwipeAction<Label: View, Background: View>: View {
             self.highlighted = pressing
         } perform: {}
         .buttonStyle(SwipeActionButtonStyle())
-        .onChange(of: swipeContext.state.wrappedValue) { state in /// Read changes in state.
+        .onChange(of: swipeContext.state.wrappedValue) { _, state in /// Read changes in state. 
+           
+            HapticService.start(.light)
+            
             guard let allowSwipeToTrigger, allowSwipeToTrigger else { return }
 
             if let state {
@@ -338,10 +344,12 @@ public struct SwipeAction<Label: View, Background: View>: View {
 public struct SwipeView<Label, LeadingActions, TrailingActions>: View where Label: View, LeadingActions: View, TrailingActions: View {
     // MARK: - Properties
 
+    @Environment(\.displayScale) private var displayScale
+    
     /// Options for configuring the swipe view.
     public var options = SwipeOptions()
 
-    @ViewBuilder public var label: () -> Label
+    @ViewBuilder public var label: Label
     @ViewBuilder public var leadingActions: (SwipeContext) -> LeadingActions
     @ViewBuilder public var trailingActions: (SwipeContext) -> TrailingActions
 
@@ -356,7 +364,7 @@ public struct SwipeView<Label, LeadingActions, TrailingActions>: View where Labe
     @State var id = UUID()
 
     /// The size of the parent view.
-    @State var size = CGSize.zero
+    @State var size: CGSize = CGSize.zero
 
     // MARK: - Actions state
 
@@ -395,21 +403,21 @@ public struct SwipeView<Label, LeadingActions, TrailingActions>: View where Labe
 
     /// The offset dragged in previous drag sessions.
     @State var savedOffset = Double(0)
-
+    
     /// A view for adding swipe actions.
     public init(
-        @ViewBuilder label: @escaping () -> Label,
+        @ViewBuilder label: () -> Label,
         @ViewBuilder leadingActions: @escaping (SwipeContext) -> LeadingActions,
         @ViewBuilder trailingActions: @escaping (SwipeContext) -> TrailingActions
     ) {
-        self.label = label
+        self.label = label()
         self.leadingActions = leadingActions
         self.trailingActions = trailingActions
     }
 
     public var body: some View {
         HStack {
-            label()
+            label
                 .offset(x: offset) /// Apply the offset here.
         }
         .readSize { size = $0 } /// Read the size of the parent label.
@@ -452,7 +460,7 @@ public struct SwipeView<Label, LeadingActions, TrailingActions>: View where Labe
                 .updatingVelocity($velocity),
             including: options.swipeEnabled ? .all : .subviews /// Enable/disable swiping here.
         )
-        .onChange(of: currentlyDragging) { currentlyDragging in /// Detect gesture cancellations.
+        .onChange(of: currentlyDragging) { _, currentlyDragging in /// Detect gesture cancellations.
             if !currentlyDragging, let latestDragGestureValueBackup {
                 /// Gesture cancelled.
                 let velocity = velocity.dx / currentOffset
@@ -462,7 +470,7 @@ public struct SwipeView<Label, LeadingActions, TrailingActions>: View where Labe
 
         // MARK: - Trigger haptics
 
-        .onChange(of: leadingState) { [leadingState] newValue in
+        .onChange(of: leadingState) { [leadingState] _, newValue in
             /// Make sure the change was from `triggering` to `nil`, or the other way around.
             let changed =
                 leadingState == .triggering && newValue == nil ||
@@ -473,7 +481,7 @@ public struct SwipeView<Label, LeadingActions, TrailingActions>: View where Labe
                 generator.impactOccurred()
             }
         }
-        .onChange(of: trailingState) { [trailingState] newValue in
+        .onChange(of: trailingState) { [trailingState] _, newValue in
 
             let changed =
                 trailingState == .triggering && newValue == nil ||
@@ -487,22 +495,22 @@ public struct SwipeView<Label, LeadingActions, TrailingActions>: View where Labe
 
         // MARK: - Receive `SwipeViewGroup` events
 
-        .onChange(of: currentlyDragging) { newValue in
+        .onChange(of: currentlyDragging) { _, newValue in
             if newValue {
                 swipeViewGroupSelection.wrappedValue = id
             }
         }
-        .onChange(of: leadingState) { newValue in
+        .onChange(of: leadingState) { _, newValue in
             if newValue == .closed, swipeViewGroupSelection.wrappedValue == id {
                 swipeViewGroupSelection.wrappedValue = nil
             }
         }
-        .onChange(of: trailingState) { newValue in
+        .onChange(of: trailingState) { _, newValue in
             if newValue == .closed, swipeViewGroupSelection.wrappedValue == id {
                 swipeViewGroupSelection.wrappedValue = nil
             }
         }
-        .onChange(of: swipeViewGroupSelection.wrappedValue) { newValue in
+        .onChange(of: swipeViewGroupSelection.wrappedValue) { _, newValue in
             if swipeViewGroupSelection.wrappedValue != id {
                 currentSide = nil
 
@@ -704,7 +712,7 @@ struct SwipeActionsLayout: _VariadicView_UnaryViewRoot {
         .onAppear { /// Set the number of actions here.
             numberOfActions = children.count
         }
-        .onChange(of: children.count) { count in
+        .onChange(of: children.count) { _, count in
             numberOfActions = count
         }
     }
@@ -827,13 +835,13 @@ extension SwipeView {
 
     func trigger(side: SwipeSide, velocity: Double) {
         withAnimation(.interpolatingSpring(stiffness: options.offsetTriggerAnimationStiffness, damping: options.offsetTriggerAnimationDamping, initialVelocity: velocity)) {
-            switch side {
-            case .leading:
-                savedOffset = leadingTriggeredOffset
-            case .trailing:
-                savedOffset = trailingTriggeredOffset
-            }
-            currentOffset = 0
+//            switch side {
+//            case .leading:
+//                savedOffset = leadingTriggeredOffset
+//            case .trailing:
+//                savedOffset = trailingTriggeredOffset
+//            }
+//            currentOffset = 0
         }
     }
 
@@ -964,12 +972,14 @@ extension SwipeView {
             leadingState = .triggered
             trigger(side: .leading, velocity: velocity)
         } else {
-            if totalPredictedOffset > leadingReadyToExpandOffset, numberOfLeadingActions > 0 {
-                leadingState = .expanded
-                expand(side: .leading, velocity: velocity)
-            } else if totalPredictedOffset < trailingReadyToExpandOffset, numberOfTrailingActions > 0 {
-                trailingState = .expanded
-                expand(side: .trailing, velocity: velocity)
+            if options.allowSwipeToTrigger == false {
+                if totalPredictedOffset > leadingReadyToExpandOffset, numberOfLeadingActions > 0 {
+                    leadingState = .expanded
+                    expand(side: .leading, velocity: velocity)
+                } else if totalPredictedOffset < trailingReadyToExpandOffset, numberOfTrailingActions > 0 {
+                    trailingState = .expanded
+                    expand(side: .trailing, velocity: velocity)
+                }
             } else {
                 currentSide = nil
                 leadingState = .closed
@@ -1171,6 +1181,13 @@ public extension SwipeView {
     func swipeActionWidth(_ value: Double) -> SwipeView {
         var view = self
         view.options.actionWidth = value
+        return view
+    }
+    
+    /// The height for each action.
+    func allowSwipeToTrigger(_ value: Bool = true) -> some View {
+        var view = self
+        view.options.allowSwipeToTrigger = value
         return view
     }
 

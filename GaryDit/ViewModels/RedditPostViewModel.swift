@@ -141,7 +141,6 @@ public class RedditPostViewModel {
     
     public func voteOnComment(_ commentId: String, status: VoteStatus) {
         guard let commentIndex = self.comments.firstIndex(where: { $0.commentId == commentId }) else { return }
-        let currentStatus = comments[commentIndex].voteStatus
         comments[commentIndex].voteStatus = status
         Task {
             try? await PostService.Vote(on: self.post.postId, commentId: commentId, status)
