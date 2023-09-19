@@ -144,6 +144,9 @@ struct ListPostView: View {
                 }
             })
             .allowSwipeToTrigger()
+            .onChange(of: isSecond) { _, _ in
+                HapticService.start(.soft)
+            }
         } trailingActions: { context in
             let isSecond = context.currentDragDistance > 250
             SwipeAction(systemImage: isSecond ? "arrowshape.turn.up.left.fill" : "arrow.up", backgroundColor: isSecond ? .blue : .orange, action: {
@@ -158,6 +161,9 @@ struct ListPostView: View {
                 }
             })
             .allowSwipeToTrigger()
+            .onChange(of: isSecond) { _, _ in
+                HapticService.start(.soft)
+            }
         }
         .swipeActionsStyle(.cascade)
         .swipeMinimumDistance(30)
