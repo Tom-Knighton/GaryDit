@@ -17,14 +17,13 @@ class CommentViewModel {
 
     var isCollapsed: Bool = false
     
-    var isBookmarked: Bool {
-        return comment.commentFlagDetails.isSaved
-    }
+    var isBookmarked: Bool = false
     
     init(comment: PostComment) {
         self.comment = comment
         self.replies = comment.replies
         self.voteStatus = comment.voteStatus
+        self.isBookmarked = comment.commentFlagDetails.isSaved
     }
     
     public func voteOnComment(_ commentId: String, status: VoteStatus) {

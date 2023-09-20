@@ -27,9 +27,6 @@ struct PostCommentView: View {
     }
     
     var body: some View {
-        if self.nestLevel == 0 {
-            let _ = Self._printChanges()
-        }
         VStack {
             if viewModel.isCollapsed == false && viewModel.comment.loadMoreLink == nil && nestLevel != 0 {
                 Divider()
@@ -46,7 +43,7 @@ struct PostCommentView: View {
                 SwipeAction(systemImage: isSecond ? (viewModel.isBookmarked ? "bookmark.slash.fill" : "bookmark.slash") : "arrow.down", backgroundColor: isSecond ? .green : .purple, action: {
                     if isSecond {
                         withAnimation() {
-                            viewModel.isCollapsed.toggle()
+                            viewModel.isBookmarked.toggle()
                         }
                     } else {
                         self.vote(.downvoted)
@@ -206,6 +203,12 @@ struct PostCommentView: View {
 
                     Spacer().frame(height: 4)
                 }
+            }
+            
+            if viewModel.isBookmarked {
+                RoundedRectangle(cornerRadius: 1)
+                    .frame(width: 3)
+                    .foregroundStyle(.green)
             }
         }
     }
