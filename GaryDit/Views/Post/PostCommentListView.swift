@@ -16,9 +16,9 @@ struct PostCommentListView: View {
         SwipeViewGroup {
             LazyVStack {
                 ForEach(viewModel.comments, id: \.commentId) { comment in
-                    PostCommentView(comment: comment, postId: viewModel.post.postId, postAuthour: viewModel.post.postAuthor, onCommentLiked: ({ commentId, status in
-                        self.viewModel.voteOnComment(commentId, status: status)
-                    }))
+                    PostCommentView(comment: comment, postId: viewModel.post.postId, postAuthor: viewModel.post.postAuthor, nestLevel: 0, onCommentLiked: { commentId, newStatus in
+                        self.viewModel.voteOnComment(commentId, status: newStatus)
+                    })
                 }
             }
             .padding(.horizontal, 12)

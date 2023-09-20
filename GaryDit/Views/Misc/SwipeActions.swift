@@ -194,15 +194,15 @@ public struct SwipeViewGroupSelectionKey: EnvironmentKey {
     public static let defaultValue: Binding<UUID?> = .constant(nil)
 }
 
+@Observable
+public class SwipeViewGroupSelection {
+    public var selectedId: UUID? = nil
+}
+
 public extension EnvironmentValues {
     var swipeContext: SwipeContext {
         get { self[SwipeContextKey.self] }
         set { self[SwipeContextKey.self] = newValue }
-    }
-
-    var swipeViewGroupSelection: Binding<UUID?> {
-        get { self[SwipeViewGroupSelectionKey.self] }
-        set { self[SwipeViewGroupSelectionKey.self] = newValue }
     }
 }
 
@@ -221,7 +221,7 @@ public extension EnvironmentValues {
 public struct SwipeViewGroup<Content: View>: View {
     @ViewBuilder var content: () -> Content
 
-    @State var selection: UUID?
+    @State var group = SwipeViewGroupSelection()
 
     public init(@ViewBuilder content: @escaping () -> Content) {
         self.content = content
@@ -229,7 +229,7 @@ public struct SwipeViewGroup<Content: View>: View {
 
     public var body: some View {
         content()
-            .environment(\.swipeViewGroupSelection, $selection)
+            .environment(group)
     }
 }
 
@@ -340,6 +340,13 @@ public struct SwipeAction<Label: View, Background: View>: View {
 
 // MARK: - Main view
 
+
+extension ShapeStyle where Self == Color {
+    static var debug: Color {
+        Color(red: .random(in: 0...1), green: .random(in: 0...1), blue: .random(in: 0...1))
+    }
+}
+
 /// A view for adding swipe actions.
 public struct SwipeView<Label, LeadingActions, TrailingActions>: View where Label: View, LeadingActions: View, TrailingActions: View {
     // MARK: - Properties
@@ -356,7 +363,7 @@ public struct SwipeView<Label, LeadingActions, TrailingActions>: View where Labe
     // MARK: - Environment
 
     /// Read the `swipeViewGroupSelection` from the parent `SwipeViewGroup` (if it exists).
-    @Environment(\.swipeViewGroupSelection) var swipeViewGroupSelection
+    @Environment(SwipeViewGroupSelection.self) var swipeViewGroupSelection
 
     // MARK: - Internal state
 
@@ -418,7 +425,7 @@ public struct SwipeView<Label, LeadingActions, TrailingActions>: View where Labe
     public var body: some View {
         HStack {
             label
-                .offset(x: offset) /// Apply the offset here.
+                .offset(x: offset)
         }
         .readSize { size = $0 } /// Read the size of the parent label.
         .background( /// Leading swipe actions.
@@ -426,7 +433,7 @@ public struct SwipeView<Label, LeadingActions, TrailingActions>: View where Labe
                 leadingActions(context)
                     .environment(\.swipeContext, context)
                     .onPreferenceChange(AllowSwipeToTriggerKey.self) { allow in
-
+                        
                         /// Unwrap the value first (if it's not the edge action, `allow` is `nil`).
                         if let allow {
                             swipeToTriggerLeadingEdge = allow
@@ -447,10 +454,10 @@ public struct SwipeView<Label, LeadingActions, TrailingActions>: View where Labe
             },
             alignment: .trailing
         )
-
+        
         // MARK: - Add gestures
-
-        .highPriorityGesture( /// Add the drag gesture.
+        
+        .gesture( /// Add the drag gesture.
             DragGesture(minimumDistance: options.swipeMinimumDistance)
                 .updating($currentlyDragging) { value, state, transaction in
                     state = true
@@ -467,63 +474,64 @@ public struct SwipeView<Label, LeadingActions, TrailingActions>: View where Labe
                 end(value: latestDragGestureValueBackup, velocity: velocity)
             }
         }
-
+        
         // MARK: - Trigger haptics
-
+        
         .onChange(of: leadingState) { [leadingState] _, newValue in
             /// Make sure the change was from `triggering` to `nil`, or the other way around.
             let changed =
-                leadingState == .triggering && newValue == nil ||
-                leadingState == nil && newValue == .triggering
-
+            leadingState == .triggering && newValue == nil ||
+            leadingState == nil && newValue == .triggering
+            
             if changed, options.enableTriggerHaptics { /// Generate haptic feedback if necessary.
                 let generator = UIImpactFeedbackGenerator(style: .rigid)
                 generator.impactOccurred()
             }
         }
         .onChange(of: trailingState) { [trailingState] _, newValue in
-
+            
             let changed =
-                trailingState == .triggering && newValue == nil ||
-                trailingState == nil && newValue == .triggering
-
+            trailingState == .triggering && newValue == nil ||
+            trailingState == nil && newValue == .triggering
+            
             if changed, options.enableTriggerHaptics {
                 let generator = UIImpactFeedbackGenerator(style: .rigid)
                 generator.impactOccurred()
             }
         }
-
-        // MARK: - Receive `SwipeViewGroup` events
-
+        
+        //        // MARK: - Receive `SwipeViewGroup` events
+        //
         .onChange(of: currentlyDragging) { _, newValue in
             if newValue {
-                swipeViewGroupSelection.wrappedValue = id
+                swipeViewGroupSelection.selectedId = id
             }
         }
         .onChange(of: leadingState) { _, newValue in
-            if newValue == .closed, swipeViewGroupSelection.wrappedValue == id {
-                swipeViewGroupSelection.wrappedValue = nil
+            if newValue == .closed, swipeViewGroupSelection.selectedId == id {
+                swipeViewGroupSelection.selectedId = nil
             }
         }
         .onChange(of: trailingState) { _, newValue in
-            if newValue == .closed, swipeViewGroupSelection.wrappedValue == id {
-                swipeViewGroupSelection.wrappedValue = nil
+            if newValue == .closed, swipeViewGroupSelection.selectedId == id {
+                swipeViewGroupSelection.selectedId = nil
             }
         }
-        .onChange(of: swipeViewGroupSelection.wrappedValue) { _, newValue in
-            if swipeViewGroupSelection.wrappedValue != id {
+        .onChange(of: swipeViewGroupSelection.selectedId) { _, newVal in
+            if newVal != id {
                 currentSide = nil
-
+                
                 if leadingState != .closed {
                     leadingState = .closed
                     close(velocity: 0)
                 }
-
+                
                 if trailingState != .closed {
                     trailingState = .closed
                     close(velocity: 0)
                 }
             }
+            
         }
     }
 }
