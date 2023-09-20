@@ -363,7 +363,7 @@ public struct SwipeView<Label, LeadingActions, TrailingActions>: View where Labe
     // MARK: - Environment
 
     /// Read the `swipeViewGroupSelection` from the parent `SwipeViewGroup` (if it exists).
-    @Environment(SwipeViewGroupSelection.self) var swipeViewGroupSelection
+    @Environment(SwipeViewGroupSelection.self) var swipeViewGroupSelection: SwipeViewGroupSelection?
 
     // MARK: - Internal state
 
@@ -504,20 +504,20 @@ public struct SwipeView<Label, LeadingActions, TrailingActions>: View where Labe
         //
         .onChange(of: currentlyDragging) { _, newValue in
             if newValue {
-                swipeViewGroupSelection.selectedId = id
+                swipeViewGroupSelection?.selectedId = id
             }
         }
         .onChange(of: leadingState) { _, newValue in
-            if newValue == .closed, swipeViewGroupSelection.selectedId == id {
-                swipeViewGroupSelection.selectedId = nil
+            if newValue == .closed, swipeViewGroupSelection?.selectedId == id {
+                swipeViewGroupSelection?.selectedId = nil
             }
         }
         .onChange(of: trailingState) { _, newValue in
-            if newValue == .closed, swipeViewGroupSelection.selectedId == id {
-                swipeViewGroupSelection.selectedId = nil
+            if newValue == .closed, swipeViewGroupSelection?.selectedId == id {
+                swipeViewGroupSelection?.selectedId = nil
             }
         }
-        .onChange(of: swipeViewGroupSelection.selectedId) { _, newVal in
+        .onChange(of: swipeViewGroupSelection?.selectedId) { _, newVal in
             if newVal != id {
                 currentSide = nil
                 
