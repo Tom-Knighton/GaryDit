@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 import SwiftData
-import SwipeActions
 
 public struct SearchPage: View {
     

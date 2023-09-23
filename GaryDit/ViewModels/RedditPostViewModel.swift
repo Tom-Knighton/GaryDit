@@ -141,10 +141,29 @@ public class RedditPostViewModel {
     
     public func voteOnComment(_ commentId: String, status: VoteStatus) {
         guard let commentIndex = self.comments.firstIndex(where: { $0.commentId == commentId }) else { return }
-        let currentStatus = comments[commentIndex].voteStatus
         comments[commentIndex].voteStatus = status
         Task {
             try? await PostService.Vote(on: self.post.postId, commentId: commentId, status)
+        }
+    }
+    
+    public func toggleSave() {
+        let isSaved = post.postFlagDetails.isSaved
+        
+        withAnimation(.smooth) {
+            post.postFlagDetails.isSaved.toggle()
+        }
+        
+        Task {
+            try? await PostService.ToggleSave(postId: post.postId, !isSaved)
+        }
+    }
+    
+    public func toggleSave(_ commentId: String, status: Bool) {
+        guard let commentIndex = self.comments.firstIndex(where: { $0.commentId == commentId }) else { return }
+        comments[commentIndex].commentFlagDetails.isSaved = status
+        Task {
+            try? await PostService.ToggleSave(postId: post.postId, commentId: commentId, status)
         }
     }
     

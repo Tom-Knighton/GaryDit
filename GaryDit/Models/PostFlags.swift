@@ -31,3 +31,10 @@ public struct PostFlags: Codable {
     /// Whether or not the content is distinguished, and how so
     let distinguishmentType: DistinguishmentType
 }
+
+extension PostFlags: Hashable {
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(isSaved)
+    }
+}

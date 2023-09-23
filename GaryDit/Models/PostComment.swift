@@ -35,7 +35,7 @@ public struct PostComment: Codable {
     public var voteStatus: VoteStatus
     
     /// Flags about this comment, including sticky status, distinguishment etc.
-    public let commentFlagDetails: PostFlags
+    public var commentFlagDetails: PostFlags
     
     /// Any replies to this comment
     public var replies: [PostComment]
