@@ -19,8 +19,8 @@ struct PostCommentView: View {
     
     var onCommentLiked: ((_: String, _: VoteStatus) -> Void)? = nil
     
-    init(comment: PostComment, postId: String, postAuthor: String, nestLevel: Double, onCommentLiked: (_: String, _: VoteStatus) -> Void) {
-        self._viewModel = State(wrappedValue: CommentViewModel(comment: comment))
+    init(comment: PostComment, postId: String, postAuthor: String, nestLevel: Double, onCommentLiked: (_: String, _: VoteStatus) -> Void, onCommentSaved: (_: String, _: Bool) -> Void) {
+        self._viewModel = State(wrappedValue: CommentViewModel(comment: comment, postId: postId))
         self.postId = postId
         self.postAuthor = postAuthor
         self.nestLevel = nestLevel
@@ -42,9 +42,7 @@ struct PostCommentView: View {
                 let isSecond = context.currentDragDistance > 250
                 SwipeAction(systemImage: isSecond ? (viewModel.isBookmarked ? "bookmark.slash.fill" : "bookmark.slash") : "arrow.down", backgroundColor: isSecond ? .green : .purple, action: {
                     if isSecond {
-                        withAnimation() {
-                            viewModel.isBookmarked.toggle()
-                        }
+                        viewModel.toggleSave()
                     } else {
                         self.vote(.downvoted)
                     }
@@ -87,6 +85,8 @@ struct PostCommentView: View {
                     ForEach(viewModel.replies, id: \.commentId) { reply in
                         PostCommentView(comment: reply, postId: postId, postAuthor: postAuthor, nestLevel: self.nestLevel + 1, onCommentLiked: { commentId, newStatus in
                             viewModel.voteOnComment(commentId, status: newStatus)
+                        }, onCommentSaved: { commentId, saved in
+                            viewModel.toggleSave()
                         })
                     }
                 }

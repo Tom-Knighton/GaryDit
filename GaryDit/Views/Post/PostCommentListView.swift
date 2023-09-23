@@ -18,6 +18,8 @@ struct PostCommentListView: View {
                 ForEach(viewModel.comments, id: \.commentId) { comment in
                     PostCommentView(comment: comment, postId: viewModel.post.postId, postAuthor: viewModel.post.postAuthor, nestLevel: 0, onCommentLiked: { commentId, newStatus in
                         self.viewModel.voteOnComment(commentId, status: newStatus)
+                    }, onCommentSaved: { commentId, saved in
+                        self.viewModel.toggleSave(commentId, status: saved)
                     })
                 }
             }

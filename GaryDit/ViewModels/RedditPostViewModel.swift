@@ -159,6 +159,14 @@ public class RedditPostViewModel {
         }
     }
     
+    public func toggleSave(_ commentId: String, status: Bool) {
+        guard let commentIndex = self.comments.firstIndex(where: { $0.commentId == commentId }) else { return }
+        comments[commentIndex].commentFlagDetails.isSaved = status
+        Task {
+            try? await PostService.ToggleSave(postId: post.postId, commentId: commentId, status)
+        }
+    }
+    
     func opposite(_ voteStatus: VoteStatus) -> VoteStatus {
         switch voteStatus {
         case .upvoted:
