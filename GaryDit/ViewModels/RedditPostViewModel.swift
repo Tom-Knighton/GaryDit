@@ -26,6 +26,8 @@ public class RedditPostViewModel {
     
     public var hasLoadedCommentsBefore: Bool = false
     
+    public var sortMethod: RedditSort = .best
+    
     public var displayMediaBelowTitle: Bool {
         if post.postContent.contentType == .linkOnly {
             return true
@@ -43,6 +45,7 @@ public class RedditPostViewModel {
     init(post: Post) {
         self.post = post
         self.setupMediaViewModels()
+        self.sortMethod = post.postRecommendedSort
     }
     
     public func setupMediaViewModels(withExistingVM: VideoPlayerViewModel? = nil) {
@@ -69,7 +72,7 @@ public class RedditPostViewModel {
             self.isLoadingComments = true
             defer { self.isLoadingComments = false }
             do {
-                let comments = try await PostService.GetPostComments(for: self.post.postId, rootId: fromRoot)
+                let comments = try await PostService.GetPostComments(for: self.post.postId, rootId: fromRoot, sort: self.sortMethod)
                 self.comments = comments
                 self.hasLoadedCommentsBefore = fromRoot == nil
             } catch {
@@ -81,7 +84,7 @@ public class RedditPostViewModel {
     public func loadMoreComments(replacingId: String, parent: String, childIds: [String]) async {
         Task.detached {
             do {
-                let newComments = try await PostService.GetMoreComments(for: self.post.postId, replacingId: replacingId, childIds: childIds)
+                let newComments = try await PostService.GetMoreComments(for: self.post.postId, replacingId: replacingId, childIds: childIds, sort: self.sortMethod)
                 let updated = self.addMoreComments(in: self.comments, parent: parent, targetId: newComments.moreLinkId, newChildren: newComments.comments)
                 await MainActor.run { [updated] in
                     self.comments = updated
@@ -175,6 +178,18 @@ public class RedditPostViewModel {
             return .upvoted
         case .noVote:
             return .noVote
+        }
+    }
+    
+    func changeSortMethod(to sort: RedditSort) {
+        self.sortMethod = sort
+        Task {
+            let comments = try? await PostService.GetPostComments(for: self.post.postId, sort: self.sortMethod)
+            if let comments {
+                await MainActor.run {
+                    self.comments = comments
+                }
+            }
         }
     }
 }
