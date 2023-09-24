@@ -20,6 +20,8 @@ class SubredditViewModel {
     var searchQuery: String = ""
     var wasFromSearch: Bool = false
     
+    var sortMethod: RedditSort = .hot
+    
     var bylineDisplayBehaviour: PostBylineDisplayBehaviour {
         let formattedName = self.subredditName.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         let blockList = ["all", "home", "popular"]
@@ -168,6 +170,27 @@ class SubredditViewModel {
         self.posts.removeAll()
         self.fetchPosts()
     }    
+    
+    func changeSortMethod(to method: RedditSort) {
+        self.sortMethod = method
+        
+        Task {
+            if self.searchQuery.isEmpty == false {
+                let posts = try? await SearchService.searchPosts(query: self.searchQuery, subreddit: self.subredditName, sortMethod: self.sortMethod)
+                await MainActor.run {
+                    self.filteredPosts = posts
+                }
+            } else {
+                let posts = try? await SubredditService.GetPosts(for: self.subredditName, sortMethod: self.sortMethod)
+                if let posts {
+                    self.posts = posts
+                }
+                else {
+                    print(":(")
+                }
+            }
+        }
+    }
 }
 
 extension SubredditViewModel: Hashable {

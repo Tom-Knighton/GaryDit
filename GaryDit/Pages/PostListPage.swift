@@ -66,7 +66,6 @@ public struct PostListPage: View {
                 .scrollContentBackground(.hidden)
                 .listStyle(.plain)
                 .background(Color.layer1)
-                .navigationTitle(self.viewModel.subredditName.isEmpty ? "Loading..." : self.viewModel.subredditName)
                 .task {
                     if !viewModel.wasFromSearch {
                         self.viewModel.setSubredditName(to: passedSubredditName, fetchPostsAutomatically: true)
@@ -96,7 +95,46 @@ public struct PostListPage: View {
                         await viewModel.search(locally: false)
                     }
                 }
+                .navigationTitle(self.viewModel.subredditName.isEmpty ? "Loading..." : self.viewModel.subredditName)
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        sortMenu()
+                    }
+                }
             }
         }
+    }
+    
+    @ViewBuilder
+    func sortMenu() -> some View {
+        Menu {
+            Button(action: { viewModel.changeSortMethod(to: .hot) }) { Text("Hot"); Image(systemName: RedditSort.iconName(.hot)) }
+            Menu {
+                Button(action: { viewModel.changeSortMethod(to: .top) }) { Text("Top Now"); Image(systemName: RedditSort.iconName(.top)) }
+                Button(action: { viewModel.changeSortMethod(to: .topToday) }) { Text("Top Today"); Image(systemName: RedditSort.iconName(.top)) }
+                Button(action: { viewModel.changeSortMethod(to: .topWeek) }) { Text("Top This Week"); Image(systemName: RedditSort.iconName(.top)) }
+                Button(action: { viewModel.changeSortMethod(to: .topMonth) }) { Text("Top This Month"); Image(systemName: RedditSort.iconName(.top)) }
+                Button(action: { viewModel.changeSortMethod(to: .topYear) }) { Text("Top This Year"); Image(systemName: RedditSort.iconName(.top)) }
+                Button(action: { viewModel.changeSortMethod(to: .topAll) }) { Text("Top All Time"); Image(systemName: RedditSort.iconName(.top)) }
+            } label: {
+                Text("Top"); Image(systemName: RedditSort.iconName(.top))
+            }
+            
+            Button(action: { viewModel.changeSortMethod(to: .new) }) { Text("New"); Image(systemName: RedditSort.iconName(.new)) }
+            Button(action: { viewModel.changeSortMethod(to: .rising) }) { Text("Rising"); Image(systemName: RedditSort.iconName(.rising)) }
+            Menu {
+                Button(action: { viewModel.changeSortMethod(to: .controversial) }) { Text("Controversial Now"); Image(systemName: RedditSort.iconName(.controversial)) }
+                Button(action: { viewModel.changeSortMethod(to: .controversialToday) }) { Text("Controversial Today"); Image(systemName: RedditSort.iconName(.controversial)) }
+                Button(action: { viewModel.changeSortMethod(to: .controversialWeek) }) { Text("Controversial This Week"); Image(systemName: RedditSort.iconName(.controversial)) }
+                Button(action: { viewModel.changeSortMethod(to: .controversialMonth) }) { Text("Controversial This Month"); Image(systemName: RedditSort.iconName(.controversial)) }
+                Button(action: { viewModel.changeSortMethod(to: .controversialYear) }) { Text("Controversial This Year"); Image(systemName: RedditSort.iconName(.controversial)) }
+                Button(action: { viewModel.changeSortMethod(to: .controversialAll) }) { Text("Controversial All Time"); Image(systemName: RedditSort.iconName(.controversial)) }
+            } label: {
+                Text("Controversial"); Image(systemName: RedditSort.iconName(.controversial))
+            }
+        } label: {
+            Image(systemName: RedditSort.iconName(self.viewModel.sortMethod))
+        }
+        
     }
 }

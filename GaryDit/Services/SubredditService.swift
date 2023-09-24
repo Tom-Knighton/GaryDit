@@ -11,12 +11,12 @@ public struct SubredditService {
     
     public static let apiClient = APIClient()
     
-    public static func GetPosts(for subredditName: String, after: String? = nil) async throws -> [Post] {
+    public static func GetPosts(for subredditName: String, after: String? = nil, sortMethod: RedditSort = .hot) async throws -> [Post] {
         var queryItems: [URLQueryItem] = []
         if let after {
             queryItems += [URLQueryItem(name: "after", value: after)]
         }
-        
+        queryItems += [URLQueryItem(name: "sortMethod", value: sortMethod.rawValue)]
         let request = APIRequest(path: "subreddit/\(subredditName)/posts", queryItems: queryItems, body: nil)
         let result: [Post] = try await apiClient.perform(request)
         return result

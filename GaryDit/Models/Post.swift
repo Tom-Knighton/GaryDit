@@ -54,6 +54,9 @@ public struct Post: Codable {
     
     /// The post's flair, if any, as markdown text
     let postFlair: String?
+    
+    /// The recommended sort for the comments of this post
+    let postRecommendedSort: RedditSort
 }
 
 extension Post: Hashable {

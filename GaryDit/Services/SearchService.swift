@@ -47,12 +47,14 @@ public struct SearchService {
     ///   - subreddit: Optionally, a specific subreddit to search, if nil will search all of reddit
     ///   - limit: The max number of posts to return. Max 100
     ///   - afterPost: Optionally, the post id to start results from. Useful for pagination
-    public static func searchPosts(query: String, subreddit: String? = nil, limit: Int = 25, afterPost: String? = nil) async throws -> [Post] {
+    ///   - sortMethod: A method to sort posts by
+    public static func searchPosts(query: String, subreddit: String? = nil, limit: Int = 25, afterPost: String? = nil, sortMethod: RedditSort = .hot) async throws -> [Post] {
         var queryItems: [URLQueryItem] = []
         queryItems.append(URLQueryItem(name: "searchQuery", value: query))
         queryItems.append(URLQueryItem(name: "subreddit", value: subreddit))
         queryItems.append(URLQueryItem(name: "limit", value: "\(limit)"))
         queryItems.append(URLQueryItem(name: "after", value: afterPost))
+        queryItems.append(URLQueryItem(name: "sortMethod", value: afterPost))
         let request = APIRequest(path: "search", queryItems: queryItems, body: nil)
         let result: [Post] = try await apiClient.perform(request)
         return result
